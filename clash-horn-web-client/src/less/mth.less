@@ -1,0 +1,39 @@
+.clickable {
+    cursor: pointer;
+}
+
+.loading-32 {
+    background-image: url(../img/infinity.gif);
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+}
+
+.loading-16 {
+    background-image: url(../img/infinity.gif);
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+.fade-animation-enter {
+  opacity: 0.01;
+}
+
+.fade-animation-enter.fade-animation-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.fade-animation-leave { 
+  opacity: 1;
+}
+
+.fade-animation-leave.fade-animation-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
+}

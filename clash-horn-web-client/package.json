@@ -1,0 +1,52 @@
+{
+  "name": "web-client",
+  "version": "0.0.1",
+  "description": "Clash Horn Web Client",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch",
+    "dev": "webpack -d --watch",
+    "build": "webpack -p --progress --config webpack.production.config.js --optimize-minimize --optimize-occurrence-order --optimize-dedupe"
+  },
+  "author": "Marcelo Morgade",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "es6-promise": "^4.0.5",
+    "fetch-ie8": "^1.4.3",
+    "font-awesome": "^4.6.3",
+    "object-assign": "^4.1.0",
+    "react": "^15.3.2",
+    "react-addons-css-transition-group": "^15.3.2",
+    "react-bootstrap": "^0.30.5",
+    "react-dom": "^15.3.2",
+    "react-notification-system": "^0.2.10",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.8.1",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.7.0",
+    "redux-thunk": "^2.1.0",
+    "webpack": "^1.13.2",
+    "whatwg-fetch": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-jest": "^16.0.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "css-loader": "^0.25.0",
+    "enzyme": "^2.4.1",
+    "file-loader": "^0.9.0",
+    "jest": "^16.0.1",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "react-addons-test-utils": "^15.3.2",
+    "react-test-renderer": "^15.3.2",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7"
+  },
+  "jest": {
+    "verbose": true
+  }
+}
