@@ -1,0 +1,12 @@
+server:
+    port: 8080
+    static-content: file:../web-client/public/
+    
+---
+
+spring:
+    profiles: production
+
+server:
+    port: 80
+    static-content: file:///app/static/
