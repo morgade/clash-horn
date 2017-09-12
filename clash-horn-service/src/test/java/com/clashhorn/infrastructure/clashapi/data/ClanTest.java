@@ -24,39 +24,42 @@ import static org.springframework.util.ResourceUtils.getFile;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Import(ClashApiTestConfiguration.class)
-public class WarClanTest {
+public class ClanTest {
+    
     public static final String TAG = "#22PLRY2G";
     public static final String NAME = "TJF";
-    public static final int LEVEL = 10;
+    public static final int CLAN_LEVEL = 10;
+    public static final boolean IS_WAR_LOG_PUBLIC = true;
+    public static final String COUNTRY_CODE = "BR";
     public static final String SMALL_URL = "SMALL_URL";
-    public static final String CLAN_NAME = "TJF";
-    public static final int MEMBER_COUNT = 10;
-    public static final String MEMBER_0_NAME = "bitor";
-    public static final String MEMBER_0_TAG = "#PLC8LUPG";
-    public static final int MEMBER_0_TOWNHALL_LEVEL = 9;
-    public static final int MEMBER_0_MAP_POSITION = 4;
-    public static final int MEMBER_0_OPPONENT_ATACKS = 0;
+    public static final String WAR_FREQUENCY = "always";
+    public static final int MEMBER_COUNT = 43;
+    public static final String MEMBER_0_NAME = "MatoPorPrazer";
+    public static final String MEMBER_0_ROLE = "admin";
+    public static final int MEMBER_0_RANK = 1;
     
     @Autowired
     private ObjectMapper objectMapper;
     
     @Test
     public void jsonLoadTest() throws Exception {
-        JacksonTester<WarClan> json = new JacksonTester<>(WarClan.class, ResolvableType.forClass(WarClan.class), objectMapper);
+        JacksonTester<Clan> json = new JacksonTester<>(Clan.class, ResolvableType.forClass(Clan.class), objectMapper);
         
-        String content = new String(copyToByteArray(getFile("classpath:json/war-clan-01.json") ));
+        String content = new String(copyToByteArray(getFile("classpath:json/clan-01.json") ), "UTF8");
         
-        WarClan clan = json.parse(content).getObject();
+        Clan clan = json.parse(content).getObject();
+        
         assertThat(clan.getTag()).isEqualTo(TAG);
         assertThat(clan.getName()).isEqualTo(NAME);
-        assertThat(clan.getClanLevel()).isEqualTo(LEVEL);
+        assertThat(clan.getClanLevel()).isEqualTo(CLAN_LEVEL);
+        assertThat(clan.getLocation().getCountryCode()).isEqualTo(COUNTRY_CODE);
         assertThat(clan.getBadgeUrls().getSmall()).isEqualTo(SMALL_URL);
+        assertThat(clan.getWarFrequency()).isEqualTo(WAR_FREQUENCY);
+        assertThat(clan.getIsWarLogPublic()).isEqualTo(IS_WAR_LOG_PUBLIC);
+        assertThat(clan.getMembers()).isEqualTo(MEMBER_COUNT);
+        assertThat(clan.getMemberList()[0].getName()).isEqualTo(MEMBER_0_NAME);
+        assertThat(clan.getMemberList()[0].getRole()).isEqualTo(MEMBER_0_ROLE);
+        assertThat(clan.getMemberList()[0].getClanRank()).isEqualTo(MEMBER_0_RANK);
         
-        assertThat(clan.getMembers().length).isEqualTo(MEMBER_COUNT);
-        assertThat(clan.getMembers()[0].getTag()).isEqualTo(MEMBER_0_TAG);
-        assertThat(clan.getMembers()[0].getName()).isEqualTo(MEMBER_0_NAME);
-        assertThat(clan.getMembers()[0].getMapPosition()).isEqualTo(MEMBER_0_MAP_POSITION);
-        assertThat(clan.getMembers()[0].getTownhallLevel()).isEqualTo(MEMBER_0_TOWNHALL_LEVEL);
-        assertThat(clan.getMembers()[0].getOpponentAttacks()).isEqualTo(MEMBER_0_OPPONENT_ATACKS);
     }
 }

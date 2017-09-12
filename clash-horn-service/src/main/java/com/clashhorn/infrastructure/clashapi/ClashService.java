@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 public class ClashService {
     public static final String RESOURCE_CURRENT_WAR = "/clans/{clanTag}/currentwar";
+    public static final String RESOURCE_CLANS = "/clans/{clanTag}";
     
     @Value("${clash-api.baseUrl}")
     private String baseUrl;
@@ -25,7 +26,7 @@ public class ClashService {
     private RestTemplate restTemplate;
     
     /**
-     * Fetch currentWar data fom Clash of Clans API
+     * Fetch currentWar data from Clash of Clans API
      * @param clanTag
      * @return 
      */
@@ -40,7 +41,22 @@ public class ClashService {
     }
     
     /**
-     * General proccessing of Clash of Clans API response
+     * Fetch currentWar data from Clash of Clans API
+     * @param clanTag
+     * @return 
+     */
+    public War clans(String clanTag) {
+        // /clans/{tag}
+        URI uri = UriComponentsBuilder.fromHttpUrl(baseUrl)
+                .pathSegment(RESOURCE_CLANS)
+                .buildAndExpand(clanTag).toUri();
+        
+        ResponseEntity<War> response = restTemplate.getForEntity(uri, War.class);
+        return proccessResponse(response);
+    }
+    
+    /**
+     * General processing of Clash of Clans API response
      * @param <T>
      * @param entity
      * @return 

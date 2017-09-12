@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WarClanMember {
+
     private final String tag;
     private final String name;
     private final Integer townhallLevel;
@@ -21,12 +22,12 @@ public class WarClanMember {
     private final WarAttack[] attacks;
 
     @JsonCreator
-    public WarClanMember(@JsonProperty("tag") String tag, 
-                @JsonProperty("name") String name, 
-                @JsonProperty("townhallLevel") Integer townhallLevel, 
-                @JsonProperty("mapPosition") Integer mapPosition, 
-                @JsonProperty("opponentAttacks") Integer opponentAttacks,
-                @JsonProperty("attacks") WarAttack[] attacks) {
+    public WarClanMember(@JsonProperty("tag") String tag,
+            @JsonProperty("name") String name,
+            @JsonProperty("townhallLevel") Integer townhallLevel,
+            @JsonProperty("mapPosition") Integer mapPosition,
+            @JsonProperty("opponentAttacks") Integer opponentAttacks,
+            @JsonProperty("attacks") WarAttack[] attacks) {
         this.tag = tag;
         this.name = name;
         this.townhallLevel = townhallLevel;
@@ -34,7 +35,7 @@ public class WarClanMember {
         this.opponentAttacks = opponentAttacks;
         this.attacks = attacks;
     }
-    
+
     public String getTag() {
         return tag;
     }

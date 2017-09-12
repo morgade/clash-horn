@@ -22,7 +22,7 @@ public class WarClan {
     private final Float destructionPercentage;
     private final Integer expEarned;
     private final WarClanMember[] members;
-
+    
     @JsonCreator
     public WarClan(@JsonProperty("tag") String tag, 
                 @JsonProperty("name") String name, 
@@ -42,7 +42,7 @@ public class WarClan {
         this.destructionPercentage = destructionPercentage;
         this.expEarned = expEarned;
         this.members = members;
-    }
+}
     
     public String getTag() {
         return tag;
