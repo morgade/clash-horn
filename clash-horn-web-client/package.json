@@ -1,5 +1,5 @@
 {
-  "name": "web-client",
+  "name": "clash-horn-web-client",
   "version": "0.0.1",
   "description": "Clash Horn Web Client",
   "main": "index.js",
