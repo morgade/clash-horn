@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -42,6 +43,7 @@ public class Launcher extends WebMvcConfigurerAdapter {
         registry.addViewController("/").setViewName("forward:/index.html");
     }
     
+    
     /**
      * Avoid @RestController caching problems on older IE
      * @return 
@@ -58,5 +60,8 @@ public class Launcher extends WebMvcConfigurerAdapter {
         };
   }
     
-
+   @Bean
+   public RestTemplate restTemplate() {
+       return new RestTemplate();
+   }
 }
