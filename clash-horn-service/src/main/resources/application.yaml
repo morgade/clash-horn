@@ -2,6 +2,9 @@ server:
     port: 8080
     static-content: file:../web-client/public/
     
+clash-api:
+    baseUrl: https://api.clashofclans.com/v1/
+    
 ---
 
 spring:

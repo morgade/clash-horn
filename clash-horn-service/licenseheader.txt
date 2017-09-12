@@ -1,0 +1,7 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Clash Horn - MIT License
+<#if licenseLast??>
+${licenseLast}
+</#if>
