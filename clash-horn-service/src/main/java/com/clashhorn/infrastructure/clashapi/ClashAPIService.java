@@ -3,6 +3,7 @@
  */
 package com.clashhorn.infrastructure.clashapi;
 
+import com.clashhorn.infrastructure.clashapi.data.Clan;
 import com.clashhorn.infrastructure.clashapi.data.War;
 import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  *
  * @author morgade
  */
-public class ClashService {
+public class ClashAPIService  {
     public static final String RESOURCE_CURRENT_WAR = "/clans/{clanTag}/currentwar";
     public static final String RESOURCE_CLANS = "/clans/{clanTag}";
     
@@ -41,17 +42,17 @@ public class ClashService {
     }
     
     /**
-     * Fetch currentWar data from Clash of Clans API
+     * Fetch clan data from Clash of Clans API
      * @param clanTag
      * @return 
      */
-    public War clans(String clanTag) {
+    public Clan clans(String clanTag) {
         // /clans/{tag}
         URI uri = UriComponentsBuilder.fromHttpUrl(baseUrl)
                 .pathSegment(RESOURCE_CLANS)
                 .buildAndExpand(clanTag).toUri();
         
-        ResponseEntity<War> response = restTemplate.getForEntity(uri, War.class);
+        ResponseEntity<Clan> response = restTemplate.getForEntity(uri, Clan.class);
         return proccessResponse(response);
     }
     
