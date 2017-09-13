@@ -1,6 +1,6 @@
 server:
     port: 8080
-    static-content: file:../web-client/public/
+    static-content: file:../clash-horn-web-client/public/
     
 clash-api:
     baseUrl: https://api.clashofclans.com/v1/
