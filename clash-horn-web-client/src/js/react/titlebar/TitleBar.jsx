@@ -19,10 +19,13 @@ class TitleBar extends React.Component {
             <Navbar fluid>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a className="navbar-brand" href="#/">MIND THE HIPPO</a>
+                        <a className="navbar-brand" href="#/">CLASH HORN</a>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
+            </Navbar>
+        );
+                {/**
                 <Navbar.Collapse>
                     <Nav>
                         <NavItem eventKey={1} onClick={this.goToCommentCrud.bind(this)}>COMMENT CRUD</NavItem>
@@ -39,11 +42,9 @@ class TitleBar extends React.Component {
                         <NavItem eventKey={1} href="#">Link Right</NavItem>
                         <NavItem eventKey={2} href="#">Link Right</NavItem>
                     </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-        );
+                </Navbar.Collapse>                **/}
     }
 
-}
+};
 
 export default connect()(TitleBar);
