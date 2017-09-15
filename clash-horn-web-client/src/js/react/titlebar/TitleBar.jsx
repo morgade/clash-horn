@@ -6,8 +6,6 @@ import Navbar from 'react-bootstrap/lib/Navbar';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import { connect, dispatch } from 'react-redux'
 
-import * as RouteActions from '../../flux/actions/routes';
-
 class TitleBar extends React.Component {
 
     goToCommentCrud() {

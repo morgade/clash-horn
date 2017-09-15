@@ -29,7 +29,7 @@ export const async = (call, requestActionCreator, successActionCreator, failureA
         return dispatch => {
             dispatch(requestActionCreator(args));
             return call(args)
-                    .then( comments => dispatch(successActionCreator(comments)) )
+                    .then( data => dispatch(successActionCreator(data)) )
                     .catch( error => dispatch(failureActionCreator(error)) ); 
         };
     };
