@@ -9,13 +9,12 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.GenericConverter;
@@ -44,6 +43,7 @@ public class Launcher extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        LoggerFactory.getLogger(Launcher.class).info("Mapping static resources to '{0}'", staticContentLocation);
         registry.addResourceHandler("/**.html", "/**.js", "/**.css", "/**.map", "/**.svg",
                 "/**.ttf", "/**.eot", "/**.woff", "/**.woff2")
                 .addResourceLocations(staticContentLocation).setCachePeriod(0);
