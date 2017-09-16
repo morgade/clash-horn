@@ -19,7 +19,7 @@ spring:
 
 server:
     port: 80
-    static-content: file:///app/static/
+    static-content: file:../clash-horn-web-client/public/
     
 clash-api:
     accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImRlZDUzYzczLTNmNTgtNGJmZC05NzAyLTIwZWRkNDBhOTNiNiIsImlhdCI6MTUwNTU2NjYxNiwic3ViIjoiZGV2ZWxvcGVyLzNhMTk2MmY1LWNjNmYtNzg1OC0wODViLTFmN2IxMTJlNjNiNSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjU0LjE4Ny4yMjkuNjAiLCIxNzcuMTM0LjE3OC41MCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.Gc5CzDtzFmSrfrkPVX4eV4I84SpZW089Q2erjDTV-kV3CoJrydkah-e6hrGO9ExyqWnk4arKftr0JcEgxZP65A
