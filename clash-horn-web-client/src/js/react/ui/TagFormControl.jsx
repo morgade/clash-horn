@@ -15,6 +15,7 @@ class TagFormControl extends React.Component {
     render() {
         return (
             <FormControl type="text" 
+                    disabled={this.props.disabled}
                     value={this.props.tag||''} 
                     placeholder={this.props.placeholder} 
                     onChange={this.inputValueChanged.bind(this)} />

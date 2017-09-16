@@ -1,11 +1,12 @@
 import objectAssign from 'object-assign';
-import {reducer} from '../util'
+import {reducer} from './util'
 
 
 /**
  * Reducer state structure
  */
 const initialState =  {
+    fetching: null,
     clanAccountId: null,
     accountClan: null,
     fetchedClan: null
@@ -23,25 +24,26 @@ export default reducer(initialState, {
         
     fetchClanDataSuccess: (state, action) =>  
         objectAssign({}, state, { 
-            pendingFetch: false,
-            fetchedClan: action.clan
+            fetchedClan: action.clan,
+            fetching: null
         }),
         
     fetchAndSetAccountClanSuccess: (state, action) =>  
         objectAssign({}, state, { 
-            pendingFetch: false,
             fetchedClan: action.clan,
-            accountClan: action.clan
+            accountClan: action.clan,
+            fetching: null
         }),
         
     fetchClanDataRequest: (state, action) =>  
         objectAssign({}, state, { 
-            pendingFetch: true
+            fetchedClan: null,
+            fetching: 'fetchClanDataRequest'
         }),
     
     serviceFailure: (state, action) =>
         objectAssign({}, state, { 
-            pendingFetch: false
+            fetching: null
         })
     
 });

@@ -1,6 +1,6 @@
 import objectAssign from 'object-assign';
 
-import {reducer} from '../util'
+import {reducer} from './util'
 
 
 /**

@@ -46,17 +46,17 @@ export class RegisterManager extends React.Component {
         return (
             <div>
                 <Row>
-                    Welcome to Clash Horn. 
+                    Welcome to Clash Horn.
                 </Row>
                 
                 <Form>
                     <Row>
                         <FormGroup controlId="clanTag">
                             <ControlLabel>
-                                Type your clan tag to start managing it's wars.   {this.state.clanAccountId}
+                                Type your clan tag to start managing it's wars.  Examples: (#RUV9LQYP, #22PLRY2G)
                             </ControlLabel>
 
-                            <ClanSearchInput clan={this.props.clan} onFindClanRequested={this.findClan.bind(this)} />
+                            <ClanSearchInput clan={this.props.clan} onFindClanRequested={this.findClan.bind(this)} fetching={this.props.fetching==='fetchClanDataRequest'} />
                         </FormGroup>
                     </Row>
                     <CSSTransition in={this.props.clan!==null} classNames="fade" timeout={500}>
@@ -67,7 +67,11 @@ export class RegisterManager extends React.Component {
                                         Clan Name
                                     </ControlLabel>
                                     <FormControlStatic>
+                                    <span className="clan-label">
+                                        { null /* TODO: create a ClanLabel component */ }
+                                        <img src={this.props.clan.badgeUrls.small} />
                                         {this.props.clan.name}
+                                    </span>
                                     </FormControlStatic>
                                 </FormGroup>
 
@@ -110,6 +114,7 @@ export class RegisterManager extends React.Component {
 export default connect(
     store => ({ 
         clan: store.clans.fetchedClan,
-        clanAccountId: store.clans.clanAccountId
+        clanAccountId: store.clans.clanAccountId,
+        fetching: store.clans.fetching
     })
 )(RegisterManager);

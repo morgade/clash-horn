@@ -1,16 +1,18 @@
-import rest from '../../rest'
-import {sync, async, route} from '../util'
+import jsonRpc from '../../remote/json-rpc'
+import {sync, async, route} from './util'
 import {serviceFailure, serviceRequest} from './commons'
+
+// endpoint
+let endpoint = "/api/clash-horn";
 
 // SYNCHRONOUS ACTION CREATORS
 export const setAccountClan = sync('setAccountClan', 'clan');
+export const fetchClanDataRequest = sync('fetchClanDataRequest', 'clan');
 export const fetchClanDataSuccess = sync('fetchClanDataSuccess', 'clan');
 export const fetchAndSetAccountClanSuccess = sync('fetchAndSetAccountClanSuccess', 'clan');
 
 // ASYNCHRONOUS FETCH ACTION HANDLERS
-//export const fetchClanData = async(args => rest.post('/clanData', args[0]), fetchClanDataRequest, fetchClanDataSuccess, serviceFailure); 
-export const fetchClanData = (tag) => fetchClanDataSuccess({ tag:tag, name:'TJF', description:'Somos um clã de guerra ...'}); // Temporary
-export const fetchAndSetAccountClan = (tag) => fetchAndSetAccountClanSuccess({ tag:tag, name:'TJF', description:'Somos um clã de guerra ...'}); // Temporary
+export const fetchClanData = async( params => jsonRpc.call(endpoint, 'fethClanData', params), fetchClanDataRequest, fetchClanDataSuccess, serviceFailure); 
 
 // SPECIALIZED ACTION HANDLERS
 //export const focusOrFetchComment = function (commentId) {
