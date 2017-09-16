@@ -33,9 +33,11 @@ public class Launcher extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**.html", "/**.js", "/**.css", "/**.map", "/**.svg",
-                "/**.ttf", "/**.eot", "/**.woff", "/**.woff2")
-                .addResourceLocations(staticContentLocation).setCachePeriod(0);
+        registry.addResourceHandler(
+            "/**.html", "/**.js", "/**.css", "/**.map", "/**.jpg", "/**.png", 
+            "/**.svg", "/**.ttf", "/**.eot", "/**.woff", "/**.woff2"
+        )
+        .addResourceLocations(staticContentLocation).setCachePeriod(0);
     }
 
     @Override

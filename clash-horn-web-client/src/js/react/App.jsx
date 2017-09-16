@@ -2,6 +2,11 @@ import React from 'react';
 
 import TitleBar from './titlebar/TitleBar.jsx';
 import Notification from './notification/Notification.jsx';
+import ClanManager from './clans/ClanManager.jsx';
+import RegisterManager from './register/RegisterManager.jsx';
+import WarPlanner from './warplan/WarPlanner.jsx';
+
+import { Switch, Route, IndexRedirect, Redirect } from 'react-router-dom'
 
 class App extends React.Component {
     render() {
@@ -9,7 +14,13 @@ class App extends React.Component {
             <div>
                 <TitleBar />
                 <div className="container">
-                    {this.props.children}
+                    <Switch>
+                        <Redirect exact from="/" to="/register"  />
+                        <Route exact path="/register" component={RegisterManager} />
+                        <Route exact path="/:cid" component={ClanManager} />
+                        <Route path="/:cid/current" component={WarPlanner} />
+                        <Route path="/:cid/history" component={WarPlanner} />
+                    </Switch>
                 </div>
                 <Notification />
             </div>

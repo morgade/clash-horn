@@ -20,20 +20,24 @@
     display: inline-block;
 }
 
-.fade-animation-enter {
+.has-success input {
+    background-color: rgba(127, 255, 0, 0.15);
+}
+
+.fade-enter {
   opacity: 0.01;
 }
 
-.fade-animation-enter.fade-animation-enter-active {
+.fade-enter.fade-enter-active {
   opacity: 1;
   transition: opacity 500ms ease-in;
 }
 
-.fade-animation-leave { 
+.fade-exit {
   opacity: 1;
 }
 
-.fade-animation-leave.fade-animation-leave-active {
+.fade-exit.fade-exit-active {
   opacity: 0.01;
-  transition: opacity 500ms ease-in;
+  transition: opacity 300ms ease-in;
 }
