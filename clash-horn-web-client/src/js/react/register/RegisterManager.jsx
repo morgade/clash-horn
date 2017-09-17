@@ -7,13 +7,16 @@ import FormControlStatic from 'react-bootstrap/lib/FormControlStatic';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
 import CSSTransition  from 'react-transition-group/CSSTransition';
 
-import ClanSearchInput from '../ui/ClanSearchInput.jsx'
-import ClanLabel from '../ui/ClanLabel.jsx'
+import ClanSearchInput from '../ui/ClanSearchInput.jsx';
+import ClanLabel from '../ui/ClanLabel.jsx';
+import ClanAccountRegisterInput  from './ClanAccountRegisterInput.jsx';
 
-import { connect, dispatch } from 'react-redux'
-import { fetchClanData, setAccountClan } from '../../flux/actions/clans'
+import { connect, dispatch } from 'react-redux';
+import { fetchClanData, registerClanAccount } from '../../flux/actions/clans';
+import { notifySuccess } from '../../flux/actions/commons';
 
 
 /**
@@ -21,87 +24,79 @@ import { fetchClanData, setAccountClan } from '../../flux/actions/clans'
  */
 export class RegisterManager extends React.Component {
     
-    constructor(props) {
-        super(props);
-        this.state = {
-            clanAccountId: ''
-        };
-    }
-    
     findClan(tag) {
         this.props.dispatch(fetchClanData(tag));
-        this.setState({clanAccountId: this.generateClanAccountId() });
     }
     
-    generateClanAccountId() {
-        let s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-        return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`.toUpperCase();
+    createAccount(accountId) {
+        this.props.dispatch(registerClanAccount(this.props.clan.tag, accountId));
     }
     
-    createAccount() {
-        this.props.dispatch(setAccountClan(this.props.clan));
-        this.props.history.push(`/${this.state.clanAccountId}`);
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.registeredClanAccount && nextProps.registeredClanAccount !== this.props.registeredClanAccount) {
+            // Go to clan manager after registering account
+            this.props.dispatch(notifySuccess('Your clan account has been succesfully created'));
+            this.props.history.push(`/${nextProps.registeredClanAccount.id}`);
+        }
     }
     
     render() {
         return (
             <div>
                 <Row>
-                    Welcome to Clash Horn.
+                    <Col md={12}>
+                        Welcome to Clash Horn.
+                    </Col>
                 </Row>
                 
                 <Form>
                     <Row>
-                        <FormGroup controlId="clanTag">
-                            <ControlLabel>
-                                Type your clan tag to start managing it's wars.  Examples: (#RUV9LQYP, #22PLRY2G)
-                            </ControlLabel>
+                        <Col md={12}>
+                            <FormGroup controlId="clanTag">
+                                <ControlLabel>
+                                    Type your clan tag to start managing it's wars.  Examples: (#RUV9LQYP, #22PLRY2G)
+                                </ControlLabel>
 
-                            <ClanSearchInput clan={this.props.clan} onFindClanRequested={this.findClan.bind(this)} fetching={this.props.fetching==='fetchClanDataRequest'} />
-                        </FormGroup>
+                                <ClanSearchInput clan={this.props.clan} onFindClanRequested={this.findClan.bind(this)} fetching={this.props.fetching['fetchClanDataRequest']} />
+                            </FormGroup>
+                            <CSSTransition in={this.props.clan!==null} classNames="fade" timeout={500}>
+                                { this.props.clan ?
+                                <div>
+                                        <FormGroup controlId="clanName">
+                                            <ControlLabel>
+                                                Clan Name
+                                            </ControlLabel>
+
+                                            <FormControlStatic>
+                                                <ClanLabel clan={this.props.clan} />
+                                            </FormControlStatic>
+                                        </FormGroup>
+
+                                        <FormGroup controlId="clanDescription">
+                                            <ControlLabel>
+                                                Description
+                                            </ControlLabel>
+                                            <FormControlStatic>
+                                                {this.props.clan.description}
+                                            </FormControlStatic>
+                                        </FormGroup>
+
+                                        <FormGroup controlId="groupId">
+                                            <ControlLabel>
+                                                Confirm your clan account ID
+                                            </ControlLabel>
+
+                                            <ClanAccountRegisterInput 
+                                                        fetching={this.props.fetching['registerClanAccount']} 
+                                                        onRegisterClanRequested={this.createAccount.bind(this)} />
+                                        </FormGroup>
+                                    </div>
+                                :
+                                    <div></div>
+                                }
+                            </CSSTransition>
+                        </Col>
                     </Row>
-                    <CSSTransition in={this.props.clan!==null} classNames="fade" timeout={500}>
-                        { this.props.clan ?
-                            <Row>
-                                <FormGroup controlId="clanName">
-                                    <ControlLabel>
-                                        Clan Name
-                                    </ControlLabel>
-                                     
-                                    <FormControlStatic>
-                                        <ClanLabel clan={this.props.clan} />
-                                    </FormControlStatic>
-                                </FormGroup>
-
-                                <FormGroup controlId="clanDescription">
-                                    <ControlLabel>
-                                        Description
-                                    </ControlLabel>
-                                    <FormControlStatic>
-                                        {this.props.clan.description}
-                                    </FormControlStatic>
-                                </FormGroup>
-
-                                <FormGroup controlId="groupId">
-                                    <ControlLabel>
-                                        Confirm your clan account ID
-                                    </ControlLabel>
-
-                                    <InputGroup>
-                                        <FormControl type="text" 
-                                            value={this.state.clanAccountId} 
-                                            onChange={(evt) => this.setState({clanAccountId: evt.target.value}) } />
-
-                                        <InputGroup.Button>
-                                            <Button bsStyle="primary" type="button" className="pull-right" onClick={this.createAccount.bind(this)}>Create Account</Button>
-                                        </InputGroup.Button>
-                                    </InputGroup>
-                                </FormGroup>
-                            </Row>
-                        :
-                            <div></div>
-                        }
-                    </CSSTransition>
                     
                 </Form>
             </div>
@@ -112,7 +107,7 @@ export class RegisterManager extends React.Component {
 export default connect(
     store => ({ 
         clan: store.clans.fetchedClan,
-        clanAccountId: store.clans.clanAccountId,
+        registeredClanAccount: store.clans.clanAccount,
         fetching: store.clans.fetching
     })
 )(RegisterManager);

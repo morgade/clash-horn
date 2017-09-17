@@ -13,6 +13,12 @@ const initialState =  null;
  */
 export default reducer(initialState, {
     
+    notifySuccess: (state, action) => 
+        objectAssign({}, state, {
+            message: action.message,
+            level: 'success'
+        }),
+    
     serviceFailure: (state, action) => 
         objectAssign({}, state, {
             message: action.error.message,

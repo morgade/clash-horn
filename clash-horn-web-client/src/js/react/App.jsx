@@ -18,8 +18,7 @@ class App extends React.Component {
                         <Redirect exact from="/" to="/register"  />
                         <Route exact path="/register" component={RegisterManager} />
                         <Route exact path="/:cid" component={ClanManager} />
-                        <Route path="/:cid/current" component={WarPlanner} />
-                        <Route path="/:cid/history" component={WarPlanner} />
+                        <Route path="/:cid/:wid" component={WarPlanner} />
                     </Switch>
                 </div>
                 <Notification />

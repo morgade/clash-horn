@@ -1,5 +1,7 @@
 package com.clashhorn;
 
+import com.clashhorn.interfaces.jsonrpc.ClashHornErrorResolver;
+import com.googlecode.jsonrpc4j.ErrorResolver;
 import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImplExporter;
 import java.io.IOException;
 import java.util.Set;
@@ -29,7 +31,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 /**
  *
- * @author x4rb
+ * @author morgade
  */
 @SpringBootApplication
 public class Launcher extends WebMvcConfigurerAdapter {
@@ -55,11 +57,9 @@ public class Launcher extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public static AutoJsonRpcServiceImplExporter autoJsonRpcServiceImplExporter() {
+    public static AutoJsonRpcServiceImplExporter autoJsonRpcServiceImplExporter(@Autowired ErrorResolver errorResolver) {
         AutoJsonRpcServiceImplExporter exp = new AutoJsonRpcServiceImplExporter();
-        //in here you can provide custom HTTP status code providers etc. eg:
-        //exp.setHttpStatusCodeProvider();
-        //exp.setErrorResolver();
+        exp.setErrorResolver(errorResolver);
         return exp;
     }
 
@@ -92,6 +92,7 @@ public class Launcher extends WebMvcConfigurerAdapter {
     /**
      *
      * @param converters
+     * @param genericConverters
      * @return
      */
     @Bean("dtoConversionService")

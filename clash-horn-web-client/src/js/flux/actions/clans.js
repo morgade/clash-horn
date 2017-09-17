@@ -9,10 +9,18 @@ let endpoint = "/api/clash-horn";
 export const setAccountClan = sync('setAccountClan', 'clan');
 export const fetchClanDataRequest = sync('fetchClanDataRequest', 'clan');
 export const fetchClanDataSuccess = sync('fetchClanDataSuccess', 'clan');
-export const fetchAndSetAccountClanSuccess = sync('fetchAndSetAccountClanSuccess', 'clan');
+export const fetchUserBoundClanAccountRequest = sync('fetchUserBoundClanAccountRequest', 'id');
+export const fetchUserBoundClanAccountSuccess = sync('fetchUserBoundClanAccountSuccess', 'clanAccount');
+export const registerClanAccountRequest = sync('registerClanAccountRequest', 'tag', 'id');
+export const registerClanAccountSuccess = sync('registerClanAccountSuccess', 'clanAccount');
+export const fetchWarPlanRequest = sync('fetchWarPlanRequest', 'accountId', 'warPlanId');
+export const fetchWarPlanSuccess = sync('fetchWarPlanSuccess', 'warPlan');
 
 // ASYNCHRONOUS FETCH ACTION HANDLERS
-export const fetchClanData = async( params => jsonRpc.call(endpoint, 'fethClanData', params), fetchClanDataRequest, fetchClanDataSuccess, serviceFailure); 
+export const fetchClanData =    async( params => jsonRpc.call(endpoint, 'fethClanData', params), fetchClanDataRequest, fetchClanDataSuccess, serviceFailure); 
+export const registerClanAccount = async( params => jsonRpc.call(endpoint, 'registerClanAccount', params), registerClanAccountRequest, registerClanAccountSuccess, serviceFailure); 
+export const fetchUserBoundClanAccount = async( params => jsonRpc.call(endpoint, 'fethClanAccountData', params), fetchUserBoundClanAccountRequest, fetchUserBoundClanAccountSuccess, serviceFailure); 
+export const fetchWarPlan = async( params => jsonRpc.call(endpoint, 'fetchWarPlan', params), fetchWarPlanRequest, fetchWarPlanSuccess, serviceFailure); 
 
 // SPECIALIZED ACTION HANDLERS
 //export const focusOrFetchComment = function (commentId) {

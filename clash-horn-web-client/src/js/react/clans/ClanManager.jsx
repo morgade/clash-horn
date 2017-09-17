@@ -1,35 +1,42 @@
 import React from 'react';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import { connect } from 'react-redux';
 
-import { fetchAndSetAccountClan } from '../../flux/actions/clans';
+import { fetchUserBoundClanAccount } from '../../flux/actions/clans'
 
 export class ClanManager extends React.Component {
    
-   constructor(props) {
+    constructor(props) {
        super(props);
-       if (!this.props.clan) {
-           // Account clan is not loaded. Try to fetch it from the service
-           this.props.dispatch(fetchAndSetAccountClan(this.props.match.params.cid));
+
+        if (!this.props.clanAccount || this.props.clanAccount.id!==this.props.match.params.cid) {
+           // Account clan was not provided or do not match url provided id, so we need to fetch it from the service
+           this.props.dispatch(fetchUserBoundClanAccount(this.props.match.params.cid));
        }
    }
    
     render() {
         return (
             <div>
-                {this.props.clan ?
-                    <div>
-                        This is the <strong>{this.props.clan.name}</strong> clan management root component.
-                        <p>
-                            <a href={`#/${this.props.match.params.cid}/current`}>Manage your current war here</a>
-                        </p>
-                        <p>
-                            <a href={`#/${this.props.match.params.cid}/history`}>View your war plans log here</a>
-                        </p>
-                    </div>
-                :
-                    <div>
-                        Clan account not found
-                    </div>
+                {this.props.fetching['fetchUserBoundClanAccount'] ?
+                        <div>
+                            <Glyphicon glyph="refresh" /> Loading clan account data ...
+                        </div>
+                    :
+                        this.props.clanAccount ?
+                            <div>
+                                This is the <strong>{this.props.clanAccount.name}</strong> clan management root component.
+                                <p>
+                                    <a href={`#/${this.props.clanAccount.id}/current`}>Manage your current war here</a>
+                                </p>
+                                <p>
+                                    <a href={`#/${this.props.clanAccount.id}/history`}>View your war plans log here</a>
+                                </p>
+                            </div>
+                        :
+                            <div>
+                                Clan account not found
+                            </div>
                 }
             </div>
         );
@@ -37,5 +44,8 @@ export class ClanManager extends React.Component {
 };
 
 export default connect(
-    store => ({ clan: store.clans.accountClan })
+    store => ({ 
+        clanAccount: store.clans.clanAccount,
+        fetching: store.clans.fetching
+    })
 )(ClanManager);
