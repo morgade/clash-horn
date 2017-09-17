@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/lib/Row';
 import CSSTransition  from 'react-transition-group/CSSTransition';
 
 import ClanSearchInput from '../ui/ClanSearchInput.jsx'
+import ClanLabel from '../ui/ClanLabel.jsx'
 
 import { connect, dispatch } from 'react-redux'
 import { fetchClanData, setAccountClan } from '../../flux/actions/clans'
@@ -23,7 +24,7 @@ export class RegisterManager extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            clanAccountId: null
+            clanAccountId: ''
         };
     }
     
@@ -66,12 +67,9 @@ export class RegisterManager extends React.Component {
                                     <ControlLabel>
                                         Clan Name
                                     </ControlLabel>
+                                     
                                     <FormControlStatic>
-                                    <span className="clan-label">
-                                        { null /* TODO: create a ClanLabel component */ }
-                                        <img src={this.props.clan.badgeUrls.small} />
-                                        {this.props.clan.name}
-                                    </span>
+                                        <ClanLabel clan={this.props.clan} />
                                     </FormControlStatic>
                                 </FormGroup>
 

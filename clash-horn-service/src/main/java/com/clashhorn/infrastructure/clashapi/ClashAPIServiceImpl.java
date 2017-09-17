@@ -8,6 +8,7 @@ import com.clashhorn.infrastructure.clashapi.data.War;
 import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -24,6 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author guilaaf
  */
 @Service
+@Profile("live-clash-api")
 public class ClashAPIServiceImpl implements ClashAPIService {
     @Value("${clash-api.baseUrl}")
     private String baseUrl;
@@ -33,9 +35,7 @@ public class ClashAPIServiceImpl implements ClashAPIService {
     private RestTemplate restTemplate;
     
     /**
-     * Fetch currentWar data from Clash of Clans API
-     * @param clanTag
-     * @return 
+     * {@inheritDoc}
      */
     @Override
     public War currentWar(String clanTag) {
@@ -51,9 +51,7 @@ public class ClashAPIServiceImpl implements ClashAPIService {
     }
     
     /**
-     * Fetch clan data from Clash of Clans API
-     * @param clanTag
-     * @return 
+     * {@inheritDoc}
      */
     @Override
     public Clan clans(String clanTag) {
