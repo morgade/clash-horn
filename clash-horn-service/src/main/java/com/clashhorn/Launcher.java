@@ -1,6 +1,5 @@
 package com.clashhorn;
 
-import com.clashhorn.interfaces.jsonrpc.ClashHornErrorResolver;
 import com.googlecode.jsonrpc4j.ErrorResolver;
 import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImplExporter;
 import java.io.IOException;

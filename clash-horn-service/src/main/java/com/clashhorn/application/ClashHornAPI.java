@@ -6,16 +6,15 @@ package com.clashhorn.application;
 import com.clashhorn.application.dto.ClanAccountDTO;
 import com.clashhorn.application.dto.ClanBasicDTO;
 import com.clashhorn.application.dto.ClanFullDTO;
+import com.clashhorn.application.dto.ClanWarDTO;
 import com.clashhorn.application.dto.WarPlanFullDTO;
 import com.clashhorn.infrastructure.clashapi.ClashAPIService;
 import com.clashhorn.infrastructure.clashapi.data.Clan;
+import com.clashhorn.infrastructure.clashapi.data.War;
 import com.clashhorn.interfaces.jsonrpc.ClashHornEndpoint;
-import com.googlecode.jsonrpc4j.JsonRpcParam;
 import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImpl;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
@@ -28,9 +27,11 @@ import org.springframework.stereotype.Service;
 @Service
 @AutoJsonRpcServiceImpl
 public class ClashHornAPI implements ClashHornEndpoint {
+    
     @Autowired
     @Qualifier("dtoConversionService")
     private ConversionService converter;
+    
     @Autowired
     private ClashAPIService clashAPIService;
     
@@ -77,9 +78,12 @@ public class ClashHornAPI implements ClashHornEndpoint {
      */
     @Override
     public WarPlanFullDTO fetchWarPlan(String clanAccountId, String warPlanId) {
-        // TODO: remove mock implementation
+        War war = clashAPIService.currentWar("#22PLRY2G");
         WarPlanFullDTO w = new WarPlanFullDTO();
         w.setId(warPlanId);
+        w.setClan(converter.convert(war.getClan(), ClanWarDTO.class));
+        w.setOpponent(converter.convert(war.getOpponent(), ClanWarDTO.class));
+        w.setSize(war.getClan().getMembers().length);
         try {Thread.sleep(2000);} catch (InterruptedException ex) {}
         return w;
     }

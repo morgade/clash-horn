@@ -2,8 +2,8 @@ import React from 'react';
 
 import TitleBar from './titlebar/TitleBar.jsx';
 import Notification from './notification/Notification.jsx';
-import ClanManager from './clans/ClanManager.jsx';
 import RegisterManager from './register/RegisterManager.jsx';
+import ClanManager from './clans/ClanManager.jsx';
 import WarPlanner from './warplan/WarPlanner.jsx';
 
 import { Switch, Route, IndexRedirect, Redirect } from 'react-router-dom'

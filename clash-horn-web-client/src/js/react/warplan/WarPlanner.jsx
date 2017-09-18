@@ -4,10 +4,10 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Image from 'react-bootstrap/lib/Image';
+
+import WarBoard from '../ui/WarBoard.jsx';
+
 import { connect } from 'react-redux';
-
-import th9 from '../../../img/th9-small.png';
-
 import { fetchUserBoundClanAccount, fetchWarPlan } from '../../flux/actions/clans';
 
 export class WarPlanner extends React.Component {
@@ -45,16 +45,16 @@ export class WarPlanner extends React.Component {
     
         return loadMessage ||
             (<div>
-                TJF x DARK KINGS
-                <Grid fluid>
-                    <Row className="show-grid">
-                        <Col xs={12} md={12}>
-                            <span className="position">1</span>
-                            <Image src={th9} rounded/>
-                            <span className="villageName">DARK SLAYER</span>
-                        </Col>
-                    </Row>
-                </Grid>
+                <div>
+                    This is the <strong>{this.props.clanAccount.name}</strong> current war planner.
+                    <p>
+                        <a href={`#/${this.props.clanAccount.id}`}>Manage your clan here</a>
+                    </p>
+                    <p>
+                        <a href={`#/${this.props.clanAccount.id}/history`}>View your war plans log here</a>
+                    </p>
+                </div>
+                <WarBoard war={this.props.warPlan} />
             </div>
             );
     }
