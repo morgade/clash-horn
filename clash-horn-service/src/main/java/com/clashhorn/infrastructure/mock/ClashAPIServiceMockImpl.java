@@ -1,8 +1,9 @@
 /*
  * Clash Horn - MIT License
  */
-package com.clashhorn.infrastructure.clashapi;
+package com.clashhorn.infrastructure.mock;
 
+import com.clashhorn.infrastructure.clashapi.ClashAPIService;
 import com.clashhorn.infrastructure.clashapi.data.Clan;
 import com.clashhorn.infrastructure.clashapi.data.War;
 import com.fasterxml.jackson.databind.ObjectMapper;

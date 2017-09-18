@@ -36,7 +36,7 @@ public interface ClashHornEndpoint {
      * @param clanAccountId
      * @return 
      */
-    ClanAccountDTO fethClanAccountData(@JsonRpcParam("clanAccountId") String clanAccountId);
+    ClanAccountDTO fetchClanAccount(@JsonRpcParam("clanAccountId") String clanAccountId);
     
     /**
      * Fetch a war plan from an accountId

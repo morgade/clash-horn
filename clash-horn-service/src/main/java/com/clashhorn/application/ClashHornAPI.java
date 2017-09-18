@@ -4,10 +4,12 @@
 package com.clashhorn.application;
 
 import com.clashhorn.application.dto.ClanAccountDTO;
-import com.clashhorn.application.dto.ClanBasicDTO;
 import com.clashhorn.application.dto.ClanFullDTO;
 import com.clashhorn.application.dto.ClanWarDTO;
 import com.clashhorn.application.dto.WarPlanFullDTO;
+import com.clashhorn.domain.model.account.ClanAccount;
+import com.clashhorn.domain.model.account.ClanAccountRepository;
+import com.clashhorn.domain.service.ClashHornService;
 import com.clashhorn.infrastructure.clashapi.ClashAPIService;
 import com.clashhorn.infrastructure.clashapi.data.Clan;
 import com.clashhorn.infrastructure.clashapi.data.War;
@@ -35,6 +37,12 @@ public class ClashHornAPI implements ClashHornEndpoint {
     @Autowired
     private ClashAPIService clashAPIService;
     
+    @Autowired
+    private ClashHornService clashHornService;
+    
+    @Autowired
+    private ClanAccountRepository clanAccountRepository;
+    
     /**
      * {@inheritDoc}
      */
@@ -48,14 +56,9 @@ public class ClashHornAPI implements ClashHornEndpoint {
      * {@inheritDoc}
      */
     @Override
-    public ClanAccountDTO fethClanAccountData(String clanAccountId) {
-        // TODO: remove mock implementation
-        ClanAccountDTO c = new ClanAccountDTO();
-        Clan clan = clashAPIService.clans("#22PLRY2G");
-        c.setId(clanAccountId);
-        c.setClan(converter.convert(clan, ClanBasicDTO.class));
-        try {Thread.sleep(2000);} catch (InterruptedException ex) {}
-        return c;
+    public ClanAccountDTO fetchClanAccount(String clanAccountId) {
+        ClanAccount clanAccount = clanAccountRepository.findOne(clanAccountId);
+        return converter.convert(clanAccount, ClanAccountDTO.class);
     }
     
     /**
@@ -63,13 +66,8 @@ public class ClashHornAPI implements ClashHornEndpoint {
      */
     @Override
     public ClanAccountDTO registerClanAccount(String tag, String clanAccountId) {
-        // TODO: remove mock implementation
-        ClanAccountDTO c = new ClanAccountDTO();
-        Clan clan = clashAPIService.clans(tag);
-        c.setId(clanAccountId);
-        c.setClan(converter.convert(clan, ClanBasicDTO.class));
-        try {Thread.sleep(2000);} catch (InterruptedException ex) {}
-        return c;
+        ClanAccount clanAccount = clashHornService.registerNewClanAccount(clanAccountId, tag);
+        return converter.convert(clanAccount, ClanAccountDTO.class);
     }
     
         

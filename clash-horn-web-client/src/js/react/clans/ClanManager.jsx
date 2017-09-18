@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import { connect } from 'react-redux';
 
@@ -25,7 +26,8 @@ export class ClanManager extends React.Component {
                     :
                         this.props.clanAccount ?
                             <div>
-                                This is the <strong>{this.props.clanAccount.name}</strong> clan management root component.
+                            This is the <strong>{this.props.clanAccount.clan.name}</strong> clan management root component. 
+                            Remember to bookmark <strong><a href={window.location.href}>this page</a></strong> to keep your history of war plans !
                                 <p>
                                     <a href={`#/${this.props.clanAccount.id}/current`}>Manage your current war here</a>
                                 </p>
@@ -35,7 +37,8 @@ export class ClanManager extends React.Component {
                             </div>
                         :
                             <div>
-                                Clan account not found
+                                <p>A clan account could not be found for the id <strong>{this.props.match.params.cid}</strong>.</p>
+                                <p>Check your ID or register a new account <Link to="/register">here</Link></p>
                             </div>
                 }
             </div>

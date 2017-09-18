@@ -1,7 +1,7 @@
 /*
  * Clash Horn - MIT License
  */
-package com.clashhorn.interfaces.jsonrpc;
+package com.clashhorn.infrastructure.jsonrpc;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.googlecode.jsonrpc4j.DefaultErrorResolver;

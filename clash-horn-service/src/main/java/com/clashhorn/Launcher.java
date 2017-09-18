@@ -2,6 +2,9 @@ package com.clashhorn;
 
 import com.googlecode.jsonrpc4j.ErrorResolver;
 import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImplExporter;
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import java.io.IOException;
 import java.util.Set;
 import javax.servlet.Filter;
@@ -22,6 +25,14 @@ import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.core.convert.support.ConversionServiceFactory;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.convert.support.GenericConversionService;
+import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.core.convert.DbRefResolver;
+import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
+import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
+import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
+import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -87,6 +98,23 @@ public class Launcher extends WebMvcConfigurerAdapter {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
+    
+    @Bean
+    public MongoDbFactory mongoDbFactory() throws Exception {
+	return new SimpleMongoDbFactory(new MongoClientURI("mongodb://localhost:27017/test"));
+    }
+  
+    @Bean
+    public MongoTemplate mongoTemplate(@Autowired MongoDbFactory mongoDbFactory) throws Exception {
+        DbRefResolver dbRefResolver = new DefaultDbRefResolver(mongoDbFactory);
+        MappingMongoConverter converter = new MappingMongoConverter(dbRefResolver, new MongoMappingContext());
+        converter.setTypeMapper(new DefaultMongoTypeMapper(null));
+        
+        MongoTemplate m = new MongoTemplate(mongoDbFactory, converter);
+        //m.setWriteConcern(WriteConcern.ACKNOWLEDGED);
+        return m;
+    }
+    
     
     /**
      *

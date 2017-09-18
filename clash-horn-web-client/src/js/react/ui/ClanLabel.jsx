@@ -1,16 +1,34 @@
 import React from 'react';
+import badgeErrorImage from '../../../img/badge-error.png';
 
 /**
  * Clan name/badge label
  */
 class ClanLabel extends React.Component {
     
+    constructor(props) {
+        super(props);
+        this.state = {
+            badgeLoadError: false
+        };
+    }
+    
+    loadBadgeError() {
+        this.setState({ badgeLoadError: true });
+    }
+    
     render() {
+        var badge = (<img src={this.props.clan.badgeUrls.small} onError={this.loadBadgeError.bind(this)}  />);
+        if (this.state.badgeLoadError) {
+            badge = (<img src={badgeErrorImage} />);
+        }
+        
         return (
             this.props.clan ?
                 <span className="clan-label">
-                    <img src={this.props.clan.badgeUrls.small} />
+                    {this.props.badgeAlignment=='left' ? badge : null }
                     {this.props.clan.name}
+                    {this.props.badgeAlignment=='right' ? badge : null }
                 </span>
             :
                 null
@@ -19,7 +37,8 @@ class ClanLabel extends React.Component {
 };
 
 ClanLabel.defaultProps = {
-    clan: null
+    clan: null,
+    badgeAlignment: 'left'
 };
 
 export default ClanLabel;

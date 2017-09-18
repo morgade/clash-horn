@@ -3,13 +3,16 @@
  */
 package com.clashhorn.application.dto;
 
+import java.util.Date;
+
 /**
  *
  * @author morgade
  */
 public class ClanAccountDTO {
     private String id;
-    private ClanBasicDTO clan;
+    private Date creation;
+    private ClanRefDTO clan;
 
     public String getId() {
         return id;
@@ -19,13 +22,20 @@ public class ClanAccountDTO {
         this.id = id;
     }
 
-    public ClanBasicDTO getClan() {
+    public ClanRefDTO getClan() {
         return clan;
     }
 
-    public void setClan(ClanBasicDTO clan) {
+    public void setClan(ClanRefDTO clan) {
         this.clan = clan;
     }
-    
+
+    public Date getCreation() {
+        return creation;
+    }
+
+    public void setCreation(Date creation) {
+        this.creation = creation;
+    }
     
 }

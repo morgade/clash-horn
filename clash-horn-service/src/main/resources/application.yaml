@@ -1,7 +1,7 @@
 logging:
     level:
         ROOT: ERROR
-        com.clashhorn: TRACE
+        com.clashhorn: DEBUG
         org.springframework: INFO
         
 server:
@@ -24,6 +24,8 @@ spring:
     profiles: production
 
 logging:
+    pattern:
+        console: 
     file: /home/ec2-user/clash-horn.log
 
 server:

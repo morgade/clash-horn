@@ -7,14 +7,14 @@ package com.clashhorn.domain.model.clan;
  * Clan model entity
  * @author morgade
  */
-public class Clan {
+public class ClanRef {
     private String tag;
     private String name;
 
-    Clan() {
+    ClanRef() {
     }
 
-    public Clan(String tag, String name) {
+    public ClanRef(String tag, String name) {
         this.tag = tag;
         this.name = name;
     }

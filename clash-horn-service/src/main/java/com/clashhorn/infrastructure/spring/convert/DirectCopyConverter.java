@@ -4,7 +4,9 @@
 package com.clashhorn.infrastructure.spring.convert;
 
 import com.clashhorn.application.dto.BadgeUrlsDTO;
+import com.clashhorn.application.dto.ClanRefDTO;
 import com.clashhorn.application.dto.LocationDTO;
+import com.clashhorn.domain.model.clan.ClanRef;
 import com.clashhorn.infrastructure.clashapi.data.BadgeUrls;
 import com.clashhorn.infrastructure.clashapi.data.Location;
 import static java.util.Arrays.asList;
@@ -26,7 +28,8 @@ public class DirectCopyConverter implements GenericConverter {
     public Set<ConvertiblePair> getConvertibleTypes() {
         return new HashSet<>(asList(
                 new ConvertiblePair(Location.class, LocationDTO.class),
-                new ConvertiblePair(BadgeUrls.class, BadgeUrlsDTO.class)
+                new ConvertiblePair(BadgeUrls.class, BadgeUrlsDTO.class),
+                new ConvertiblePair(ClanRef.class, ClanRefDTO.class)
         ));
     }
 

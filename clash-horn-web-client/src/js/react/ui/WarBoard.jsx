@@ -4,7 +4,9 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Image from 'react-bootstrap/lib/Image';
 
+import ClanLabel from '../ui/ClanLabel.jsx';
 import th9 from '../../../img/th9-small.png';
+
 
 class WarBoard extends React.Component {
     
@@ -12,15 +14,9 @@ class WarBoard extends React.Component {
         return (
             <div>
                 <div>
-                    <span>
-                        {this.props.war.clan.name}
-                        <img src={this.props.war.clan.badgeUrls.small} />
-                    </span>
+                    <ClanLabel clan={this.props.war.clan} badgeAlignment="right" />
                     X
-                    <span>
-                        <img src={this.props.war.opponent.badgeUrls.small} />
-                        {this.props.war.opponent.name}
-                    </span>
+                    <ClanLabel clan={this.props.war.opponent} />
                 </div>
                 <Grid fluid>
                     <Row className="show-grid">

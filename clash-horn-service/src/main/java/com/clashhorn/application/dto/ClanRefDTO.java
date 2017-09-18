@@ -7,7 +7,7 @@ package com.clashhorn.application.dto;
  *
  * @author morgade
  */
-public class ClanBasicDTO {
+public class ClanRefDTO {
     private String tag;
     private String name;
 
