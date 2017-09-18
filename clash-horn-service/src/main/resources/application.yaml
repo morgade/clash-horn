@@ -1,3 +1,9 @@
+logging:
+    level:
+        ROOT: ERROR
+        com.clashhorn: TRACE
+        org.springframework: INFO
+        
 server:
     port: 8080
     static-content: file:../clash-horn-web-client/public/
@@ -16,6 +22,9 @@ clash-api:
 ---
 spring:
     profiles: production
+
+logging:
+    file: /home/ec2-user/clash-horn.log
 
 server:
     port: 80
