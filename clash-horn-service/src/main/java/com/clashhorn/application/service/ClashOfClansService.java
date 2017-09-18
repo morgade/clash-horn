@@ -1,22 +1,18 @@
 /*
  * Clash Horn - MIT License
  */
-package com.clashhorn.infrastructure.clashapi;
+package com.clashhorn.application.service;
 
-import com.clashhorn.infrastructure.clashapi.data.Clan;
-import com.clashhorn.infrastructure.clashapi.data.War;
+import com.clashhorn.application.clashapi.Clan;
+import com.clashhorn.application.clashapi.War;
 
 /**
  *
  * @author morgade
  * @author guilaaf
  */
-public interface ClashAPIService  {
-    public static final String TAG_PREFIX = "#";
-    public static final String RESOURCE_CURRENT_WAR = "clans/{clanTag}/currentwar";
-    public static final String RESOURCE_CLANS = "clans/{clanTag}";
-    public static final String HEADER_AUTH_NAME = "Authorization";
-    public static final String HEADER_AUTH_VALUE_PREFIX = "Bearer ";
+public interface ClashOfClansService  {
+    public static final String TAG_PREFIX = "#";    
     
     /**
      * Fetch currentWar data from Clash of Clans API

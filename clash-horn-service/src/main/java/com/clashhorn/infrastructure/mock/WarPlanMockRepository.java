@@ -3,8 +3,9 @@
  */
 package com.clashhorn.infrastructure.mock;
 
-import com.clashhorn.domain.model.account.ClanAccount;
-import com.clashhorn.domain.model.account.ClanAccountRepository;
+import com.clashhorn.domain.model.clan.ClanRef;
+import com.clashhorn.domain.model.war.WarPlan;
+import com.clashhorn.domain.model.war.WarPlanRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,59 +25,63 @@ import org.springframework.stereotype.Repository;
 @Primary
 @Repository
 @Profile("!live-mongo-db")
-public class ClanAccountMockRepository implements ClanAccountRepository {
-    private final Map<String, ClanAccount> data = new HashMap<>();
+public class WarPlanMockRepository implements WarPlanRepository {
     
     @Override
-    public <S extends ClanAccount> S save(S entity) {
-        data.put(entity.getId(), entity);
+    public <S extends WarPlan> S save(S entity) {
         return entity;
     }
 
     @Override
-    public ClanAccount findOne(String id) {
-        return data.get(id);
+    public WarPlan findOne(String id) {
+        WarPlan w = new WarPlan(id, id, new ClanRef("#FHGFDD", "TJF"), new ClanRef("#KJHGEKJ", "OS OUTROS"));
+        return w;
     }
     
+    @Override
+    public <S extends WarPlan> S findOne(Example<S> example) {
+        WarPlan w = new WarPlan("id", "id", new ClanRef("#FHGFDD", "TJF"), new ClanRef("#KJHGEKJ", "OS OUTROS"));
+        return (S) w;
+    }
     
     @Override
     public boolean exists(String id) {
-        return data.containsKey(id); 
+        return true; 
     }
 
     
     @Override
-    public List<ClanAccount> findAll() {
+    public List<WarPlan> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public List<ClanAccount> findAll(Sort sort) {
+    public List<WarPlan> findAll(Sort sort) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public <S extends ClanAccount> S insert(S entity) {
+    public <S extends WarPlan> S insert(S entity) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public <S extends ClanAccount> List<S> insert(Iterable<S> entities) {
+    public <S extends WarPlan> List<S> insert(Iterable<S> entities) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public Page<ClanAccount> findAll(Pageable pageable) {
+    public Page<WarPlan> findAll(Pageable pageable) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public <S extends ClanAccount> List<S> save(Iterable<S> entites) {
+    public <S extends WarPlan> List<S> save(Iterable<S> entites) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public Iterable<ClanAccount> findAll(Iterable<String> ids) {
+    public Iterable<WarPlan> findAll(Iterable<String> ids) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
@@ -91,12 +96,12 @@ public class ClanAccountMockRepository implements ClanAccountRepository {
     }
 
     @Override
-    public void delete(ClanAccount entity) {
+    public void delete(WarPlan entity) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public void delete(Iterable<? extends ClanAccount> entities) {
+    public void delete(Iterable<? extends WarPlan> entities) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
@@ -106,32 +111,27 @@ public class ClanAccountMockRepository implements ClanAccountRepository {
     }
 
     @Override
-    public <S extends ClanAccount> S findOne(Example<S> example) {
+    public <S extends WarPlan> FilteredList<S> findAll(Example<S> arg0) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public <S extends ClanAccount> FilteredList<S> findAll(Example<S> arg0) {
+    public <S extends WarPlan> FilteredList<S> findAll(Example<S> arg0, Sort arg1) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public <S extends ClanAccount> FilteredList<S> findAll(Example<S> arg0, Sort arg1) {
+    public <S extends WarPlan> Page<S> findAll(Example<S> example, Pageable pageable) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public <S extends ClanAccount> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends WarPlan> long count(Example<S> example) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public <S extends ClanAccount> long count(Example<S> example) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
-    @Override
-    public <S extends ClanAccount> boolean exists(Example<S> example) {
+    public <S extends WarPlan> boolean exists(Example<S> example) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 

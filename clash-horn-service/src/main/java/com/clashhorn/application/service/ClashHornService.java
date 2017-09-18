@@ -1,7 +1,7 @@
 /*
  * Clash Horn - MIT License
  */
-package com.clashhorn.interfaces.jsonrpc;
+package com.clashhorn.application.service;
 
 import com.clashhorn.application.dto.ClanAccountDTO;
 import com.clashhorn.application.dto.ClanFullDTO;
@@ -15,7 +15,7 @@ import java.util.Map;
  * @author morgade
  */
 @JsonRpcService("/api/clash-horn")
-public interface ClashHornEndpoint {
+public interface ClashHornService {
     /**
      * Fetch clan data by tag
      * @param tag
@@ -39,9 +39,12 @@ public interface ClashHornEndpoint {
     ClanAccountDTO fetchClanAccount(@JsonRpcParam("clanAccountId") String clanAccountId);
     
     /**
-     * Fetch a war plan from an accountId
+     * Fetch a war plan from an accountId with <pre>warPlanId</pre>. If provided <pre>warPlanId</pre> 
+     * is null, this method will fetch the current war as stated by CoC API (creating a new war 
+     * plan for the current war if it not exists).
      * @param clanAccountId
-     * @param warPlanId
+     * @param warPlanId  
+     *                  
      * @return 
      */
     WarPlanFullDTO fetchWarPlan(@JsonRpcParam("clanAccountId") String clanAccountId, @JsonRpcParam("warPlanId") String warPlanId);

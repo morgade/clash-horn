@@ -16,7 +16,7 @@ class WarBoard extends React.Component {
                 <div>
                     <ClanLabel clan={this.props.war.clan} badgeAlignment="right" />
                     X
-                    <ClanLabel clan={this.props.war.opponent} />
+                    <ClanLabel clan={this.props.war.enemy} />
                 </div>
                 <Grid fluid>
                     <Row className="show-grid">

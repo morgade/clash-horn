@@ -10,7 +10,7 @@ package com.clashhorn.domain.model.clan;
 public class ClanRef {
     private String tag;
     private String name;
-
+    
     ClanRef() {
     }
 

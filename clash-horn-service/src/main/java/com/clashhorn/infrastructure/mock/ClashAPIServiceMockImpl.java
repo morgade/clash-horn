@@ -3,15 +3,15 @@
  */
 package com.clashhorn.infrastructure.mock;
 
-import com.clashhorn.infrastructure.clashapi.ClashAPIService;
-import com.clashhorn.infrastructure.clashapi.data.Clan;
-import com.clashhorn.infrastructure.clashapi.data.War;
+import com.clashhorn.application.clashapi.Clan;
+import com.clashhorn.application.clashapi.War;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import static org.springframework.util.ResourceUtils.getFile;
+import com.clashhorn.application.service.ClashOfClansService;
 
 /**
  *
@@ -19,7 +19,7 @@ import static org.springframework.util.ResourceUtils.getFile;
  */
 @Service
 @Profile("!live-clash-api")
-public class ClashAPIServiceMockImpl implements ClashAPIService {
+public class ClashAPIServiceMockImpl implements ClashOfClansService {
     @Autowired
     private ObjectMapper objectMapper;
     

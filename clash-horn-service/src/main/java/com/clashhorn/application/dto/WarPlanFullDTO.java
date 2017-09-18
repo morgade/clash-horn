@@ -9,8 +9,8 @@ package com.clashhorn.application.dto;
  */
 public class WarPlanFullDTO {
     private String id;
-    private ClanWarDTO clan;
-    private ClanWarDTO opponent;
+    private ClanRefDTO clan;
+    private ClanRefDTO enemy;
     private Integer size;
 
     public String getId() {
@@ -21,20 +21,20 @@ public class WarPlanFullDTO {
         this.id = id;
     }
 
-    public ClanWarDTO getClan() {
+    public ClanRefDTO getClan() {
         return clan;
     }
 
-    public void setClan(ClanWarDTO clan) {
+    public void setClan(ClanRefDTO clan) {
         this.clan = clan;
     }
 
-    public ClanWarDTO getOpponent() {
-        return opponent;
+    public ClanRefDTO getEnemy() {
+        return enemy;
     }
 
-    public void setOpponent(ClanWarDTO opponent) {
-        this.opponent = opponent;
+    public void setEnemy(ClanRefDTO enemy) {
+        this.enemy = enemy;
     }
 
     public Integer getSize() {

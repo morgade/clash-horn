@@ -4,7 +4,7 @@
 package com.clashhorn.infrastructure.spring.convert;
 
 import com.clashhorn.application.dto.ClanRefDTO;
-import com.clashhorn.infrastructure.clashapi.data.Clan;
+import com.clashhorn.application.clashapi.Clan;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 

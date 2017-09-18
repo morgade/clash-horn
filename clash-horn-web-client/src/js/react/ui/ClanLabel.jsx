@@ -18,7 +18,7 @@ class ClanLabel extends React.Component {
     }
     
     render() {
-        var badge = (<img src={this.props.clan.badgeUrls.small} onError={this.loadBadgeError.bind(this)}  />);
+        var badge = this.props.clan.badgeUrls ? (<img src={this.props.clan.badgeUrls.small} onError={this.loadBadgeError.bind(this)} />) : (<img src={badgeErrorImage} />) ;
         if (this.state.badgeLoadError) {
             badge = (<img src={badgeErrorImage} />);
         }
@@ -26,9 +26,9 @@ class ClanLabel extends React.Component {
         return (
             this.props.clan ?
                 <span className="clan-label">
-                    {this.props.badgeAlignment=='left' ? badge : null }
+                    {this.props.badgeAlignment==='left' ? badge : null }
                     {this.props.clan.name}
-                    {this.props.badgeAlignment=='right' ? badge : null }
+                    {this.props.badgeAlignment==='right' ? badge : null }
                 </span>
             :
                 null

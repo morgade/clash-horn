@@ -4,6 +4,7 @@
 package com.clashhorn.domain.model.account;
 
 import com.clashhorn.domain.model.clan.ClanRef;
+import com.clashhorn.domain.shared.AggregateRoot;
 import static java.lang.String.format;
 import java.util.Date;
 import org.springframework.data.annotation.Id;
@@ -12,6 +13,7 @@ import org.springframework.data.annotation.Id;
  *
  * @author morgade
  */
+@AggregateRoot
 public class ClanAccount {
     @Id
     private String id;

@@ -4,13 +4,17 @@
 package com.clashhorn.domain.service;
 
 import com.clashhorn.domain.model.account.ClanAccount;
-import com.clashhorn.domain.model.war.WarPlan;
-import java.util.UUID;
 
 /**
  *
  * @author morgade
  */
-public interface ClashHornService {
+public interface ClanAccountService {
+    /**
+     * Register a new ClanAccount with a unique id
+     * @param clanAccountId
+     * @param clanTag
+     * @return 
+     */
     ClanAccount registerNewClanAccount(String clanAccountId, String clanTag);
 }

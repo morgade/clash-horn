@@ -6,7 +6,7 @@ package com.clashhorn.infrastructure.spring.convert;
 import com.clashhorn.application.dto.BadgeUrlsDTO;
 import com.clashhorn.application.dto.ClanFullDTO;
 import com.clashhorn.application.dto.LocationDTO;
-import com.clashhorn.infrastructure.clashapi.data.Clan;
+import com.clashhorn.application.clashapi.Clan;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

@@ -9,6 +9,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  *
  * @author morgade
  */
-public interface ClanAccountRepository  extends MongoRepository<ClanAccount, String> {
+public interface ClanAccountRepository extends MongoRepository<ClanAccount, String> {
 
 }

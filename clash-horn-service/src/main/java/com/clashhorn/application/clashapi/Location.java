@@ -1,7 +1,7 @@
 /*
  * Clash Horn - MIT License
  */
-package com.clashhorn.infrastructure.clashapi.data;
+package com.clashhorn.application.clashapi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

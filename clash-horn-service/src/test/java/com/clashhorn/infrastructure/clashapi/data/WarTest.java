@@ -3,6 +3,9 @@
  */
 package com.clashhorn.infrastructure.clashapi.data;
 
+import com.clashhorn.application.clashapi.WarClan;
+import com.clashhorn.application.clashapi.War;
+import com.clashhorn.application.clashapi.WarClanMember;
 import com.clashhorn.infrastructure.clashapi.ClashApiTestConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;

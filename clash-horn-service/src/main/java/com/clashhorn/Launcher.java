@@ -2,8 +2,6 @@ package com.clashhorn;
 
 import com.googlecode.jsonrpc4j.ErrorResolver;
 import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImplExporter;
-import com.mongodb.Mongo;
-import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import java.io.IOException;
 import java.util.Set;
