@@ -6,9 +6,8 @@ package com.clashhorn.infrastructure.mock;
 import com.clashhorn.domain.model.clan.ClanRef;
 import com.clashhorn.domain.model.war.WarPlan;
 import com.clashhorn.domain.model.war.WarPlanRepository;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javafx.collections.transformation.FilteredList;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
@@ -48,7 +47,12 @@ public class WarPlanMockRepository implements WarPlanRepository {
     public boolean exists(String id) {
         return true; 
     }
-
+    
+    @Override
+    public WarPlan findByAccountAndPreparationTime(String clanAccount, Date preparationStartTime) {
+        WarPlan w = new WarPlan("id", "id", new ClanRef("#FHGFDD", "TJF"), new ClanRef("#KJHGEKJ", "OS OUTROS"));
+        return w;
+    }
     
     @Override
     public List<WarPlan> findAll() {
