@@ -12,7 +12,11 @@ import com.clashhorn.domain.model.war.WarPlan;
 import com.clashhorn.domain.model.war.WarPlanRepository;
 import com.clashhorn.application.clashapi.Clan;
 import com.clashhorn.application.clashapi.War;
+import com.clashhorn.application.clashapi.WarClanMember;
 import com.clashhorn.domain.model.clan.ClanRef;
+import com.clashhorn.domain.model.war.WarPlanAttack;
+import com.clashhorn.domain.model.war.WarPlanBuilder;
+import com.clashhorn.domain.model.war.WarPlayer;
 import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImpl;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +26,10 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import com.clashhorn.domain.service.ClanAccountService;
 import com.clashhorn.domain.service.WarPlanService;
+import static java.util.Comparator.comparing;
 import java.util.UUID;
-import org.springframework.data.domain.Example;
+import static java.util.stream.Collectors.toList;
+import java.util.stream.Stream;
 
 /**
  *
@@ -87,42 +93,17 @@ public class ClashHornServiceImpl implements ClashHornService {
     public WarPlanFullDTO fetchWarPlan(String clanAccountId, String warPlanId) {
         WarPlan warPlan;
         if (warPlanId!=null) {
-            warPlan = warPlanRepository.findOne(Example.of(new WarPlan(warPlanId, clanAccountId)));
+            // warPlanId provided. Just get a warPlan from the repository assuring it belongs to provided clanAccountId
+            warPlan = warPlanRepository.findByIdAndClanAccountId(warPlanId, clanAccountId);
         } else {
+            // warPlanId not provided. Assumes a request for the current war
             ClanAccount clanAccount = clanAccountRepository.findOne(clanAccountId);
-            // Fetch current war on CoC API to verify matches of warplans
-            // TODO: Optimize and reduce calls to clashOfClansService (Example: search repository first if there's a walPlan where endTime is in the future ?)
+            // Fetch current war on CoC API to verify matches and updates for a possible repository warplan
+            // TODO: Maybe optimize and reduce calls to clashOfClansService ? Example: search repository first foar a walPlan where endTime is in the future ?
             War war = clashOfClansService.currentWar(clanAccount.getClan().getTag());
-            // Query a matching warplan on the repository
-            WarPlan currentWarPlan = warPlanRepository.findByAccountAndPreparationTime(clanAccountId, war.getPreparationStartTime());
-            
-            if (currentWarPlan!=null) {
-                // Found a WarPlan matching with current war. This is it
-                // TODO: Merge and update possible current war changes
-                warPlan = currentWarPlan;
-            } else {
-                // No matches of current war. Create a new war plan here
-                warPlan = createWarPlan(war, clanAccountId);
-                warPlan = warPlanRepository.save(warPlan);
-            }
+            warPlan = warPlanService.createOrUpdateCurrentWarPlan(createWarPlanFromCoCWar(war, clanAccountId));
         }
         return converter.convert(warPlan, WarPlanFullDTO.class);
-    }
-    
-    /**
-     * Creates a WarPlan based on CoC API war data
-     * @param war
-     * @return 
-     */
-    private WarPlan createWarPlan(War war, String clanAccountId) {
-        String id = UUID.randomUUID().toString();
-        WarPlan warPlan = new WarPlan(id, clanAccountId)
-                .withClan(new ClanRef(war.getClan().getTag(), war.getClan().getName()))
-                .withEnemy(new ClanRef(war.getOpponent().getTag(), war.getOpponent().getName()))
-                .withPreparationStartTime(war.getPreparationStartTime())
-                .withStartTime(war.getStartTime())
-                .withEndTime(war.getEndTime());
-        return warPlan;
     }
     
     /**
@@ -134,5 +115,57 @@ public class ClashHornServiceImpl implements ClashHornService {
             put("freeHeap", Runtime.getRuntime().freeMemory());
         }};
     }
+    
+    /**
+     * Creates a WarPlan based on CoC API war data
+     * @param war
+     * @return 
+     */
+    protected WarPlan createWarPlanFromCoCWar(War war, String clanAccountId) {
+        String id = UUID.randomUUID().toString();
+        return
+            WarPlanBuilder.builder(id)
+                .clanAccountId(clanAccountId)
+                .clan(new ClanRef(war.getClan().getTag(), war.getClan().getName()))
+                .enemy(new ClanRef(war.getOpponent().getTag(), war.getOpponent().getName()))
+                .preparationStartTime(war.getPreparationStartTime())
+                .startTime(war.getStartTime())
+                .endTime(war.getEndTime())
+                
+                .members( Stream.of(war.getClan().getMembers())
+                            .sorted(comparing(WarClanMember::getMapPosition))
+                            .map(m -> new WarPlayer(m.getTag(), m.getName(), m.getMapPosition(), m.getTownhallLevel()))
+                            .collect(toList()))
+                
+                .enemies( Stream.of(war.getOpponent().getMembers())
+                            .sorted(comparing(WarClanMember::getMapPosition))
+                            .map(m -> new WarPlayer(m.getTag(), m.getName(), m.getMapPosition(), m.getTownhallLevel()))
+                            .collect(toList()))
+                
+                .performedAttacks( 
+                        Stream.of(war.getClan().getMembers())
+                                .flatMap(
+                                        m -> Stream.of(m.getAttacks())                                                    
+                                                .map( a -> new WarPlanAttack(m.getMapPosition(), 
+                                                                war.getOpponent(a.getDefenderTag()).getMapPosition(), 
+                                                                a.getStars(), a.getOrder(), 
+                                                                a.getDestructionPercentage()))
+                                ).collect(toList())
+                )
+                
+                .sufferedAttacks( 
+                        Stream.of(war.getOpponent().getMembers())
+                                .flatMap(
+                                        m -> Stream.of(m.getAttacks())                                                 
+                                                .map( a -> new WarPlanAttack(m.getMapPosition(), 
+                                                                war.getMember(a.getDefenderTag()).getMapPosition(), 
+                                                                a.getStars(), a.getOrder(), 
+                                                                a.getDestructionPercentage()))
+                                ).collect(toList())
+                )
+                
+                .build();
+    }
+
     
 }

@@ -1,12 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Grid from 'react-bootstrap/lib/Grid';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
-import Image from 'react-bootstrap/lib/Image';
 
-import WarBoard from '../ui/WarBoard.jsx';
+import WarBoard from './WarBoard.jsx';
+import ClanAccountNavigator from '../ui/ClanAccountNavigator.jsx';
 
 import { connect } from 'react-redux';
 import { fetchUserBoundClanAccount, fetchWarPlan } from '../../flux/actions/clans';
@@ -32,38 +28,39 @@ export class WarPlanner extends React.Component {
         }
     }
     
-    loadWarPlan(clanAccountId, warPlanId) {
-        this.props.dispatch(fetchWarPlan(clanAccountId, warPlanId==='current'?null:warPlanId));
+    loadWarPlan(clanAccountId, warPlanId, forceReload) {
+        if (!this.props.warPlan || forceReload) {
+            this.props.dispatch(fetchWarPlan(clanAccountId, warPlanId==='current'?null:warPlanId));
+        }
     }
     
     render() {
-        let loadMessage = null;
+        // Resolve a possible status message
+        let message = null;
         if (this.props.fetching['fetchUserBoundClanAccount']) {
-            loadMessage = (<span><Glyphicon glyph="refresh" /> Loading clan account data ...</span>);
-        } else if (this.props.fetching['fetchWarPlan']) {
-            loadMessage = (<span><Glyphicon glyph="refresh" /> Loading war data ...</span>);
-        }
-    
-        return loadMessage ||
-            (this.props.clanAccount && this.props.warPlan ?
-                <div>
-                    <div>
-                        This is the <strong>{this.props.clanAccount.name}</strong> current war planner.
-                        <p>
-                            <a href={`#/${this.props.clanAccount.id}`}>Manage your clan here</a>
-                        </p>
-                        <p>
-                            <a href={`#/${this.props.clanAccount.id}/history`}>View your war plans log here</a>
-                        </p>
-                    </div>
-                    <WarBoard war={this.props.warPlan} />
-                </div>
-            :
+            message = (<span><Glyphicon glyph="refresh" /> Loading clan account data ...</span>);
+        } else if (this.props.fetching['fetchWarPlan'] || !this.props.warPlan) {
+            message = (<span><Glyphicon glyph="refresh" /> Loading war data ...</span>);
+        } else if (!this.props.clanAccount) {
+            message = (
                 <div>
                     <p>A clan account could not be found for the id <strong>{this.props.match.params.cid}</strong>.</p>
                     <p>Check your ID or register a new account <Link to="/register">here</Link></p>
                 </div>
             );
+        }
+    
+
+        return (
+            <ClanAccountNavigator clanAccount={this.props.clanAccount} active="/current" fadeInWhen={message==null}>
+                {message || 
+                    <div>
+                        This is the <strong>{this.props.clanAccount.clan.name}</strong> war planner.
+                        <WarBoard war={this.props.warPlan} />
+                    </div>
+                }
+            </ClanAccountNavigator>
+        );
     }
 };
 

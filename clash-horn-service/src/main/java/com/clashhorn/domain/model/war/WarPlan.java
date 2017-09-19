@@ -5,10 +5,12 @@ package com.clashhorn.domain.model.war;
 
 import com.clashhorn.domain.model.clan.ClanRef;
 import com.clashhorn.domain.shared.AggregateRoot;
-import com.clashhorn.application.clashapi.WarAttack;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.data.annotation.Id;
+import org.springframework.util.Assert;
+
 
 /**
  * WarPlan model entity
@@ -27,24 +29,65 @@ public class WarPlan {
     private List<WarPlayer> members;
     private List<WarPlayer> enemies;
     private List<List<WarPlayer>> attackQueues;
-    private List<List<WarAttack>> performedAttacks;
-    private List<List<WarAttack>> sufferedAttacks;
+    private List<WarPlanAttack> performedAttacks;
+    private List<WarPlanAttack> sufferedAttacks;
 
+    /**
+     * Constructor used by spring data
+     */
     WarPlan() {
     }
     
-    public WarPlan(String id, String clanAccountId) {
-        this.id = id;
-        this.clanAccountId = clanAccountId;
-    }
-
-    public WarPlan(String id, String clanAccountId, ClanRef clan, ClanRef enemy) {
-        this.id = id;
+    /**
+     * Constructor used by WarPlanBuilder
+     * @param id
+     * @param clanAccountId
+     * @param clan
+     * @param enemy
+     * @param startTime
+     * @param preparationStartTime
+     * @param endTime
+     * @param members
+     * @param enemies
+     * @param attackQueues
+     * @param performedAttacks
+     * @param sufferedAttacks 
+     */
+    protected WarPlan(final String id, final String clanAccountId, final ClanRef clan, 
+            final ClanRef enemy, final Date startTime, final Date preparationStartTime, 
+            final Date endTime, final List<WarPlayer> members, final List<WarPlayer> enemies, 
+            final List<List<WarPlayer>> attackQueues, final List<WarPlanAttack> performedAttacks, 
+            final List<WarPlanAttack> sufferedAttacks) {
+        Assert.notNull(clanAccountId, "clanAccountId is mandatory");
+        Assert.notNull(clan, "clan is mandatory");
+        Assert.notNull(enemy, "enemy is mandatory");
+        Assert.notNull(startTime, "startTime is mandatory");
+        Assert.notNull(preparationStartTime, "preparationStartTime is mandatory");
+        Assert.notNull(endTime, "endTime is mandatory");
+        Assert.notNull(members, "members is mandatory");
+        Assert.notNull(performedAttacks, "performedAttacks is mandatory");
+        Assert.notNull(sufferedAttacks, "sufferedAttacks is mandatory");
+        
+        Assert.notNull(enemies.size()==members.size(), "enemies and member count must match");
+        
+        this.id = id.toUpperCase();
         this.clanAccountId = clanAccountId;
         this.clan = clan;
         this.enemy = enemy;
+        this.startTime = startTime;
+        this.preparationStartTime = preparationStartTime;
+        this.endTime = endTime;
+        this.members = members;
+        this.enemies = enemies;
+        this.attackQueues = attackQueues == null ? new ArrayList() : new ArrayList(attackQueues);
+        this.performedAttacks = new ArrayList(performedAttacks);
+        this.sufferedAttacks = new ArrayList(sufferedAttacks);
     }
 
+    public void updateWithDataFrom(WarPlan currentWarPlanUpdatedData) {
+        // TODO: Implement
+    }
+    
     public WarPlan withClan(ClanRef clan) {
         this.clan = clan;
         return this;
@@ -98,11 +141,11 @@ public class WarPlan {
         return attackQueues;
     }
 
-    public List<List<WarAttack>> getPerformedAttacks() {
+    public List<WarPlanAttack> getPerformedAttacks() {
         return performedAttacks;
     }
 
-    public List<List<WarAttack>> getSufferedAttacks() {
+    public List<WarPlanAttack> getSufferedAttacks() {
         return sufferedAttacks;
     }
 
@@ -113,4 +156,9 @@ public class WarPlan {
     public Date getPreparationStartTime() {
         return preparationStartTime;
     }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
 }

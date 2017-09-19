@@ -5,6 +5,7 @@ package com.clashhorn.infrastructure.mock;
 
 import com.clashhorn.domain.model.clan.ClanRef;
 import com.clashhorn.domain.model.war.WarPlan;
+import com.clashhorn.domain.model.war.WarPlanBuilder;
 import com.clashhorn.domain.model.war.WarPlanRepository;
 import java.util.Date;
 import java.util.List;
@@ -33,14 +34,22 @@ public class WarPlanMockRepository implements WarPlanRepository {
 
     @Override
     public WarPlan findOne(String id) {
-        WarPlan w = new WarPlan(id, id, new ClanRef("#FHGFDD", "TJF"), new ClanRef("#KJHGEKJ", "OS OUTROS"));
-        return w;
+        return 
+            WarPlanBuilder.builder(id)
+                    .clanAccountId("32FCAF80-59B1-E363-3877-A9C63E7D3558")
+                    .clan(new ClanRef("#FHGFDDA", "TJF"))
+                    .enemy(new ClanRef("#KJHGEKJ", "OS OUTROS"))
+                    .build();
     }
     
     @Override
     public <S extends WarPlan> S findOne(Example<S> example) {
-        WarPlan w = new WarPlan("id", "id", new ClanRef("#FHGFDD", "TJF"), new ClanRef("#KJHGEKJ", "OS OUTROS"));
-        return (S) w;
+        return (S)
+            WarPlanBuilder.builder("XXXX")
+                    .clanAccountId("32FCAF80-59B1-E363-3877-A9C63E7D3558")
+                    .clan(new ClanRef("#FHGFDDA", "TJF"))
+                    .enemy(new ClanRef("#KJHGEKJ", "OS OUTROS"))
+                    .build();
     }
     
     @Override
@@ -50,8 +59,23 @@ public class WarPlanMockRepository implements WarPlanRepository {
     
     @Override
     public WarPlan findByAccountAndPreparationTime(String clanAccount, Date preparationStartTime) {
-        WarPlan w = new WarPlan("id", "id", new ClanRef("#FHGFDD", "TJF"), new ClanRef("#KJHGEKJ", "OS OUTROS"));
-        return w;
+        return 
+            WarPlanBuilder.builder("TYDHGENDMDA")
+                    .clanAccountId(clanAccount)
+                    .clan(new ClanRef("#FHGFDDA", "TJF"))
+                    .enemy(new ClanRef("#KJHGEKJ", "OS OUTROS"))
+                    .preparationStartTime(preparationStartTime)
+                    .build();
+    }
+    
+    @Override
+    public WarPlan findByIdAndClanAccountId(String id, String clanAccountId) {
+        return 
+            WarPlanBuilder.builder(id)
+                    .clanAccountId(clanAccountId)
+                    .clan(new ClanRef("#FHGFDDA", "TJF"))
+                    .enemy(new ClanRef("#KJHGEKJ", "OS OUTROS"))
+                    .build();
     }
     
     @Override

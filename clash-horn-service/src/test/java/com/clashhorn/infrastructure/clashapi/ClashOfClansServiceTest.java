@@ -20,7 +20,7 @@ import com.clashhorn.application.service.ClashOfClansService;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Import(ClashApiTestConfiguration.class)
-public class ClashAPIServiceTest {
+public class ClashOfClansServiceTest {
     
     @Autowired
     private ClashOfClansService service;

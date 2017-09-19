@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
+import java.util.stream.Stream;
 
 /**
  *
@@ -42,6 +43,20 @@ public class War {
         this.endTime = endTime;
         this.clan = clan;
         this.opponent = opponent;
+    }
+    
+    public WarClanMember getOpponent(String tag) {
+        return Stream.of(opponent.getMembers())
+                    .filter(m->m.getTag().equals(tag))
+                    .findFirst()
+                    .orElseThrow( ()-> new IllegalArgumentException("tag not found on opponent member list") );
+    }
+    
+    public WarClanMember getMember(String tag) {
+        return Stream.of(clan.getMembers())
+                    .filter(m->m.getTag().equals(tag))
+                    .findFirst()
+                    .orElseThrow( ()-> new IllegalArgumentException("tag not found on clan member list") );
     }
     
     public String getState() {

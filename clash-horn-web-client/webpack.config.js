@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var BUILD_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
@@ -11,6 +12,13 @@ var config = {
         filename: 'bundle.js'
     },
 
+    plugins: [
+        new HtmlWebpackPlugin({
+          template: 'src/index-template.html',
+          favicon: 'src/img/favicon.png',
+        })
+      ],
+  
     module: {
         loaders: [
             {

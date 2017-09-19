@@ -6,6 +6,7 @@ package com.clashhorn.application.clashapi;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Arrays;
 
 /**
  *
@@ -33,7 +34,7 @@ public class WarClanMember {
         this.townhallLevel = townhallLevel;
         this.mapPosition = mapPosition;
         this.opponentAttacks = opponentAttacks;
-        this.attacks = attacks;
+        this.attacks = attacks!=null ? attacks : new WarAttack[0];
     }
 
     public String getTag() {

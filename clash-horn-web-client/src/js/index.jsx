@@ -1,4 +1,3 @@
-import Index from 'file?name=[name].[ext]!../index.html';
 import OurCSS from '../less/clash-horn.less';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
 

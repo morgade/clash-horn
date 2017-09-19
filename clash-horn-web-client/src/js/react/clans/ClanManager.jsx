@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import { connect } from 'react-redux';
 
-import { fetchUserBoundClanAccount } from '../../flux/actions/clans'
+import ClanAccountNavigator from '../ui/ClanAccountNavigator.jsx';
+
+import { fetchUserBoundClanAccount } from '../../flux/actions/clans';
 
 export class ClanManager extends React.Component {
    
@@ -17,31 +19,28 @@ export class ClanManager extends React.Component {
    }
    
     render() {
+        let message = null;
+        if (this.props.fetching['fetchUserBoundClanAccount']) {
+            message = (<span><Glyphicon glyph="refresh" /> Loading clan account data ...</span>);
+        } else if (!this.props.clanAccount) {
+            message = (
+                <div>
+                    <p>A clan account could not be found for the id <strong>{this.props.match.params.cid}</strong>.</p>
+                    <p>Check your ID or register a new account <Link to="/register">here</Link></p>
+                </div>
+            );
+        }
+        
         return (
-            <div>
-                {this.props.fetching['fetchUserBoundClanAccount'] ?
-                        <div>
-                            <Glyphicon glyph="refresh" /> Loading clan account data ...
-                        </div>
-                    :
-                        this.props.clanAccount ?
-                            <div>
-                            This is the <strong>{this.props.clanAccount.clan.name}</strong> clan management root component. 
-                            Remember to bookmark <strong><a href={window.location.href}>this page</a></strong> to keep your history of war plans !
-                                <p>
-                                    <a href={`#/${this.props.clanAccount.id}/current`}>Manage your current war here</a>
-                                </p>
-                                <p>
-                                    <a href={`#/${this.props.clanAccount.id}/history`}>View your war plans log here</a>
-                                </p>
-                            </div>
-                        :
-                            <div>
-                                <p>A clan account could not be found for the id <strong>{this.props.match.params.cid}</strong>.</p>
-                                <p>Check your ID or register a new account <Link to="/register">here</Link></p>
-                            </div>
+            <ClanAccountNavigator clanAccount={this.props.clanAccount} active="" fadeInWhen={this.props.fetching['fetchUserBoundClanAccount']===false}>
+                {message ||
+                    <div>
+                        <p>This is the <strong>{this.props.clanAccount.clan.name}</strong> clan management root component.</p>
+                        <p>Remember to bookmark <strong><a href={window.location.href}>this page</a></strong> to keep your history of war plans!</p>
+                        <p>Manage your clan's current war <a href={`#/${this.props.clanAccount.id}/current`}>here</a></p>
+                    </div>
                 }
-            </div>
+            </ClanAccountNavigator>
         );
     }
 };

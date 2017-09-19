@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var BUILD_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
@@ -10,7 +11,7 @@ var config = {
         path: BUILD_DIR,
         filename: 'bundle.js'
     },
-
+    
     module: {
         loaders: [
             {
@@ -33,6 +34,11 @@ var config = {
     devtool: 'cheap-module-source-map',
     
     plugins:[
+        new HtmlWebpackPlugin({
+          template: 'src/index.html',
+          favicon: 'src/img/favicon.png'
+        }),
+        
         new webpack.DefinePlugin({
           'process.env':{
             'NODE_ENV': JSON.stringify('production')

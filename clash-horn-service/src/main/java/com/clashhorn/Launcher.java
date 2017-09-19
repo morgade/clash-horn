@@ -55,7 +55,7 @@ public class Launcher extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         LoggerFactory.getLogger(Launcher.class).info("Mapping static resources to '{0}'", staticContentLocation);
         registry.addResourceHandler("/**.html", "/**.js", "/**.css", "/**.map", "/**.svg",
-                "/**.ttf", "/**.eot", "/**.woff", "/**.woff2")
+                "/**.ttf", "/**.eot", "/**.woff", "/**.woff2", "/**.png")
                 .addResourceLocations(staticContentLocation).setCachePeriod(0);
     }
 
