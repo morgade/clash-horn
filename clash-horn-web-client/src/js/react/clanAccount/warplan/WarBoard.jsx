@@ -5,8 +5,8 @@ import Col from 'react-bootstrap/lib/Col';
 import Image from 'react-bootstrap/lib/Image';
 
 
-import ClanLabel from '../ui/ClanLabel.jsx';
-import WarMemberLabel from '../ui/WarMemberLabel.jsx';
+import ClanLabel from '../../ui/ClanLabel.jsx';
+import WarMemberLabel from '../../ui/WarMemberLabel.jsx';
 
 
 class WarBoard extends React.Component {

@@ -3,10 +3,9 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import { connect } from 'react-redux';
 
 import WarBoard from './WarBoard.jsx';
-import ClanAccountNavigator from '../ui/ClanAccountNavigator.jsx';
 
-import { fetchUserBoundClanAccount, fetchWarPlan } from '../../flux/actions/clans';
-import pathValue from '../../util/path-value';
+import { fetchUserBoundClanAccount, fetchWarPlan } from '../../../flux/actions/clans';
+import pathValue from '../../../util/path-value';
 
 export class WarPlanner extends React.Component {
     
