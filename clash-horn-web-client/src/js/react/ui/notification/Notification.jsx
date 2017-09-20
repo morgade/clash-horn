@@ -21,4 +21,6 @@ class Notification extends React.Component {
     }
 };
 
-export default connect( state => ({notification: state.notification}) )(Notification);
+export default connect( 
+    store => ({notification: store.notification}) 
+)(Notification);

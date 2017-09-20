@@ -6,8 +6,10 @@ package com.clashhorn.domain.model.war;
 import com.clashhorn.domain.model.clan.ClanRef;
 import com.clashhorn.domain.shared.AggregateRoot;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import static java.util.stream.Collectors.toList;
 import org.springframework.data.annotation.Id;
 import org.springframework.util.Assert;
 
@@ -79,40 +81,19 @@ public class WarPlan {
         this.endTime = endTime;
         this.members = members;
         this.enemies = enemies;
-        this.attackQueues = attackQueues == null ? new ArrayList() : new ArrayList(attackQueues);
         this.performedAttacks = new ArrayList(performedAttacks);
         this.sufferedAttacks = new ArrayList(sufferedAttacks);
+        this.attackQueues = attackQueues == null ? new ArrayList() : new ArrayList(attackQueues);
     }
 
     public void updateWithDataFrom(WarPlan currentWarPlanUpdatedData) {
         // TODO: Implement
     }
     
-    public WarPlan withClan(ClanRef clan) {
-        this.clan = clan;
-        return this;
+    public int getMapSize() {
+        return members.size();
     }
-
-    public WarPlan withEnemy(ClanRef enemy) {
-        this.enemy = enemy;
-        return this;
-    }
-
-    public WarPlan withStartTime(Date startTime) {
-        this.startTime = startTime;
-        return this;
-    }
-
-    public WarPlan withPreparationStartTime(Date preparationStartTime) {
-        this.preparationStartTime = preparationStartTime;
-        return this;
-    }
-
-    public WarPlan withEndTime(Date endTime) {
-        this.endTime = endTime;
-        return this;
-    }
-
+    
     public String getId() {
         return id;
     }
@@ -130,23 +111,26 @@ public class WarPlan {
     }
 
     public List<WarPlayer> getMembers() {
-        return members;
+        return Collections.unmodifiableList(members);
     }
 
     public List<WarPlayer> getEnemies() {
-        return enemies;
+        return Collections.unmodifiableList(enemies);
     }
 
-    public List<List<WarPlayer>> getAttackQueues() {
-        return attackQueues;
+    public List<WarPlayer> getAttackQueue(int position) {
+        if (position>attackQueues.size()-1) {
+            return Collections.EMPTY_LIST;
+        }
+        return attackQueues.get(position);
     }
 
-    public List<WarPlanAttack> getPerformedAttacks() {
-        return performedAttacks;
+    public List<WarPlanAttack> getPerformedAttacks(int position) {
+        return performedAttacks.stream().filter(a->a.getAttacker()==position).collect(toList());
     }
 
-    public List<WarPlanAttack> getSufferedAttacks() {
-        return sufferedAttacks;
+    public List<WarPlanAttack> getSufferedAttacks(int position) {
+        return sufferedAttacks.stream().filter(a->a.getAttacker()==position).collect(toList());
     }
 
     public Date getStartTime() {

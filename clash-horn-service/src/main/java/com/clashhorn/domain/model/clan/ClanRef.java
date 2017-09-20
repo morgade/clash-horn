@@ -3,10 +3,13 @@
  */
 package com.clashhorn.domain.model.clan;
 
+import com.clashhorn.domain.shared.AggregateRoot;
+
 /**
  * Clan model entity
  * @author morgade
  */
+@AggregateRoot
 public class ClanRef {
     private String tag;
     private String name;

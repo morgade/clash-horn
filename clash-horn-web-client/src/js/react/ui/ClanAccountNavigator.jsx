@@ -59,7 +59,14 @@ class ClanAccountNavigator extends React.Component {
         
         return (
             <Row>
-                <Col md={9}>
+                <Col md={12}>
+                    <Nav bsStyle="pills" activeKey={activeKey}>
+                        {this.navItem('', 'Account Data')}
+                        {this.navItem('/current', 'Current War')}
+                        {this.navItem('/history', 'War Plan History')}
+                    </Nav>
+                </Col>
+                <Col md={12}>
                     <TransitionGroup>
                         <CSSTransition key={activeKey} classNames="fade" timeout={300}>
                         {message ||
@@ -72,14 +79,6 @@ class ClanAccountNavigator extends React.Component {
                         )}
                         </CSSTransition>
                     </TransitionGroup>
-                    
-                </Col>
-                <Col md={3}>
-                    <Nav bsStyle="pills" stacked activeKey={activeKey}>
-                        {this.navItem('', 'Account Data')}
-                        {this.navItem('/current', 'Current War')}
-                        {this.navItem('/history', 'War Plan History')}
-                    </Nav>
                 </Col>
             </Row>
         );

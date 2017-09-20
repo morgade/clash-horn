@@ -1,5 +1,4 @@
 import OurCSS from '../less/clash-horn.less';
-import Bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
 
 import React from 'react';
 import ReactDom from 'react-dom';

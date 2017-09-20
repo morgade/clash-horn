@@ -4,7 +4,8 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import { connect, dispatch } from 'react-redux'
+import { connect, dispatch } from 'react-redux';
+import horn from '../../../../img/horn.png';
 
 class TitleBar extends React.Component {
 
@@ -16,14 +17,21 @@ class TitleBar extends React.Component {
         return (
             <Navbar fluid>
                 <Navbar.Header>
+                    <Navbar.Brand className="navbar-brand-img">
+                        <a href="#">
+                            <img src={horn} />
+                        </a>
+                    </Navbar.Brand>
                     <Navbar.Brand>
-                        <a className="navbar-brand" href="#/">CLASH HORN</a>
+                        <a href="#">
+                            Clash Horn
+                        </a>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
             </Navbar>
         );
-                {/**
+                /**
                 <Navbar.Collapse>
                     <Nav>
                         <NavItem eventKey={1} onClick={this.goToCommentCrud.bind(this)}>COMMENT CRUD</NavItem>
@@ -40,7 +48,7 @@ class TitleBar extends React.Component {
                         <NavItem eventKey={1} href="#">Link Right</NavItem>
                         <NavItem eventKey={2} href="#">Link Right</NavItem>
                     </Nav>
-                </Navbar.Collapse>                **/}
+                </Navbar.Collapse>                **/
     }
 
 };

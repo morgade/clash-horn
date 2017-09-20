@@ -39,14 +39,10 @@ public class ClashHornServiceImplTest {
         assertThat(warPlan.getId()).isNotEmpty();
         assertThat(warPlan.getClanAccountId()).isEqualTo(clanAccountId);
         assertThat(warPlan.getEnemy().getTag()).isEqualTo(war.getOpponent().getTag());
-        assertThat(warPlan.getPerformedAttacks().size()).isEqualTo(0);
-        assertThat(warPlan.getSufferedAttacks().size()).isEqualTo(11);
-        assertThat(warPlan.getSufferedAttacks().stream() 
-                                .filter(a -> a.getAttacker() == 8)
-                                .count()
-                    ).isEqualTo(2);
-        assertThat(warPlan.getSufferedAttacks().stream() 
-                                .filter(a -> a.getAttacker() == 7 && a.getDefender() == 3)
+        assertThat(warPlan.getPerformedAttacks(3).size()).isEqualTo(0);
+        assertThat(warPlan.getSufferedAttacks(8).size()).isEqualTo(2);
+        assertThat(warPlan.getSufferedAttacks(7).stream() 
+                                .filter(a -> a.getDefender() == 3)
                                 .findFirst()
                                 .get().getStars()
                     ).isEqualTo(3);
