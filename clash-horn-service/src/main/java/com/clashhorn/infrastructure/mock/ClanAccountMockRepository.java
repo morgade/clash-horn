@@ -8,7 +8,6 @@ import com.clashhorn.domain.model.account.ClanAccountRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javafx.collections.transformation.FilteredList;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Example;
@@ -111,12 +110,12 @@ public class ClanAccountMockRepository implements ClanAccountRepository {
     }
 
     @Override
-    public <S extends ClanAccount> FilteredList<S> findAll(Example<S> arg0) {
+    public <S extends ClanAccount> List<S> findAll(Example<S> arg0) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public <S extends ClanAccount> FilteredList<S> findAll(Example<S> arg0, Sort arg1) {
+    public <S extends ClanAccount> List<S> findAll(Example<S> arg0, Sort arg1) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 

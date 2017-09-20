@@ -9,7 +9,6 @@ import com.clashhorn.domain.model.war.WarPlanBuilder;
 import com.clashhorn.domain.model.war.WarPlanRepository;
 import java.util.Date;
 import java.util.List;
-import javafx.collections.transformation.FilteredList;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Example;
@@ -139,12 +138,12 @@ public class WarPlanMockRepository implements WarPlanRepository {
     }
 
     @Override
-    public <S extends WarPlan> FilteredList<S> findAll(Example<S> arg0) {
+    public <S extends WarPlan> List<S> findAll(Example<S> arg0) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public <S extends WarPlan> FilteredList<S> findAll(Example<S> arg0, Sort arg1) {
+    public <S extends WarPlan> List<S> findAll(Example<S> arg0, Sort arg1) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
