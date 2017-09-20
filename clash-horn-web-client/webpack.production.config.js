@@ -36,7 +36,7 @@ var config = {
     
     plugins:[
         new HtmlWebpackPlugin({
-          template: 'src/index.html',
+          template: 'src/index-template.html',
           favicon: 'src/img/favicon.png'
         }),
         
