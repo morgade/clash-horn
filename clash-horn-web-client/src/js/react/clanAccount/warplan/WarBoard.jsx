@@ -21,11 +21,8 @@ class WarBoard extends React.Component {
                 </div>
                 {this.props.war.positions.map( (p) => 
                     <Row key={p.member.tag}>
-                        <Col md={6}>
-                            <WarMemberLabel warMember={p.member} />
-                        </Col>
-                        <Col md={6}>
-                            <WarMemberLabel warMember={p.enemy} />
+                        <Col md={12}>
+                            <WarMemberLabel war={this.props.war} position={p} />
                         </Col>
                     </Row>
                 )}

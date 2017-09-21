@@ -23,9 +23,9 @@ class ClanAccountNavigator extends React.Component {
         
         return (
                 <Nav activeKey={activeKey}>
-                    {this.navItem('', 'Account Data')}
+                    {this.navItem('', 'Account')}
                     {this.navItem('/current', 'Current War')}
-                    {this.navItem('/history', 'War Plan History')}
+                    {this.navItem('/history', 'History')}
                 </Nav>
         );
     }
