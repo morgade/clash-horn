@@ -13,7 +13,7 @@ import com.clashhorn.domain.shared.ValueObject;
 public class WarPlayer {
     private String tag;
     private String name;
-    private int position;
+    private int mapPosition;
     private Integer townhallLevel;
 
     WarPlayer() {
@@ -22,7 +22,7 @@ public class WarPlayer {
     public WarPlayer(String tag, String name, int position, Integer townhallLevel) {
         this.tag = tag;
         this.name = name;
-        this.position = position;
+        this.mapPosition = position;
         this.townhallLevel = townhallLevel;
     }
 
@@ -34,13 +34,11 @@ public class WarPlayer {
         return name;
     }
 
-    public int getPosition() {
-        return position;
-    }
-
     public Integer getTownhallLevel() {
         return townhallLevel;
     }
 
-    
+    public int getMapPosition() {
+        return mapPosition;
+    }
 }

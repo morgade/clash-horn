@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import WarBoard from './WarBoard.jsx';
 
-import { fetchUserBoundClanAccount, fetchWarPlan } from '../../../flux/actions/clans';
+import { fetchUserBoundClanAccount, fetchWarPlan, pushAttackQueueOnOpenWarPlan } from '../../../flux/actions/clans';
 import pathValue from '../../../util/path-value';
 
 export class WarPlanner extends React.Component {
@@ -28,6 +28,10 @@ export class WarPlanner extends React.Component {
         }
     }
     
+    positionQueuePush(enemyPosition, attackerPosition) {
+        this.props.dispatch(pushAttackQueueOnOpenWarPlan(enemyPosition, attackerPosition));
+    }
+    
     render() {
         if (this.props.fetching['fetchUserBoundClanAccount']) {
             return (<span><Glyphicon glyph="refresh" /> Loading clan account data ...</span>);
@@ -46,8 +50,8 @@ export class WarPlanner extends React.Component {
         } else {
             return (
                 <div>
-                    This is the <strong>{this.props.clanAccount.clan.name}</strong> war planner.
-                    <WarBoard war={this.props.warPlan} />
+                    { /*This is the <strong>{this.props.clanAccount.clan.name}</strong> war planner.*/ null}
+                    <WarBoard war={this.props.warPlan} onPositionQueuePush={this.positionQueuePush.bind(this)} />
                 </div>
             );
         }
@@ -60,6 +64,6 @@ export default connect(
     (store) => ({
         fetching: store.clans.fetching,
         clanAccount: store.clans.clanAccount,
-        warPlan: store.clans.fetchedWarPlan
+        warPlan: store.clans.openWarPlan
     })
 )(WarPlanner);

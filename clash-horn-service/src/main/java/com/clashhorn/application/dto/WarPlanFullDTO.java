@@ -27,11 +27,12 @@ public class WarPlanFullDTO {
     private List<Position> positions;
     
     public static class Position {
+        private int number;
         private WarPlayer member;
         private WarPlayer enemy;
         private List<WarPlanAttack> performedAttacks;
         private List<WarPlanAttack> sufferedAttacks;
-        private List<WarPlayer> attackQueue;
+        private List<Integer> attackQueue;
 
         public WarPlayer getMember() {
             return member;
@@ -65,12 +66,20 @@ public class WarPlanFullDTO {
             this.sufferedAttacks = sufferedAttacks;
         }
 
-        public List<WarPlayer> getAttackQueue() {
+        public List<Integer> getAttackQueue() {
             return attackQueue;
         }
 
-        public void setAttackQueue(List<WarPlayer> attackQueue) {
+        public void setAttackQueue(List<Integer> attackQueue) {
             this.attackQueue = attackQueue;
+        }
+
+        public int getNumber() {
+            return number;
+        }
+
+        public void setNumber(int number) {
+            this.number = number;
         }
     }
 

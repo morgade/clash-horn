@@ -13,7 +13,7 @@ const initialState =  {
     // clan obtained in the las fetch clan action
     fetchedClan: null,
     // war obtained in the last fetchWarPlan action
-    fetchedWarPlan: null
+    openWarPlan: null
 };
 
 /**
@@ -25,6 +25,12 @@ export default reducer(initialState, {
         objectAssign({}, state, { 
             accountClan: action.clan
         }),
+        
+    pushAttackQueueOnOpenWarPlan: (state, action) => {
+        var newState = objectAssign({}, state);
+        newState.openWarPlan.positions[action.enemyPosition-1].attackQueue.push(action.attackerPosition);
+        return newState;
+    },
         
     fetchClanDataRequest: (state, action) =>  
         objectAssign({}, state, { 
@@ -64,13 +70,13 @@ export default reducer(initialState, {
         
     fetchWarPlanRequest: (state, action) =>  
         objectAssign({}, state, { 
-            fetchedWarPlan: null,
+            openWarPlan: null,
             fetching: { 'fetchWarPlan': true }
         }),
         
     fetchWarPlanSuccess: (state, action) =>  
         objectAssign({}, state, { 
-            fetchedWarPlan: action.warPlan,
+            openWarPlan: action.warPlan,
             fetching: { 'fetchWarPlan': false }
         }),
     

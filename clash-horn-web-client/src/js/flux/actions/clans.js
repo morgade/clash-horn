@@ -7,6 +7,10 @@ let endpoint = "/api/clash-horn";
 
 // SYNCHRONOUS ACTION CREATORS
 export const setAccountClan = sync('setAccountClan', 'clan');
+export const pushAttackQueueOnOpenWarPlan = sync('pushAttackQueueOnOpenWarPlan', 'enemyPosition', 'attackerPosition');
+
+
+// SYNCHRONOUS FETCH ACTION CREATORS
 export const fetchClanDataRequest = sync('fetchClanDataRequest', 'clan');
 export const fetchClanDataSuccess = sync('fetchClanDataSuccess', 'clan');
 export const fetchUserBoundClanAccountRequest = sync('fetchUserBoundClanAccountRequest', 'id');

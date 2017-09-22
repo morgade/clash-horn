@@ -1,4 +1,4 @@
-div.wml {
+.wp {
 
     .row {
         background-color: @textPrimaryColor;
@@ -14,24 +14,75 @@ div.wml {
         .coc-font;
         font-weight: bolder; 
     }
-
-    .wml-position {
-        display: block;
-        width: 20px;
-        border-radius: 10px;
+    
+    .wp-th-col {
+        max-height: 90px;
         text-align: center;
-        background-color: @accentColor;
-        color: @textPrimaryColor;
-        line-height: 1.5;
     }
 
-    .wml-actions {
+    .wp-destruction {
+        color: @textPrimaryColor;
+        position: relative;
+        padding: 5px;
+        display: inline-block;
+        height: 25px;
+        line-height: 17px;
+        border-radius: 25px;
+        font-size: 12px;
+        width: 24px;
+        top: -80px;
+    }
+    
+    .wp-destruction-incomplete {
+        background-color: @accentColor;
+    }
+    
+    .wp-destruction-not-done {
+        background-color: @brand-danger;
+    }
+    
+    .wp-destruction-done {
+        background-color: @brand-success;
+    }
+
+    .wp-queue {
+        overflow: hidden;
+        white-space: nowrap;
+        padding-bottom: 2px;
+        
+        .wp-queue-item {
+            .coc-font;
+            .clickable;
+            background-image: url('../../img/queue-head.png');
+            background-color: @accentColor;
+            background-size: 24px;
+            background-repeat: no-repeat;
+            padding-left: 26px;
+            height: 28px;
+            display: inline-block;
+            color: #fff;
+            line-height: 31px;
+            margin-right: 3px;
+            margin-left: 3px;
+            padding-right: 8px;
+            background-position-y: 2px;
+            font-size: 11px;
+            border-radius: 3px;
+            box-shadow: 2px 2px 0px 0 rgba(0, 0, 0, 0.15);
+        }
+        
+        .wp-queue-item:hover {
+            text-decoration: none;
+        }
+    }
+    
+    .wp-actions {
         position: absolute;
         bottom: 15px;
         right: 10px;
     }
     
-    .wml-th {
+    .wp-th {
         display: inline-block;
         background-size: 64px;
         width: 64px;
@@ -39,45 +90,45 @@ div.wml {
         margin-top: 15px;
     }
 
-    .wml-th-1 {
+    .wp-th-1 {
         background-image: url('../../img/th1-small.png');
     }
-    .wml-th-2 {
+    .wp-th-2 {
         background-image: url('../../img/th2-small.png');
     }
-    .wml-th-3 {
+    .wp-th-3 {
         background-image: url('../../img/th3-small.png');
     }
-    .wml-th-4 {
+    .wp-th-4 {
         background-image: url('../../img/th4-small.png');
     }
-    .wml-th-5 {
+    .wp-th-5 {
         background-image: url('../../img/th5-small.png');
     }
-    .wml-th-6 {
+    .wp-th-6 {
         background-image: url('../../img/th6-small.png');
     }
-    .wml-th-7 {
+    .wp-th-7 {
         background-image: url('../../img/th7-small.png');
     }
-    .wml-th-8 {
+    .wp-th-8 {
         background-image: url('../../img/th8-small.png');
     }
-    .wml-th-9 {
+    .wp-th-9 {
         background-image: url('../../img/th9-small.png');
     }
-    .wml-th-10 {
+    .wp-th-10 {
         background-image: url('../../img/th10-small.png');
     }
-    .wml-th-11 {
+    .wp-th-11 {
         background-image: url('../../img/th11-small.png');
     }
     
-    .wml-th-d {
+    .wp-th-d {
         background-image: url('../../img/thx-destroyed.png');
     }
 
-    .wml-stars {
+    .wp-stars {
         position: relative;
         top: -90px;
         background-repeat: no-repeat;
@@ -86,19 +137,19 @@ div.wml {
         height: 50px;
         display: inline-block;
     }
-    .wml-stars-0 {
+    .wp-stars-0 {
         background-image: url('../../img/stars-0.png');
     }
 
-    .wml-stars-1 {
+    .wp-stars-1 {
         background-image: url('../../img/stars-1.png');
     }
 
-    .wml-stars-2 {
+    .wp-stars-2 {
         background-image: url('../../img/stars-2.png');
     }
 
-    .wml-stars-3 {
+    .wp-stars-3 {
         background-image: url('../../img/stars-3.png');
     }
 }

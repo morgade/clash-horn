@@ -32,6 +32,7 @@ public class WarPlan {
     private Date endTime;
     private List<WarPlayer> members;
     private List<WarPlayer> enemies;
+    private List<List<String>> tags;
     private List<List<WarPlayer>> attackQueues;
     private List<WarPlanAttack> performedAttacks;
     private List<WarPlanAttack> sufferedAttacks;
