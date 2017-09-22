@@ -19,6 +19,11 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.clashhorn.application.service.ClashOfClansService;
+import java.io.IOException;
+import javax.annotation.PostConstruct;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResponseErrorHandler;
 
 /**
  *
@@ -27,7 +32,7 @@ import com.clashhorn.application.service.ClashOfClansService;
  */
 @Service
 @Profile("live-clash-api")
-public class ClashOfClansServiceImpl implements ClashOfClansService {
+public class ClashOfClansServiceImpl implements ClashOfClansService, ResponseErrorHandler {
     public static final String RESOURCE_CURRENT_WAR = "clans/{clanTag}/currentwar";
     public static final String RESOURCE_CLANS = "clans/{clanTag}";
     public static final String HEADER_AUTH_NAME = "Authorization";
@@ -39,6 +44,11 @@ public class ClashOfClansServiceImpl implements ClashOfClansService {
     private String accessToken;
     @Autowired
     private RestTemplate restTemplate;
+
+    @PostConstruct
+    public void init() {
+        restTemplate.setErrorHandler(this);
+    }
     
     /**
      * {@inheritDoc}
@@ -93,5 +103,15 @@ public class ClashOfClansServiceImpl implements ClashOfClansService {
         headers.set(HEADER_AUTH_NAME, HEADER_AUTH_VALUE_PREFIX + accessToken);
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(headers);
         return entity;
+    }
+
+    @Override
+    public boolean hasError(ClientHttpResponse chr) throws IOException {
+        return chr.getStatusCode()!=HttpStatus.OK && chr.getStatusCode()!=HttpStatus.NOT_FOUND;
+    }
+
+    @Override
+    public void handleError(ClientHttpResponse chr) throws IOException {
+        throw new HttpClientErrorException(chr.getStatusCode());
     }
 }
