@@ -17,6 +17,7 @@ import com.clashhorn.domain.model.clan.ClanRef;
 import com.clashhorn.domain.model.war.WarPlanAttack;
 import com.clashhorn.domain.model.war.WarPlanBuilder;
 import com.clashhorn.domain.model.war.WarPlayer;
+import com.clashhorn.domain.model.war.WarScore;
 import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImpl;
 import java.util.HashMap;
 import java.util.Map;
@@ -131,7 +132,8 @@ public class ClashHornServiceImpl implements ClashHornService {
                 .preparationStartTime(war.getPreparationStartTime())
                 .startTime(war.getStartTime())
                 .endTime(war.getEndTime())
-                
+                .clanScore(new WarScore(war.getClan().getStars(), war.getClan().getDestructionPercentage()))
+                .enemyScore(new WarScore(war.getOpponent().getStars(), war.getClan().getDestructionPercentage()))
                 .members( Stream.of(war.getClan().getMembers())
                             .sorted(comparing(WarClanMember::getMapPosition))
                             .map(m -> new WarPlayer(m.getTag(), m.getName(), m.getMapPosition(), m.getTownhallLevel()))

@@ -5,6 +5,7 @@ package com.clashhorn.application.dto;
 
 import com.clashhorn.domain.model.war.WarPlanAttack;
 import com.clashhorn.domain.model.war.WarPlayer;
+import com.clashhorn.domain.model.war.WarScore;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class WarPlanFullDTO {
     private String id;
     private ClanRefDTO clan;
     private ClanRefDTO enemy;
+    private WarScore clanScore;
+    private WarScore enemyScore;
     private Integer size;
     private Date startTime;
     private Date preparationStartTime;
@@ -141,6 +144,22 @@ public class WarPlanFullDTO {
 
     public void setEnemy(ClanRefDTO enemy) {
         this.enemy = enemy;
+    }
+
+    public WarScore getClanScore() {
+        return clanScore;
+    }
+
+    public void setClanScore(WarScore clanScore) {
+        this.clanScore = clanScore;
+    }
+
+    public WarScore getEnemyScore() {
+        return enemyScore;
+    }
+
+    public void setEnemyScore(WarScore enemyScore) {
+        this.enemyScore = enemyScore;
     }
 
 }

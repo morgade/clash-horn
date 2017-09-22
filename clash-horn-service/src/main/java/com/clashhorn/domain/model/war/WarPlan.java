@@ -25,6 +25,8 @@ public class WarPlan {
     private String clanAccountId;
     private ClanRef clan;
     private ClanRef enemy;
+    private WarScore clanScore;
+    private WarScore enemyScore;
     private Date startTime;
     private Date preparationStartTime;
     private Date endTime;
@@ -54,12 +56,14 @@ public class WarPlan {
      * @param attackQueues
      * @param performedAttacks
      * @param sufferedAttacks 
+     * @param clanScore 
+     * @param enemyScore 
      */
     protected WarPlan(final String id, final String clanAccountId, final ClanRef clan, 
             final ClanRef enemy, final Date startTime, final Date preparationStartTime, 
             final Date endTime, final List<WarPlayer> members, final List<WarPlayer> enemies, 
             final List<List<WarPlayer>> attackQueues, final List<WarPlanAttack> performedAttacks, 
-            final List<WarPlanAttack> sufferedAttacks) {
+            final List<WarPlanAttack> sufferedAttacks, WarScore clanScore, WarScore enemyScore) {
         Assert.notNull(clanAccountId, "clanAccountId is mandatory");
         Assert.notNull(clan, "clan is mandatory");
         Assert.notNull(enemy, "enemy is mandatory");
@@ -69,6 +73,8 @@ public class WarPlan {
         Assert.notNull(members, "members is mandatory");
         Assert.notNull(performedAttacks, "performedAttacks is mandatory");
         Assert.notNull(sufferedAttacks, "sufferedAttacks is mandatory");
+        Assert.notNull(clanScore, "clanScore is mandatory");
+        Assert.notNull(enemyScore, "enemyScore is mandatory");
         
         Assert.notNull(enemies.size()==members.size(), "enemies and member count must match");
         
@@ -81,6 +87,8 @@ public class WarPlan {
         this.endTime = endTime;
         this.members = members;
         this.enemies = enemies;
+        this.enemyScore = enemyScore;
+        this.clanScore = clanScore;
         this.performedAttacks = new ArrayList(performedAttacks);
         this.sufferedAttacks = new ArrayList(sufferedAttacks);
         this.attackQueues = attackQueues == null ? new ArrayList() : new ArrayList(attackQueues);
@@ -125,12 +133,12 @@ public class WarPlan {
         return attackQueues.get(position);
     }
 
-    public List<WarPlanAttack> getPerformedAttacks(int position) {
-        return performedAttacks.stream().filter(a->a.getAttacker()==position).collect(toList());
+    public List<WarPlanAttack> getPerformedAttacks(int mapPosition) {
+        return performedAttacks.stream().filter(a->a.getDefender()==mapPosition).collect(toList());
     }
 
-    public List<WarPlanAttack> getSufferedAttacks(int position) {
-        return sufferedAttacks.stream().filter(a->a.getAttacker()==position).collect(toList());
+    public List<WarPlanAttack> getSufferedAttacks(int mapPosition) {
+        return sufferedAttacks.stream().filter(a->a.getDefender()==mapPosition).collect(toList());
     }
 
     public Date getStartTime() {
@@ -143,6 +151,14 @@ public class WarPlan {
 
     public Date getEndTime() {
         return endTime;
+    }
+
+    public WarScore getClanScore() {
+        return clanScore;
+    }
+
+    public WarScore getEnemyScore() {
+        return enemyScore;
     }
 
 }

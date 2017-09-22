@@ -13,7 +13,7 @@ class TitleBar extends React.Component {
     render() {
         
         return (
-            <Navbar fluid>
+            <Navbar fluid fixedTop>
                 <Navbar.Header>
                     <Navbar.Brand className="navbar-brand-img">
                         <a href="#">

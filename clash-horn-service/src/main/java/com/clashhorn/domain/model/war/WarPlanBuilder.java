@@ -24,6 +24,8 @@ public class WarPlanBuilder {
         private List<List<WarPlayer>> attackQueues;
         private List<WarPlanAttack> performedAttacks;
         private List<WarPlanAttack> sufferedAttacks;
+        private WarScore clanScore;
+        private WarScore enemyScore;
 
         private WarPlanBuilder() {
         }
@@ -89,8 +91,19 @@ public class WarPlanBuilder {
             this.sufferedAttacks = value;
             return this;
         }
+        
+        public WarPlanBuilder clanScore(final WarScore value) {
+            this.clanScore = value;
+            return this;
+        }
+        
+        public WarPlanBuilder enemyScore(final WarScore value) {
+            this.enemyScore = value;
+            return this;
+        }
+        
 
         public WarPlan build() {
-            return new WarPlan(id, clanAccountId, clan, enemy, startTime, preparationStartTime, endTime, members, enemies, attackQueues, performedAttacks, sufferedAttacks);
+            return new WarPlan(id, clanAccountId, clan, enemy, startTime, preparationStartTime, endTime, members, enemies, attackQueues, performedAttacks, sufferedAttacks, clanScore, enemyScore);
         }
     }

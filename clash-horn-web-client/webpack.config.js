@@ -15,7 +15,7 @@ var config = {
     plugins: [
         new HtmlWebpackPlugin({
           template: 'src/index-template.html',
-          favicon: 'src/img/favicon.png',
+          favicon: 'src/img/favicon.png'
         })
       ],
   
@@ -31,8 +31,8 @@ var config = {
             {test: /\.png$/, loader: 'file'},
             {test: /\.gif$/, loader: 'file'},
             {test: /\.jpg$/, loader: 'file'},
-            {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
-            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
+            {test: /\.(woff|woff2)$/, loader: 'file'},
+            {test: /\.ttf$/, loader: 'file'},
             {test: /\.otf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
             {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
             {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}
