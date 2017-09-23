@@ -64,7 +64,7 @@ public class ClashHornServiceImpl implements ClashHornService {
      * {@inheritDoc}
      */
     @Override
-    public ClanFullDTO fethClanData(String tag) {
+    public ClanFullDTO fetchClanData(String tag) {
         Clan clan = clashOfClansService.clans(tag);
         return converter.convert(clan, ClanFullDTO.class);
     }

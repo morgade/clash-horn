@@ -12,6 +12,7 @@ import CSSTransition  from 'react-transition-group/CSSTransition';
 
 import ClanSearchInput from '../ui/ClanSearchInput.jsx';
 import ClanLabel from '../ui/ClanLabel.jsx';
+import CoCStatusAlert from '../ui/CoCStatusAlert.jsx';
 import ClanAccountRegisterInput  from './ClanAccountRegisterInput.jsx';
 
 import { connect, dispatch } from 'react-redux';
@@ -23,6 +24,10 @@ import { notifySuccess } from '../../flux/actions/commons';
  *  TODO: Break into smaller components
  */
 export class RegisterManager extends React.Component {
+    
+    constructor(props) {
+        super(props);
+    }
     
     findClan(tag) {
         this.props.dispatch(fetchClanData(tag));
@@ -38,6 +43,7 @@ export class RegisterManager extends React.Component {
             this.props.dispatch(notifySuccess('Your clan account has been succesfully created'));
             this.props.history.push(`/${nextProps.registeredClanAccount.id}`);
         }
+        
     }
     
     render() {
@@ -58,6 +64,7 @@ export class RegisterManager extends React.Component {
                                 </ControlLabel>
 
                                 <ClanSearchInput clan={this.props.clan} onFindClanRequested={this.findClan.bind(this)} fetching={this.props.fetching['fetchClanDataRequest']} />
+                                <CoCStatusAlert notFound={`Could not find a clan with the provided tag`} method="fetchClanData" />
                             </FormGroup>
                             <CSSTransition in={this.props.clan!==null} classNames="fade" timeout={500}>
                                 { this.props.clan ?

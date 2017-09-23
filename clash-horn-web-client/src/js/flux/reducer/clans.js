@@ -15,7 +15,14 @@ const initialState =  {
     // clan obtained in the las fetch clan action
     fetchedClan: null,
     // war obtained in the last fetchWarPlan action
-    openWarPlan: null
+    openWarPlan: null,
+    // 
+    cocApiLatestError: null
+};
+
+const clearFetchState = {
+    fetching: {  },
+    cocApiLatestError: null
 };
 
 /**
@@ -35,48 +42,44 @@ export default reducer(initialState, {
     },
         
     fetchClanDataRequest: (state, action) =>  
-        objectAssign({}, state, { 
+        objectAssign({}, state, clearFetchState, { 
             fetchedClan: null,
             fetching: { 'fetchClanDataRequest': true }
         }),
         
     fetchClanDataSuccess: (state, action) =>  
-        objectAssign({}, state, { 
+        objectAssign({}, state, clearFetchState,  { 
             fetchedClan: action.clan,
-            lastOperation: 'fetchClanData',
-            fetching: { 'fetchClanDataRequest': false }
+            lastOperation: 'fetchClanData'
         }),
         
     registerClanAccountRequest: (state, action) =>  
-        objectAssign({}, state, { 
+        objectAssign({}, state, clearFetchState, { 
             clanAccount: null,
-            fetching: { 'registerClanAccount': true }
+            openWarPlan: null
         }),
         
     registerClanAccountSuccess: (state, action) =>  
-        objectAssign({}, state, { 
+        objectAssign({}, state, clearFetchState, { 
             clanAccount: action.clanAccount,
-            lastOperation: 'registerClanAccount',
-            fetching: { 'registerClanAccount': false }
+            lastOperation: 'registerClanAccount'
         }),
         
     fetchClanAccountRequest: (state, action) =>  
-        objectAssign({}, state, { 
+        objectAssign({}, state, clearFetchState, { 
             clanAccount: null,
-            fetching: { 'fetchClanAccount': true }
+            openWarPlan: null
         }),
         
     fetchClanAccountSuccess: (state, action) =>  
-        objectAssign({}, state, { 
+        objectAssign({}, state, clearFetchState, { 
             clanAccount: action.clanAccount,
-            lastOperation: 'fetchClanAccount',
-            fetching: { 'fetchClanAccount': false }
+            lastOperation: 'fetchClanAccount'
         }),
         
     fetchWarPlanRequest: (state, action) =>  
-        objectAssign({}, state, { 
-            openWarPlan: null,
-            fetching: { 'fetchWarPlan': true }
+        objectAssign({}, state, clearFetchState, { 
+            openWarPlan: null
         }),
         
     fetchWarPlanSuccess: (state, action) =>  
@@ -86,9 +89,16 @@ export default reducer(initialState, {
             fetching: { 'fetchWarPlan': false }
         }),
     
-    serviceFailure: (state, action) =>
-        objectAssign({}, state, { 
-            fetching: { }
-        })
+    serviceFailure: (state, action) => {
+         // CoC API error codes: -606404, -606500, etc ...
+        if (action.error.data && action.error.data.status && Math.ceil(action.error.code / 1000)===-606) {
+            return objectAssign({}, state, clearFetchState, { 
+                cocApiLatestError: action.error.data
+            });
+        } else {
+            return objectAssign({}, state, clearFetchState);
+        }
+        
+    }
     
 });

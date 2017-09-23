@@ -1,6 +1,6 @@
 package com.clashhorn;
 
-import com.googlecode.jsonrpc4j.ErrorResolver;
+import com.clashhorn.infrastructure.jsonrpc.ClashHornErrorResolver;
 import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImplExporter;
 import com.mongodb.MongoClientURI;
 import java.io.IOException;
@@ -64,8 +64,9 @@ public class Launcher extends WebMvcConfigurerAdapter {
         registry.addViewController("/").setViewName("forward:/index.html");
     }
 
+
     @Bean
-    public static AutoJsonRpcServiceImplExporter autoJsonRpcServiceImplExporter(@Autowired ErrorResolver errorResolver) {
+    public static AutoJsonRpcServiceImplExporter autoJsonRpcServiceImplExporter(@Autowired ClashHornErrorResolver errorResolver) {
         AutoJsonRpcServiceImplExporter exp = new AutoJsonRpcServiceImplExporter();
         exp.setErrorResolver(errorResolver);
         return exp;

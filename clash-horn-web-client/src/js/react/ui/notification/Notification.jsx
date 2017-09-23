@@ -5,7 +5,7 @@ import NotificationSystem from 'react-notification-system';
 
 class Notification extends React.Component {
     componentDidUpdate() {
-        if (this.props.notification) {
+        if (this.props.notification.message && this.props.notification.level) {
             this.notificationSystem.addNotification(this.props.notification);
         }
     }
