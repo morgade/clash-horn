@@ -17,7 +17,7 @@ class ClanAccountManager extends React.Component {
     constructor(props) {
         super(props);
         
-        if (!this.props.clanAccount || this.props.lastOperation !== 'registerClanAccount') {
+        if (!this.props.clanAccount) {
             // Load clan account on mount
             this.props.dispatch(fetchClanAccount(this.props.match.params.cid));
         }
@@ -64,7 +64,6 @@ ClanAccountManager.defaultProps = {
 export default connect(
     store => ({ 
         clanAccount: store.clans.clanAccount,
-        lastOperation: store.clans.lastOperation,
         fetching: store.clans.fetching
     })
 )(ClanAccountManager);
