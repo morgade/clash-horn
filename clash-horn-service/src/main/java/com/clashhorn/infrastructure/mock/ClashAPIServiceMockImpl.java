@@ -29,9 +29,8 @@ public class ClashAPIServiceMockImpl implements ClashOfClansService {
     @Override
     public War currentWar(String clanTag) {
         try {
-            Thread.sleep(2000);
             return objectMapper.readValue(getFile("classpath:mock/war-01.json"), War.class);
-        } catch (IOException | InterruptedException ex) {
+        } catch (IOException ex) {
             throw new IllegalStateException(ex);
         }
     }
@@ -42,9 +41,8 @@ public class ClashAPIServiceMockImpl implements ClashOfClansService {
     @Override
     public Clan clans(String clanTag) {
         try {
-            Thread.sleep(2000);
             return objectMapper.readValue(getFile("classpath:mock/clan-01.json"), Clan.class);
-        } catch (IOException | InterruptedException ex) {
+        } catch (IOException ex) {
             throw new IllegalStateException(ex);
         }
     }

@@ -1,9 +1,13 @@
 package com.clashhorn;
 
 import com.clashhorn.infrastructure.jsonrpc.ClashHornErrorResolver;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.googlecode.jsonrpc4j.InvocationListener;
 import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImplExporter;
 import com.mongodb.MongoClientURI;
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -23,6 +27,7 @@ import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.core.convert.support.ConversionServiceFactory;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.convert.support.GenericConversionService;
+import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
@@ -43,7 +48,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @SpringBootApplication
 public class Launcher extends WebMvcConfigurerAdapter {
-
+    public static final String PROFILE_LIVE_MONGO_DB = "live-mongo-db";
+    public static final String PROFILE_LIVE_CLASH_API = "live-clash-api";
+    public static final String PROFILE_SLOW_JSON_RPC = "slow-down-json-rpc";
+    
     @Value("${server.static-content}")
     private String staticContentLocation;
 
@@ -66,8 +74,18 @@ public class Launcher extends WebMvcConfigurerAdapter {
 
 
     @Bean
-    public static AutoJsonRpcServiceImplExporter autoJsonRpcServiceImplExporter(@Autowired ClashHornErrorResolver errorResolver) {
+    public static AutoJsonRpcServiceImplExporter autoJsonRpcServiceImplExporter(@Autowired ClashHornErrorResolver errorResolver, 
+                                                                        @Autowired Environment environment) throws Exception {
         AutoJsonRpcServiceImplExporter exp = new AutoJsonRpcServiceImplExporter();
+        if (environment.acceptsProfiles(PROFILE_SLOW_JSON_RPC)) {
+            exp.setInvocationListener(new InvocationListener() {
+                @Override public void willInvoke(Method method, List<JsonNode> list) {
+                    try { Thread.sleep(2000); } catch (InterruptedException ex) { }
+                }
+                @Override public void didInvoke(Method method, List<JsonNode> list, Object o, Throwable thrwbl, long l) { }
+            });
+        } 
+
         exp.setErrorResolver(errorResolver);
         return exp;
     }
