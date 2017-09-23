@@ -56,7 +56,8 @@ export default reducer(initialState, {
     registerClanAccountRequest: (state, action) =>  
         objectAssign({}, state, clearFetchState, { 
             clanAccount: null,
-            openWarPlan: null
+            openWarPlan: null,
+            fetching: { 'registerClanAccount': true }
         }),
         
     registerClanAccountSuccess: (state, action) =>  
@@ -68,7 +69,8 @@ export default reducer(initialState, {
     fetchClanAccountRequest: (state, action) =>  
         objectAssign({}, state, clearFetchState, { 
             clanAccount: null,
-            openWarPlan: null
+            openWarPlan: null,
+            fetching: { 'fetchClanAccount': true }
         }),
         
     fetchClanAccountSuccess: (state, action) =>  
@@ -79,14 +81,14 @@ export default reducer(initialState, {
         
     fetchWarPlanRequest: (state, action) =>  
         objectAssign({}, state, clearFetchState, { 
-            openWarPlan: null
+            openWarPlan: null,
+            fetching: { 'fetchWarPlan': true }
         }),
         
     fetchWarPlanSuccess: (state, action) =>  
         objectAssign({}, state, { 
             openWarPlan: action.warPlan,
-            lastOperation: 'fetchWarPlan',
-            fetching: { 'fetchWarPlan': false }
+            lastOperation: 'fetchWarPlan'
         }),
     
     serviceFailure: (state, action) => {
