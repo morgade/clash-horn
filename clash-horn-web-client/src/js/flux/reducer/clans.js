@@ -86,7 +86,7 @@ export default reducer(initialState, {
         }),
         
     fetchWarPlanSuccess: (state, action) =>  
-        objectAssign({}, state, { 
+        objectAssign({}, state, clearFetchState, { 
             openWarPlan: action.warPlan,
             lastOperation: 'fetchWarPlan'
         }),
