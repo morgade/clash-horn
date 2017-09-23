@@ -13,17 +13,17 @@ export const pushAttackQueueOnOpenWarPlan = sync('pushAttackQueueOnOpenWarPlan',
 // SYNCHRONOUS FETCH ACTION CREATORS
 export const fetchClanDataRequest = sync('fetchClanDataRequest', 'clan');
 export const fetchClanDataSuccess = sync('fetchClanDataSuccess', 'clan');
-export const fetchUserBoundClanAccountRequest = sync('fetchUserBoundClanAccountRequest', 'id');
-export const fetchUserBoundClanAccountSuccess = sync('fetchUserBoundClanAccountSuccess', 'clanAccount');
 export const registerClanAccountRequest = sync('registerClanAccountRequest', 'tag', 'id');
 export const registerClanAccountSuccess = sync('registerClanAccountSuccess', 'clanAccount');
+export const fetchClanAccountRequest = sync('fetchClanAccountRequest', 'id');
+export const fetchClanAccountSuccess = sync('fetchClanAccountSuccess', 'clanAccount');
 export const fetchWarPlanRequest = sync('fetchWarPlanRequest', 'accountId', 'warPlanId');
 export const fetchWarPlanSuccess = sync('fetchWarPlanSuccess', 'warPlan');
 
 // ASYNCHRONOUS FETCH ACTION HANDLERS
 export const fetchClanData =    async( params => jsonRpc.call(endpoint, 'fethClanData', params), fetchClanDataRequest, fetchClanDataSuccess, serviceFailure); 
 export const registerClanAccount = async( params => jsonRpc.call(endpoint, 'registerClanAccount', params), registerClanAccountRequest, registerClanAccountSuccess, serviceFailure); 
-export const fetchUserBoundClanAccount = async( params => jsonRpc.call(endpoint, 'fetchClanAccount', params), fetchUserBoundClanAccountRequest, fetchUserBoundClanAccountSuccess, serviceFailure); 
+export const fetchClanAccount = async( params => jsonRpc.call(endpoint, 'fetchClanAccount', params), fetchClanAccountRequest, fetchClanAccountSuccess, serviceFailure); 
 export const fetchWarPlan = async( params => jsonRpc.call(endpoint, 'fetchWarPlan', params), fetchWarPlanRequest, fetchWarPlanSuccess, serviceFailure); 
 
 // SPECIALIZED ACTION HANDLERS

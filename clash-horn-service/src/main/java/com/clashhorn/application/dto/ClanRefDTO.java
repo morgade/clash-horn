@@ -6,10 +6,12 @@ package com.clashhorn.application.dto;
 /**
  *
  * @author morgade
+ * @author guilaaf
  */
 public class ClanRefDTO {
     private String tag;
     private String name;
+    private String badge;
 
     public String getTag() {
         return tag;
@@ -26,5 +28,12 @@ public class ClanRefDTO {
     public void setName(String name) {
         this.name = name;
     }
-    
+
+    public String getBadge() {
+        return badge;
+    }
+
+    public void setBadge(String badge) {
+        this.badge = badge;
+    }
 }

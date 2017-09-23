@@ -10,26 +10,29 @@ import AccountData from './data/AccountData.jsx';
 import WarHistory from './history/WarHistory.jsx';
 import WarPlanner from './warplan/WarPlanner.jsx';
 
-import {fetchUserBoundClanAccount} from '../../flux/actions/clans';
+import {fetchClanAccount} from '../../flux/actions/clans';
 
 class ClanAccountManager extends React.Component {
     
     constructor(props) {
         super(props);
-        // Load clan account on mount
-        this.props.dispatch(fetchUserBoundClanAccount(this.props.match.params.cid));
+        
+        if (!this.props.clanAccount || this.props.lastOperation !== 'registerClanAccount') {
+            // Load clan account on mount
+            this.props.dispatch(fetchClanAccount(this.props.match.params.cid));
+        }
     }
    
     componentWillReceiveProps(newProps) {
         // Reloads clanAccount when route path changes
         if (newProps.match.params.cid !== this.props.match.params.cid) {
-           this.props.dispatch(fetchUserBoundClanAccount(newProps.match.params.cid));
+           this.props.dispatch(fetchClanAccount(newProps.match.params.cid));
         }
     }
     
     render() {
         let message = null;
-        if (this.props.fetching['fetchUserBoundClanAccount']) {
+        if (this.props.fetching['fetchClanAccount']) {
             message = (<span><Glyphicon glyph="refresh" /> Loading clan account data ...</span>);
         } else if (!this.props.clanAccount) {
             message = (
@@ -61,6 +64,7 @@ ClanAccountManager.defaultProps = {
 export default connect(
     store => ({ 
         clanAccount: store.clans.clanAccount,
+        lastOperation: store.clans.lastOperation,
         fetching: store.clans.fetching
     })
 )(ClanAccountManager);

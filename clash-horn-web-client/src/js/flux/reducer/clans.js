@@ -8,6 +8,8 @@ import {reducer} from './util'
 const initialState =  {
     // map used to control async fetch actions in progress
     fetching: {  },
+    // indicates the last operation executed
+    lastOperation: null,
     // user context bound clan account
     clanAccount: null,
     // clan obtained in the las fetch clan action
@@ -41,6 +43,7 @@ export default reducer(initialState, {
     fetchClanDataSuccess: (state, action) =>  
         objectAssign({}, state, { 
             fetchedClan: action.clan,
+            lastOperation: 'fetchClanData',
             fetching: { 'fetchClanDataRequest': false }
         }),
         
@@ -53,19 +56,21 @@ export default reducer(initialState, {
     registerClanAccountSuccess: (state, action) =>  
         objectAssign({}, state, { 
             clanAccount: action.clanAccount,
+            lastOperation: 'registerClanAccount',
             fetching: { 'registerClanAccount': false }
         }),
         
-    fetchUserBoundClanAccountRequest: (state, action) =>  
+    fetchClanAccountRequest: (state, action) =>  
         objectAssign({}, state, { 
             clanAccount: null,
-            fetching: { 'fetchUserBoundClanAccount': true }
+            fetching: { 'fetchClanAccount': true }
         }),
         
-    fetchUserBoundClanAccountSuccess: (state, action) =>  
+    fetchClanAccountSuccess: (state, action) =>  
         objectAssign({}, state, { 
             clanAccount: action.clanAccount,
-            fetching: { 'fetchUserBoundClanAccount': false }
+            lastOperation: 'fetchClanAccount',
+            fetching: { 'fetchClanAccount': false }
         }),
         
     fetchWarPlanRequest: (state, action) =>  
@@ -77,6 +82,7 @@ export default reducer(initialState, {
     fetchWarPlanSuccess: (state, action) =>  
         objectAssign({}, state, { 
             openWarPlan: action.warPlan,
+            lastOperation: 'fetchWarPlan',
             fetching: { 'fetchWarPlan': false }
         }),
     

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author morgade
+ * @author guilaaf
  */
 @Service
 public class WarPlanServiceImpl implements WarPlanService {
@@ -24,6 +25,7 @@ public class WarPlanServiceImpl implements WarPlanService {
      * @param currentWarPlanUpdatedData
      * @return 
      */
+    @Override
     public WarPlan createOrUpdateCurrentWarPlan(WarPlan currentWarPlanUpdatedData) {
         // Find a matching warplan on the repository
         WarPlan warPlan = warPlanRepository.findByAccountAndPreparationTime(currentWarPlanUpdatedData.getClanAccountId(), currentWarPlanUpdatedData.getPreparationStartTime());

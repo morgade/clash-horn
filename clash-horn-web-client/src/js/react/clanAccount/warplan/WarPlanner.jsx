@@ -33,7 +33,7 @@ export class WarPlanner extends React.Component {
     }
     
     render() {
-        if (this.props.fetching['fetchUserBoundClanAccount']) {
+        if (this.props.fetching['fetchClanAccount']) {
             return (<span><Glyphicon glyph="refresh" /> Loading clan account data ...</span>);
             
         } else if (this.props.fetching['fetchWarPlan'] || !this.props.warPlan) {

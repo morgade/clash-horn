@@ -36,8 +36,8 @@ public class WarPlanMockRepository implements WarPlanRepository {
         return 
             WarPlanBuilder.builder(id)
                     .clanAccountId("32FCAF80-59B1-E363-3877-A9C63E7D3558")
-                    .clan(new ClanRef("#FHGFDDA", "TJF"))
-                    .enemy(new ClanRef("#KJHGEKJ", "OS OUTROS"))
+                    .clan(new ClanRef("#FHGFDDA", "TJF", "https://api-assets.clashofclans.com/badges/70/26BXjsDi6Gga0Vz0Khhtrp97GaDGtz4GNLurTDp8Rt0.png"))
+                    .enemy(new ClanRef("#KJHGEKJ", "OS OUTROS", "https://api-assets.clashofclans.com/badges/70/1yXDINaahr6k39r8Tt6JcWWAeZGxDfQpBjt-WaiYiLQ.png"))
                     .build();
     }
     
@@ -46,8 +46,8 @@ public class WarPlanMockRepository implements WarPlanRepository {
         return (S)
             WarPlanBuilder.builder("XXXX")
                     .clanAccountId("32FCAF80-59B1-E363-3877-A9C63E7D3558")
-                    .clan(new ClanRef("#FHGFDDA", "TJF"))
-                    .enemy(new ClanRef("#KJHGEKJ", "OS OUTROS"))
+                    .clan(new ClanRef("#FHGFDDA", "TJF", "https://api-assets.clashofclans.com/badges/70/26BXjsDi6Gga0Vz0Khhtrp97GaDGtz4GNLurTDp8Rt0.png"))
+                    .enemy(new ClanRef("#KJHGEKJ", "OS OUTROS", "https://api-assets.clashofclans.com/badges/70/1yXDINaahr6k39r8Tt6JcWWAeZGxDfQpBjt-WaiYiLQ.png"))
                     .build();
     }
     
@@ -61,8 +61,8 @@ public class WarPlanMockRepository implements WarPlanRepository {
         return 
             WarPlanBuilder.builder("TYDHGENDMDA")
                     .clanAccountId(clanAccount)
-                    .clan(new ClanRef("#FHGFDDA", "TJF"))
-                    .enemy(new ClanRef("#KJHGEKJ", "OS OUTROS"))
+                    .clan(new ClanRef("#FHGFDDA", "TJF", "https://api-assets.clashofclans.com/badges/70/26BXjsDi6Gga0Vz0Khhtrp97GaDGtz4GNLurTDp8Rt0.png"))
+                    .enemy(new ClanRef("#KJHGEKJ", "OS OUTROS", "https://api-assets.clashofclans.com/badges/70/1yXDINaahr6k39r8Tt6JcWWAeZGxDfQpBjt-WaiYiLQ.png"))
                     .preparationStartTime(preparationStartTime)
                     .build();
     }
@@ -72,8 +72,8 @@ public class WarPlanMockRepository implements WarPlanRepository {
         return 
             WarPlanBuilder.builder(id)
                     .clanAccountId(clanAccountId)
-                    .clan(new ClanRef("#FHGFDDA", "TJF"))
-                    .enemy(new ClanRef("#KJHGEKJ", "OS OUTROS"))
+                    .clan(new ClanRef("#FHGFDDA", "TJF", "https://api-assets.clashofclans.com/badges/70/26BXjsDi6Gga0Vz0Khhtrp97GaDGtz4GNLurTDp8Rt0.png"))
+                    .enemy(new ClanRef("#KJHGEKJ", "OS OUTROS", "https://api-assets.clashofclans.com/badges/70/1yXDINaahr6k39r8Tt6JcWWAeZGxDfQpBjt-WaiYiLQ.png"))
                     .build();
     }
     

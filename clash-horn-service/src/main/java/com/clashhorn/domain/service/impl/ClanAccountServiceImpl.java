@@ -34,7 +34,7 @@ public class ClanAccountServiceImpl implements ClanAccountService {
         }
         
         Clan clan = clashAPIService.clans(clanTag);
-        ClanAccount clanAccount = new ClanAccount(clanAccountId, new ClanRef(clan.getTag(), clan.getName()));
+        ClanAccount clanAccount = new ClanAccount(clanAccountId, new ClanRef(clan.getTag(), clan.getName(), clan.getBadgeUrls().getSmall()));
         
         return clanAccountRepository.save(clanAccount);
     }

@@ -35,6 +35,7 @@ import java.util.stream.Stream;
 /**
  *
  * @author morgade
+ * @author guilaaf
  */
 @Service
 @AutoJsonRpcServiceImpl
@@ -48,7 +49,7 @@ public class ClashHornServiceImpl implements ClashHornService {
     private ClashOfClansService clashOfClansService;
     
     @Autowired
-    private ClanAccountService clashHornService;
+    private ClanAccountService clanAccountService;
     
     @Autowired
     private WarPlanRepository warPlanRepository;
@@ -82,7 +83,7 @@ public class ClashHornServiceImpl implements ClashHornService {
      */
     @Override
     public ClanAccountDTO registerClanAccount(String tag, String clanAccountId) {
-        ClanAccount clanAccount = clashHornService.registerNewClanAccount(clanAccountId, tag);
+        ClanAccount clanAccount = clanAccountService.registerNewClanAccount(clanAccountId, tag);
         return converter.convert(clanAccount, ClanAccountDTO.class);
     }
     
@@ -100,7 +101,6 @@ public class ClashHornServiceImpl implements ClashHornService {
             // warPlanId not provided. Assumes a request for the current war
             ClanAccount clanAccount = clanAccountRepository.findOne(clanAccountId);
             // Fetch current war on CoC API to verify matches and updates for a possible repository warplan
-            // TODO: Maybe optimize and reduce calls to clashOfClansService ? Example: search repository first foar a walPlan where endTime is in the future ?
             War war = clashOfClansService.currentWar(clanAccount.getClan().getTag());
             warPlan = warPlanService.createOrUpdateCurrentWarPlan(createWarPlanFromCoCWar(war, clanAccountId));
         }
@@ -120,6 +120,7 @@ public class ClashHornServiceImpl implements ClashHornService {
     /**
      * Creates a WarPlan based on CoC API war data
      * @param war
+     * @param clanAccountId
      * @return 
      */
     protected WarPlan createWarPlanFromCoCWar(War war, String clanAccountId) {
@@ -127,8 +128,8 @@ public class ClashHornServiceImpl implements ClashHornService {
         return
             WarPlanBuilder.builder(id)
                 .clanAccountId(clanAccountId)
-                .clan(new ClanRef(war.getClan().getTag(), war.getClan().getName()))
-                .enemy(new ClanRef(war.getOpponent().getTag(), war.getOpponent().getName()))
+                .clan(new ClanRef(war.getClan().getTag(), war.getClan().getName(), war.getClan().getBadgeUrls().getSmall()))
+                .enemy(new ClanRef(war.getOpponent().getTag(), war.getOpponent().getName(), war.getOpponent().getBadgeUrls().getSmall()))
                 .preparationStartTime(war.getPreparationStartTime())
                 .startTime(war.getStartTime())
                 .endTime(war.getEndTime())

@@ -19,7 +19,7 @@ class ClanBadge extends React.Component {
             return null;
         }
         
-        var badge = this.props.clan.badgeUrls ? (<img src={this.props.clan.badgeUrls.small} onError={this.loadBadgeError.bind(this)} />) : (<img src={badgeErrorImage} />) ;
+        var badge = this.props.clan.badge ? (<img src={this.props.clan.badge} onError={this.loadBadgeError.bind(this)} />) : (<img src={badgeErrorImage} />) ;
         
         if (this.state.badgeLoadError) {
             badge = (<img src={badgeErrorImage} {...this.props} />);

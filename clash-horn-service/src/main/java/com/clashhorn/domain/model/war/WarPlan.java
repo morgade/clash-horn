@@ -17,6 +17,7 @@ import org.springframework.util.Assert;
 /**
  * WarPlan model entity
  * @author morgade
+ * @author guilaaf
  */
 @AggregateRoot
 public class WarPlan {
@@ -27,8 +28,8 @@ public class WarPlan {
     private ClanRef enemy;
     private WarScore clanScore;
     private WarScore enemyScore;
-    private Date startTime;
     private Date preparationStartTime;
+    private Date startTime;
     private Date endTime;
     private List<WarPlayer> members;
     private List<WarPlayer> enemies;
