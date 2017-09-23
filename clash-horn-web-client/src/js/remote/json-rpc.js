@@ -20,12 +20,13 @@ class JsonRpc {
                 params: params || []
             })
         })
-        .then(this.assertStatus)
+        .then(response => this.assertStatus(response, method))
         .then(response => response.json() )
         .then(responseData => { 
             if (responseData.error) {
                 let error = new Error(`${responseData.error.message}`);
                 error.data = responseData.error.data;
+                error.data.method = method;
                 error.code = responseData.error.code;
                 throw error;
             } else {
@@ -34,8 +35,8 @@ class JsonRpc {
         });
     }
    
-    assertStatus(response) {
-        if (response.status >= 200 && response.status < 300) {
+    assertStatus(response, method) {
+        if (response.status === 200) {
             return response;
         } else {
             var error = new Error(`Remote access error (${response.status}) ${response.statusText}`);

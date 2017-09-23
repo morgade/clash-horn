@@ -3,6 +3,7 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import { connect } from 'react-redux';
 
 import WarBoard from './WarBoard.jsx';
+import CoCStatusAlert from '../../ui/CoCStatusAlert.jsx';
 
 import { fetchUserBoundClanAccount, fetchWarPlan, pushAttackQueueOnOpenWarPlan } from '../../../flux/actions/clans';
 import pathValue from '../../../util/path-value';
@@ -35,22 +36,12 @@ export class WarPlanner extends React.Component {
     render() {
         if (this.props.fetching['fetchUserBoundClanAccount']) {
             return (<span><Glyphicon glyph="refresh" /> Loading clan account data ...</span>);
-            
-        } else if (this.props.fetching['fetchWarPlan'] || !this.props.warPlan) {
+        } else if (this.props.fetching['fetchWarPlan']) {
             return (<span><Glyphicon glyph="refresh" /> Loading war data ...</span>);
-            
-        } else if (!this.props.clanAccount) {
-            return (
-                <div>
-                    <p>A clan account could not be found for the id <strong>{this.props.match.params.cid}</strong>.</p>
-                    <p>Check your ID or register a new account <Link to="/register">here</Link></p>
-                </div>
-            );
-    
         } else {
             return (
                 <div>
-                    { /*This is the <strong>{this.props.clanAccount.clan.name}</strong> war planner.*/ null}
+                    <CoCStatusAlert method="fetchWarPlan" denied="Request to fetch war data from Clash of Clans data service was denied. Make sure your clan's war log is public to use it on Clash Horn" />
                     <WarBoard war={this.props.warPlan} onPositionQueuePush={this.positionQueuePush.bind(this)} />
                 </div>
             );

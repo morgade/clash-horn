@@ -13,7 +13,14 @@ const initialState =  {
     // clan obtained in the las fetch clan action
     fetchedClan: null,
     // war obtained in the last fetchWarPlan action
-    openWarPlan: null
+    openWarPlan: null,
+    // 
+    cocApiLatestError: null
+};
+
+const clearFetchState = {
+    fetching: {  },
+    cocApiLatestError: null
 };
 
 /**
@@ -33,56 +40,61 @@ export default reducer(initialState, {
     },
         
     fetchClanDataRequest: (state, action) =>  
-        objectAssign({}, state, { 
+        objectAssign({}, state, clearFetchState, { 
             fetchedClan: null,
             fetching: { 'fetchClanDataRequest': true }
         }),
         
     fetchClanDataSuccess: (state, action) =>  
-        objectAssign({}, state, { 
-            fetchedClan: action.clan,
-            fetching: { 'fetchClanDataRequest': false }
+        objectAssign({}, state, clearFetchState,  { 
+            fetchedClan: action.clan
         }),
         
     registerClanAccountRequest: (state, action) =>  
-        objectAssign({}, state, { 
+        objectAssign({}, state, clearFetchState, { 
             clanAccount: null,
+            openWarPlan: null,
             fetching: { 'registerClanAccount': true }
         }),
         
     registerClanAccountSuccess: (state, action) =>  
-        objectAssign({}, state, { 
-            clanAccount: action.clanAccount,
-            fetching: { 'registerClanAccount': false }
+        objectAssign({}, state, clearFetchState, { 
+            clanAccount: action.clanAccount
         }),
         
     fetchUserBoundClanAccountRequest: (state, action) =>  
-        objectAssign({}, state, { 
+        objectAssign({}, state, clearFetchState, { 
             clanAccount: null,
+            openWarPlan: null,
             fetching: { 'fetchUserBoundClanAccount': true }
         }),
         
     fetchUserBoundClanAccountSuccess: (state, action) =>  
-        objectAssign({}, state, { 
-            clanAccount: action.clanAccount,
-            fetching: { 'fetchUserBoundClanAccount': false }
+        objectAssign({}, state, clearFetchState, { 
+            clanAccount: action.clanAccount
         }),
         
     fetchWarPlanRequest: (state, action) =>  
-        objectAssign({}, state, { 
+        objectAssign({}, state, clearFetchState, { 
             openWarPlan: null,
             fetching: { 'fetchWarPlan': true }
         }),
         
     fetchWarPlanSuccess: (state, action) =>  
-        objectAssign({}, state, { 
-            openWarPlan: action.warPlan,
-            fetching: { 'fetchWarPlan': false }
+        objectAssign({}, state, clearFetchState, { 
+            openWarPlan: action.warPlan
         }),
     
-    serviceFailure: (state, action) =>
-        objectAssign({}, state, { 
-            fetching: { }
-        })
+    serviceFailure: (state, action) => {
+         // CoC API error codes: -606404, -606500, etc ...
+        if (action.error.data && action.error.data.status && Math.ceil(action.error.code / 1000)===-606) {
+            return objectAssign({}, state, clearFetchState, { 
+                cocApiLatestError: action.error.data
+            });
+        } else {
+            return objectAssign({}, state, clearFetchState);
+        }
+        
+    }
     
 });

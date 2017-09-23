@@ -39,7 +39,7 @@ class ClanSearchInput extends React.Component {
                                 this.props.clan ? 
                                     <Glyphicon glyph="check" />
                                     : 
-                                    "Locate Clan"
+                                    "SEARCH"
                                 :
                                 <Glyphicon glyph="refresh" />
                             }

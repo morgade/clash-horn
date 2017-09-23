@@ -21,7 +21,7 @@ public interface ClashHornService {
      * @param tag
      * @return 
      */
-    ClanFullDTO fethClanData(@JsonRpcParam("tag") String tag);
+    ClanFullDTO fetchClanData(@JsonRpcParam("tag") String tag);
     
     /**
      * Register a new clanAccount
