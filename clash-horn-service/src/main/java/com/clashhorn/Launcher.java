@@ -80,7 +80,7 @@ public class Launcher extends WebMvcConfigurerAdapter {
         if (environment.acceptsProfiles(PROFILE_SLOW_JSON_RPC)) {
             exp.setInvocationListener(new InvocationListener() {
                 @Override public void willInvoke(Method method, List<JsonNode> list) {
-                    try { Thread.sleep(2000); } catch (InterruptedException ex) { }
+                    try { Thread.sleep(500); } catch (InterruptedException ex) { }
                 }
                 @Override public void didInvoke(Method method, List<JsonNode> list, Object o, Throwable thrwbl, long l) { }
             });

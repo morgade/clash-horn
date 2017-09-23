@@ -1,0 +1,141 @@
+.wps {
+    @sm-icon-size:  48px;
+    @md-icon-size:  64px;
+    @md-font:  16px;
+    @md-font:  16px;
+    @md-line-height:  24px;
+    @sm-font:  12px;
+    @sm-line-height:  16px;
+    
+    max-height: 75px;
+    
+    
+    @media (min-width: 992px) {
+        max-height: 100px;
+        
+    }
+    
+    .wps-stars {
+        display: block;
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: @sm-icon-size;
+        width: @sm-icon-size;
+        height: @sm-icon-size;
+        
+        @media (min-width: 992px) {
+            background-size: @md-icon-size;
+            width: @md-icon-size;
+            height: @md-icon-size;
+        }
+    }
+    
+    .wps-th {
+        display: block;
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: @sm-icon-size;
+        width: @sm-icon-size;
+        height: @sm-icon-size;
+        top: @sm-icon-size  * -0.6666;
+        
+        @media (min-width: 992px) {
+            top: @md-icon-size * -0.6666;
+            background-size: @md-icon-size;
+            width: @md-icon-size;
+            height: @md-icon-size;
+        }
+    }
+        
+    .wps-destruction {
+        display: block;
+        position: relative;
+        text-align: center;
+        color: @textPrimaryColor;
+        padding: 5px;
+        border-radius: 25px;
+        line-height: @sm-line-height;
+        font-size: @sm-font;
+        height: @sm-icon-size / 2;
+        width: @sm-icon-size / 2;
+        top: -@sm-icon-size;
+        left: @sm-icon-size / 4;
+        
+        @media (min-width: 992px) {
+            line-height: @md-line-height;
+            height: @md-icon-size / 2;
+            width: @md-icon-size / 2;
+            top: -@md-icon-size;
+            left: @md-icon-size / 4;
+            font-size: @md-font;
+        }
+    }
+    
+    .wps-destruction-incomplete {
+        background-color: @accentColor;
+    }
+    
+    .wps-destruction-not-done {
+        background-color: @brand-danger;
+    }
+    
+    .wps-destruction-done {
+        background-color: @brand-success;
+    }
+
+
+    .wps-th-1 {
+        background-image: url('../../img/th1-small.png');
+    }
+    .wps-th-2 {
+        background-image: url('../../img/th2-small.png');
+    }
+    .wps-th-3 {
+        background-image: url('../../img/th3-small.png');
+    }
+    .wps-th-4 {
+        background-image: url('../../img/th4-small.png');
+    }
+    .wps-th-5 {
+        background-image: url('../../img/th5-small.png');
+    }
+    .wps-th-6 {
+        background-image: url('../../img/th6-small.png');
+    }
+    .wps-th-7 {
+        background-image: url('../../img/th7-small.png');
+    }
+    .wps-th-8 {
+        background-image: url('../../img/th8-small.png');
+    }
+    .wps-th-9 {
+        background-image: url('../../img/th9-small.png');
+    }
+    .wps-th-10 {
+        background-image: url('../../img/th10-small.png');
+    }
+    .wps-th-11 {
+        background-image: url('../../img/th11-small.png');
+    }
+    
+    .wps-th-d {
+        background-image: url('../../img/thx-destroyed.png');
+    }
+
+    .wps-stars-0 {
+        background-image: url('../../img/stars-0.png');
+    }
+
+    .wps-stars-1 {
+        background-image: url('../../img/stars-1.png');
+    }
+
+    .wps-stars-2 {
+        background-image: url('../../img/stars-2.png');
+    }
+
+    .wps-stars-3 {
+        background-image: url('../../img/stars-3.png');
+    }
+}
+

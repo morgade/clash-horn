@@ -14,8 +14,10 @@ class TitleBar extends React.Component {
         
         return (
             <Navbar fluid fixedTop>
+                { /* add collapseOnSelect no Navbar after react-bootstrap 0.31.4 release
+                    https://github.com/react-bootstrap/react-bootstrap/pull/2790 */ null }
                 <Navbar.Header>
-                    <Navbar.Brand className="navbar-brand-img">
+                    <Navbar.Brand className="hidden-xs hidden-sm">
                         <a href="#">
                             <img src={horn} />
                         </a>

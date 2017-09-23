@@ -12,6 +12,8 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
+import WarPositionStatus from './WarPositionStatus.jsx'
+
 /**
  * WarPosition label
  * TODO: Clean this mess (it's working, however)
@@ -24,29 +26,6 @@ class WarPosition extends React.Component {
             queuePushAttackerPosition: -1,
             modal: null
         };
-    }
-    
-    stars() {
-        if (this.props.position.performedAttacks.length===0) {
-            return -1;
-        } else {
-            return this.props.position.performedAttacks.map( a => a.stars ).reduce( (o,n) => Math.max(o,n));
-        }
-    }
-    
-    bestPerformedAttack() {
-        if (this.props.position.performedAttacks.length===0) {
-            return 0;
-        } else {
-            let maxStars = this.props.position.performedAttacks
-                                        .map( a => a.stars)
-                                        .reduce( (o,n) => Math.max(o, n) );
-                                
-            return this.props.position.performedAttacks
-                                    .filter( a => a.stars === maxStars )
-                                    .map( a => a.destructionPercentage)
-                                    .reduce( (o,n) => Math.max(o, n));
-        }
     }
     
     showPlanAttackModal() {
@@ -62,10 +41,6 @@ class WarPosition extends React.Component {
         this.props.onQueuePush(this.props.position.number, this.state.queuePushAttackerPosition);
     }
     
-    tooltip(text) {
-        return <Tooltip id="tooltip">{text}</Tooltip>;
-    }
-    
     clanMemberSelected(evt) {
         this.setState({queuePushAttackerPosition: parseInt(evt.target.value)});
     }
@@ -77,21 +52,6 @@ class WarPosition extends React.Component {
         
         let war = this.props.war;
         let position = this.props.position;
-        let stars = this.stars();
-        let bestPerformedAttack = this.bestPerformedAttack();
-        let bestPerformedAttackTip = "";
-        
-        let bestPerformedAttackContent = null;
-        if (bestPerformedAttack==0) {
-            bestPerformedAttackTip = "No destruction yet";
-            bestPerformedAttackContent = (<Glyphicon glyph="asterisk" />);
-        } else if (bestPerformedAttack===100) {
-            bestPerformedAttackTip = "Position cleared!";
-            bestPerformedAttackContent = (<Glyphicon glyph="ok" />); 
-        } else {
-            bestPerformedAttackTip = `Best attack: ${bestPerformedAttack}%`;
-            bestPerformedAttackContent = bestPerformedAttack;
-        }
 
         const modalInstance = (
             <Modal show={this.state.modal==='planAttack'} onHide={this.close.bind(this)} bsSize="sm">
@@ -123,16 +83,10 @@ class WarPosition extends React.Component {
             <div className="wp">
                 {modalInstance}
                 <Row>
-                    <Col md={2} className="wp-th-col hidden-xs hidden-sm">
-                        <span className={`wp-th wp-th-${stars<3 ? position.enemy.townhallLevel : 'd'}`} />
-                        <span className={`wp-stars wp-stars-${stars}`} />
-                        <OverlayTrigger overlay={this.tooltip(bestPerformedAttackTip)}>
-                            <span className={`wp-destruction wp-destruction-${bestPerformedAttack>=100?'done':bestPerformedAttack>0?'incomplete':'not-done'}`}>
-                                {bestPerformedAttackContent}
-                            </span>
-                        </OverlayTrigger>
+                    <Col md={3} sm={2} xs={2}>
+                        <WarPositionStatus war={this.props.war} position={this.props.position} />
                     </Col>
-                    <Col md={10}>
+                    <Col md={9} sm={10} xs={10}>
                         <h4>
                             {position.number}. {position.enemy.name}
                         </h4>

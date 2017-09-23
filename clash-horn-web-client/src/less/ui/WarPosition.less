@@ -3,11 +3,18 @@
     .row {
         background-color: @textPrimaryColor;
         border: 1px solid @dividerColor;
+        margin-left: -10px;
+        margin-right: -10px;
         margin-top: 2px;
-        margin-bottom: 10px;
+        margin-bottom: 2px;
         padding-top: 10px;
         -moz-box-shadow: 0px 0px 3px 0 rgba(0, 0, 0, 0.15);
         box-shadow: 0px 0px 3px 0 rgba(0, 0, 0, 0.15);
+        
+        @media (min-width: 992px) {
+            .row;
+            margin-bottom: 10px;
+        }
     }
 
     h4 {
@@ -15,40 +22,14 @@
         font-weight: bolder; 
     }
     
-    .wp-th-col {
-        max-height: 90px;
-        text-align: center;
-    }
-
-    .wp-destruction {
-        color: @textPrimaryColor;
-        position: relative;
-        padding: 5px;
-        display: inline-block;
-        height: 25px;
-        line-height: 17px;
-        border-radius: 25px;
-        font-size: 12px;
-        width: 24px;
-        top: -80px;
-    }
-    
-    .wp-destruction-incomplete {
-        background-color: @accentColor;
-    }
-    
-    .wp-destruction-not-done {
-        background-color: @brand-danger;
-    }
-    
-    .wp-destruction-done {
-        background-color: @brand-success;
-    }
-
     .wp-queue {
         overflow: hidden;
         white-space: nowrap;
-        padding-bottom: 2px;
+        padding-bottom: 5px;
+        
+        @media (min-width: 992px) {
+            padding-bottom: 2px;
+        }
         
         .wp-queue-item {
             .coc-font;
@@ -78,79 +59,15 @@
     
     .wp-actions {
         position: absolute;
-        bottom: 15px;
-        right: 10px;
+        top: 15px;
+        right: 15px;
+        
+        @media (min-width: 992px) {
+            bottom: 20px;
+            right: 10px;
+            top: auto;
+        }
     }
     
-    .wp-th {
-        display: inline-block;
-        background-size: 64px;
-        width: 64px;
-        height: 64px;
-        margin-top: 15px;
-    }
-
-    .wp-th-1 {
-        background-image: url('../../img/th1-small.png');
-    }
-    .wp-th-2 {
-        background-image: url('../../img/th2-small.png');
-    }
-    .wp-th-3 {
-        background-image: url('../../img/th3-small.png');
-    }
-    .wp-th-4 {
-        background-image: url('../../img/th4-small.png');
-    }
-    .wp-th-5 {
-        background-image: url('../../img/th5-small.png');
-    }
-    .wp-th-6 {
-        background-image: url('../../img/th6-small.png');
-    }
-    .wp-th-7 {
-        background-image: url('../../img/th7-small.png');
-    }
-    .wp-th-8 {
-        background-image: url('../../img/th8-small.png');
-    }
-    .wp-th-9 {
-        background-image: url('../../img/th9-small.png');
-    }
-    .wp-th-10 {
-        background-image: url('../../img/th10-small.png');
-    }
-    .wp-th-11 {
-        background-image: url('../../img/th11-small.png');
-    }
-    
-    .wp-th-d {
-        background-image: url('../../img/thx-destroyed.png');
-    }
-
-    .wp-stars {
-        position: relative;
-        top: -90px;
-        background-repeat: no-repeat;
-        background-size: 50px;
-        width: 50px;
-        height: 50px;
-        display: inline-block;
-    }
-    .wp-stars-0 {
-        background-image: url('../../img/stars-0.png');
-    }
-
-    .wp-stars-1 {
-        background-image: url('../../img/stars-1.png');
-    }
-
-    .wp-stars-2 {
-        background-image: url('../../img/stars-2.png');
-    }
-
-    .wp-stars-3 {
-        background-image: url('../../img/stars-3.png');
-    }
 }
 

@@ -9,8 +9,7 @@ class ClanAccountNavigator extends React.Component {
     navItem(key, label) {
         return (
             <NavItem eventKey={`${key}`} 
-                    href={`#/${this.props.match.params.cid}${key}`} 
-                    disabled={this.props.clanAccount===null}>
+                    href={`#/${this.props.match.params.cid}${key}`} >
                 {label}
             </NavItem>
         );
