@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import WarBoard from './WarBoard.jsx';
 import CoCStatusAlert from '../../ui/CoCStatusAlert.jsx';
 
-import { fetchUserBoundClanAccount, fetchWarPlan, pushAttackQueueOnOpenWarPlan } from '../../../flux/actions/clans';
+import { fetchWarPlan, pushToAttackQueue } from '../../../flux/actions/clans';
 import pathValue from '../../../util/path-value';
 
 export class WarPlanner extends React.Component {
@@ -29,8 +29,8 @@ export class WarPlanner extends React.Component {
         }
     }
     
-    positionQueuePush(enemyPosition, attackerPosition) {
-        this.props.dispatch(pushAttackQueueOnOpenWarPlan(enemyPosition, attackerPosition));
+    planAttack(enemyPosition, memberPosition) {
+        this.props.dispatch(pushToAttackQueue(this.props.warPlan.id, enemyPosition, memberPosition));
     }
     
     render() {
@@ -42,7 +42,7 @@ export class WarPlanner extends React.Component {
             return (
                 <div>
                     <CoCStatusAlert method="fetchWarPlan" denied="Request to fetch war data from Clash of Clans data service was denied. Make sure your clan's war log is public to use it on Clash Horn" />
-                    <WarBoard war={this.props.warPlan} onPositionQueuePush={this.positionQueuePush.bind(this)} />
+                    <WarBoard war={this.props.warPlan} onPlanAttack={this.planAttack.bind(this)} />
                 </div>
             );
         }

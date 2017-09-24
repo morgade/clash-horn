@@ -33,6 +33,7 @@ public class WarPlanServiceImpl implements WarPlanService {
         if (warPlan!=null) {
             // Found a WarPlan matching with current war. This is it
             warPlan.updateWithDataFrom(currentWarPlanUpdatedData);
+            warPlanRepository.save(warPlan);
         } else {
             // No matches of current war. Save as a new war plan here
             warPlan = warPlanRepository.save(currentWarPlanUpdatedData);

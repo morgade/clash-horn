@@ -3,6 +3,7 @@
  */
 package com.clashhorn.application.dto;
 
+import com.clashhorn.domain.model.war.PlannedAttack;
 import com.clashhorn.domain.model.war.WarPlanAttack;
 import com.clashhorn.domain.model.war.WarPlayer;
 import com.clashhorn.domain.model.war.WarScore;
@@ -32,7 +33,7 @@ public class WarPlanFullDTO {
         private WarPlayer enemy;
         private List<WarPlanAttack> performedAttacks;
         private List<WarPlanAttack> sufferedAttacks;
-        private List<Integer> attackQueue;
+        private List<PlannedAttack> attackQueue;
 
         public WarPlayer getMember() {
             return member;
@@ -66,11 +67,11 @@ public class WarPlanFullDTO {
             this.sufferedAttacks = sufferedAttacks;
         }
 
-        public List<Integer> getAttackQueue() {
+        public List<PlannedAttack> getAttackQueue() {
             return attackQueue;
         }
 
-        public void setAttackQueue(List<Integer> attackQueue) {
+        public void setAttackQueue(List<PlannedAttack> attackQueue) {
             this.attackQueue = attackQueue;
         }
 

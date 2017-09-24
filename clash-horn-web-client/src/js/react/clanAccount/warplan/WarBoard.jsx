@@ -35,7 +35,7 @@ class WarBoard extends React.Component {
                 {this.props.war.positions.map( (p) => 
                     <Row key={p.member.tag}>
                         <Col md={6} mdOffset={3} sm={12} xs={12}>
-                            <WarPosition war={this.props.war} position={p} onQueuePush={this.props.onPositionQueuePush} />
+                            <WarPosition war={this.props.war} position={p} onQueuePush={this.props.onPlanAttack} />
                         </Col>
                     </Row>
                 )}
@@ -46,7 +46,7 @@ class WarBoard extends React.Component {
 
 WarBoard.defaultProps = {
     war: null,
-    onPositionQueuePush: () => {}
-}
+    onPlanAttack: () => {}
+};
 
 export default WarBoard

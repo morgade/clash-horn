@@ -14,6 +14,7 @@ import com.clashhorn.application.clashapi.Clan;
 import com.clashhorn.application.clashapi.War;
 import com.clashhorn.application.clashapi.WarClanMember;
 import com.clashhorn.domain.model.clan.ClanRef;
+import com.clashhorn.domain.model.war.PlannedAttack;
 import com.clashhorn.domain.model.war.WarPlanAttack;
 import com.clashhorn.domain.model.war.WarPlanBuilder;
 import com.clashhorn.domain.model.war.WarPlayer;
@@ -27,6 +28,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import com.clashhorn.domain.service.ClanAccountService;
 import com.clashhorn.domain.service.WarPlanService;
+import com.googlecode.jsonrpc4j.JsonRpcParam;
 import static java.util.Comparator.comparing;
 import java.util.UUID;
 import static java.util.stream.Collectors.toList;
@@ -111,6 +113,17 @@ public class ClashHornServiceImpl implements ClashHornService {
      * {@inheritDoc}
      */
     @Override
+    public WarPlanFullDTO pushToAttackQueue(String warPlanId, int enemyPosition, int memberPosition) {
+        WarPlan warPlan = warPlanRepository.findOne(warPlanId);
+        warPlan.addPlannedAttack(enemyPosition, memberPosition);
+        warPlanRepository.save(warPlan);
+        return converter.convert(warPlan, WarPlanFullDTO.class);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Map status() {
         return new HashMap() {{
             put("freeHeap", Runtime.getRuntime().freeMemory());
@@ -153,7 +166,9 @@ public class ClashHornServiceImpl implements ClashHornService {
                                                                 war.getOpponent(a.getDefenderTag()).getMapPosition(), 
                                                                 a.getStars(), a.getOrder(), 
                                                                 a.getDestructionPercentage()))
-                                ).collect(toList())
+                                )
+                                .sorted(comparing(WarPlanAttack::getOrder))
+                                .collect(toList())
                 )
                 
                 .sufferedAttacks( 
@@ -164,7 +179,9 @@ public class ClashHornServiceImpl implements ClashHornService {
                                                                 war.getMember(a.getDefenderTag()).getMapPosition(), 
                                                                 a.getStars(), a.getOrder(), 
                                                                 a.getDestructionPercentage()))
-                                ).collect(toList())
+                                )
+                                .sorted(comparing(WarPlanAttack::getOrder))
+                                .collect(toList())
                 )
                 
                 .build();

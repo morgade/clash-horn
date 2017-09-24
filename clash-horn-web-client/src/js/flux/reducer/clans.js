@@ -33,12 +33,6 @@ export default reducer(initialState, {
             accountClan: action.clan
         }),
         
-    pushAttackQueueOnOpenWarPlan: (state, action) => {
-        var newState = objectAssign({}, state);
-        newState.openWarPlan.positions[action.enemyPosition-1].attackQueue.push(action.attackerPosition);
-        return newState;
-    },
-        
     fetchClanDataRequest: (state, action) =>  
         objectAssign({}, state, clearFetchState, { 
             fetchedClan: null,
@@ -84,6 +78,22 @@ export default reducer(initialState, {
         objectAssign({}, state, clearFetchState, { 
             openWarPlan: action.warPlan
         }),
+        
+    pushToAttackQueueRequest: (state, action) =>  
+        objectAssign({}, state, clearFetchState, { 
+            fetching: { 'pushToAttackQueue': true }
+        }),
+        
+    pushToAttackQueueSuccess: (state, action) =>  
+        objectAssign({}, state, clearFetchState, { 
+            openWarPlan: action.warPlan
+        }),
+        
+//    pushAttackQueueOnOpenWarPlan: (state, action) => {
+//        var newState = objectAssign({}, state);
+//        newState.openWarPlan.positions[action.enemyPosition-1].attackQueue.push(action.attackerPosition);
+//        return newState;
+//    },
     
     serviceFailure: (state, action) => {
          // CoC API error codes: -606404, -606500, etc ...

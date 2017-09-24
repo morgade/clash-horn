@@ -49,6 +49,16 @@ public interface ClashHornService {
      */
     WarPlanFullDTO fetchWarPlan(@JsonRpcParam("clanAccountId") String clanAccountId, @JsonRpcParam("warPlanId") String warPlanId);
     
+    /**
+     * Add a planned attack for a designated clan member to the queue of an indicated enemy. 
+     * 
+     * @param warPlanId
+     * @param enemyPosition
+     * @param memberPosition
+     * 
+     * @return 
+     */
+    WarPlanFullDTO pushToAttackQueue(@JsonRpcParam("warPlanId") String warPlanId, @JsonRpcParam("enemyPosition") int enemyPosition, @JsonRpcParam("memberPosition") int memberPosition);
     
     /**
      * Fetch service status data

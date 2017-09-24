@@ -7,6 +7,7 @@ import com.clashhorn.domain.model.clan.ClanRef;
 import com.clashhorn.domain.shared.AggregateRoot;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
@@ -34,7 +35,7 @@ public class WarPlan {
     private List<WarPlayer> members;
     private List<WarPlayer> enemies;
     private List<List<String>> tags;
-    private List<List<WarPlayer>> attackQueues;
+    private List<List<PlannedAttack>> attackQueues;
     private List<WarPlanAttack> performedAttacks;
     private List<WarPlanAttack> sufferedAttacks;
 
@@ -50,8 +51,8 @@ public class WarPlan {
      * @param clanAccountId
      * @param clan
      * @param enemy
-     * @param startTime
      * @param preparationStartTime
+     * @param startTime
      * @param endTime
      * @param members
      * @param enemies
@@ -64,7 +65,7 @@ public class WarPlan {
     protected WarPlan(final String id, final String clanAccountId, final ClanRef clan, 
             final ClanRef enemy, final Date startTime, final Date preparationStartTime, 
             final Date endTime, final List<WarPlayer> members, final List<WarPlayer> enemies, 
-            final List<List<WarPlayer>> attackQueues, final List<WarPlanAttack> performedAttacks, 
+            final List<List<PlannedAttack>> attackQueues, final List<WarPlanAttack> performedAttacks, 
             final List<WarPlanAttack> sufferedAttacks, WarScore clanScore, WarScore enemyScore) {
         Assert.notNull(clanAccountId, "clanAccountId is mandatory");
         Assert.notNull(clan, "clan is mandatory");
@@ -89,15 +90,31 @@ public class WarPlan {
         this.endTime = endTime;
         this.members = members;
         this.enemies = enemies;
-        this.enemyScore = enemyScore;
         this.clanScore = clanScore;
+        this.enemyScore = enemyScore;
         this.performedAttacks = new ArrayList(performedAttacks);
         this.sufferedAttacks = new ArrayList(sufferedAttacks);
         this.attackQueues = attackQueues == null ? new ArrayList() : new ArrayList(attackQueues);
     }
 
     public void updateWithDataFrom(WarPlan currentWarPlanUpdatedData) {
-        // TODO: Implement
+        this.clanScore = currentWarPlanUpdatedData.getClanScore();
+        this.enemyScore = currentWarPlanUpdatedData.getEnemyScore();
+        this.performedAttacks = new ArrayList(currentWarPlanUpdatedData.performedAttacks);
+        this.sufferedAttacks = new ArrayList(currentWarPlanUpdatedData.sufferedAttacks);
+    }
+    
+    public void addPlannedAttack(int enemyPosition, int memberPosition) {
+        Assert.isTrue(enemyPosition < this.enemies.size(), "invalid enemy position");
+        Assert.isTrue(memberPosition < this.members.size(), "invalid member position");
+        Assert.isTrue(0 == this.attackQueues.get(enemyPosition).stream().filter(a -> a.getAttacker()==memberPosition).count(), "this member is already in the queue");
+        
+        List<WarPlanAttack> memberPerformedAttacks = this.performedAttacks.stream().filter(a -> a.getAttacker() == memberPosition).collect(toList());
+        Assert.isTrue(memberPerformedAttacks.size() < 2, "this member already have 2 attacks in this war");
+        Assert.isTrue(0 == memberPerformedAttacks.stream().filter(a -> a.getDefender()== enemyPosition).count() , "this member already attacked that enemy");
+        
+        int lastOrder = this.performedAttacks.size() > 0 ? this.performedAttacks.get(this.performedAttacks.size() - 1).getOrder() : 0;
+        this.attackQueues.get(enemyPosition).add(new PlannedAttack(memberPosition, lastOrder));
     }
     
     public int getMapSize() {
@@ -128,7 +145,7 @@ public class WarPlan {
         return Collections.unmodifiableList(enemies);
     }
 
-    public List<WarPlayer> getAttackQueue(int position) {
+    public List<PlannedAttack> getAttackQueue(int position) {
         if (position>attackQueues.size()-1) {
             return Collections.EMPTY_LIST;
         }
@@ -162,5 +179,4 @@ public class WarPlan {
     public WarScore getEnemyScore() {
         return enemyScore;
     }
-
 }

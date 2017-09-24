@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * WarPlanBuilder
  * @author morgade
+ * @author guilaaf
  */
 public class WarPlanBuilder {
         private String id;
@@ -21,7 +22,7 @@ public class WarPlanBuilder {
         private Date endTime;
         private List<WarPlayer> members;
         private List<WarPlayer> enemies;
-        private List<List<WarPlayer>> attackQueues;
+        private List<List<PlannedAttack>> attackQueues;
         private List<WarPlanAttack> performedAttacks;
         private List<WarPlanAttack> sufferedAttacks;
         private WarScore clanScore;
@@ -77,7 +78,7 @@ public class WarPlanBuilder {
             return this;
         }
 
-        public WarPlanBuilder attackQueues(final List<List<WarPlayer>> value) {
+        public WarPlanBuilder attackQueues(final List<List<PlannedAttack>> value) {
             this.attackQueues = value;
             return this;
         }

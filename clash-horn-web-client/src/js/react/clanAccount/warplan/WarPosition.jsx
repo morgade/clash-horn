@@ -92,11 +92,11 @@ class WarPosition extends React.Component {
                         </h4>
                         
                         <div className="wp-queue">
-                            {position.attackQueue.map( (attacker, idx) =>
+                            {position.attackQueue.map( (plannedAttack, idx) =>
                             <span>
                                 {idx > 0 ? <Glyphicon glyph="chevron-left" /> : null}
-                                <a key={attacker} className="wp-queue-item" onClick={ () => alert('Implementar aqui') }>
-                                    {war.positions[attacker-1].member.name}
+                                <a key={plannedAttack.attacker} className="wp-queue-item" onClick={ () => alert('Implementar aqui') }>
+                                    {war.positions[plannedAttack.attacker-1].member.name}
                                     {' '}
                                     <Glyphicon glyph="remove" />
                                 </a>
