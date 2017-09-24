@@ -4,7 +4,6 @@ import com.clashhorn.infrastructure.jsonrpc.ClashHornErrorResolver;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.googlecode.jsonrpc4j.InvocationListener;
 import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImplExporter;
-import com.mongodb.MongoClientURI;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -28,14 +27,6 @@ import org.springframework.core.convert.support.ConversionServiceFactory;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.core.env.Environment;
-import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
-import org.springframework.data.mongodb.core.convert.DbRefResolver;
-import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
-import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
-import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
-import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -73,23 +64,6 @@ public class Launcher extends WebMvcConfigurerAdapter {
     }
 
 
-    @Bean
-    public static AutoJsonRpcServiceImplExporter autoJsonRpcServiceImplExporter(@Autowired ClashHornErrorResolver errorResolver, 
-                                                                        @Autowired Environment environment) throws Exception {
-        AutoJsonRpcServiceImplExporter exp = new AutoJsonRpcServiceImplExporter();
-        if (environment.acceptsProfiles(PROFILE_SLOW_JSON_RPC)) {
-            exp.setInvocationListener(new InvocationListener() {
-                @Override public void willInvoke(Method method, List<JsonNode> list) {
-                    try { Thread.sleep(500); } catch (InterruptedException ex) { }
-                }
-                @Override public void didInvoke(Method method, List<JsonNode> list, Object o, Throwable thrwbl, long l) { }
-            });
-        } 
-
-        exp.setErrorResolver(errorResolver);
-        return exp;
-    }
-
     /**
      * Avoid @RestController caching problems on older IE
      * @return
@@ -115,23 +89,6 @@ public class Launcher extends WebMvcConfigurerAdapter {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-    
-    @Bean
-    public MongoDbFactory mongoDbFactory() throws Exception {
-	return new SimpleMongoDbFactory(new MongoClientURI("mongodb://localhost:27017/test"));
-    }
-  
-    @Bean
-    public MongoTemplate mongoTemplate(@Autowired MongoDbFactory mongoDbFactory) throws Exception {
-        DbRefResolver dbRefResolver = new DefaultDbRefResolver(mongoDbFactory);
-        MappingMongoConverter converter = new MappingMongoConverter(dbRefResolver, new MongoMappingContext());
-        converter.setTypeMapper(new DefaultMongoTypeMapper(null));
-        
-        MongoTemplate m = new MongoTemplate(mongoDbFactory, converter);
-        //m.setWriteConcern(WriteConcern.ACKNOWLEDGED);
-        return m;
-    }
-    
     
     /**
      *

@@ -7,7 +7,6 @@ import com.clashhorn.application.dto.ClanRefDTO;
 import com.clashhorn.application.dto.WarPlanFullDTO;
 import com.clashhorn.domain.model.war.WarPlan;
 import static java.util.stream.Collectors.toList;
-import java.util.stream.IntStream;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -27,15 +26,15 @@ public class WarPlanToWarPlanFullDTO extends ConverterDepedentConverter implemen
         target.setClan(getConverter().convert(source.getClan(), ClanRefDTO.class) );
         target.setEnemy(getConverter().convert(source.getEnemy(), ClanRefDTO.class));
         target.setPositions(
-                IntStream.range(0, source.getMapSize())
-                        .mapToObj(idx -> {
+                source.positions()
+                        .map( warPosition -> {
                             WarPlanFullDTO.Position pos = new WarPlanFullDTO.Position();
-                            pos.setNumber(idx+1);
-                            pos.setEnemy(source.getEnemies().get(idx));
-                            pos.setMember(source.getMembers().get(idx));
-                            pos.setPerformedAttacks(source.getPerformedAttacks(idx+1));
-                            pos.setSufferedAttacks(source.getSufferedAttacks(idx+1));
-                            pos.setAttackQueue(source.getAttackQueue(idx));
+                            pos.setNumber(warPosition.asValue());
+                            pos.setEnemy(source.getEnemy(warPosition));
+                            pos.setMember(source.getMember(warPosition));
+                            pos.setPerformedAttacks(source.getPerformedAttacks(warPosition));
+                            pos.setSufferedAttacks(source.getSufferedAttacks(warPosition));
+                            pos.setAttackQueue(source.getAttackQueue(warPosition));
                             return pos;
                         })
                         .collect(toList())

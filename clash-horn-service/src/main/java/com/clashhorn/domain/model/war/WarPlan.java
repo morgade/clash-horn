@@ -7,10 +7,12 @@ import com.clashhorn.domain.model.clan.ClanRef;
 import com.clashhorn.domain.shared.AggregateRoot;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import org.springframework.data.annotation.Id;
 import org.springframework.util.Assert;
 
@@ -80,6 +82,8 @@ public class WarPlan {
         Assert.notNull(enemyScore, "enemyScore is mandatory");
         
         Assert.notNull(enemies.size()==members.size(), "enemies and member count must match");
+        Assert.isTrue(!enemies.stream().anyMatch(l->l==null), "Invalid enemies null content");
+        Assert.isTrue(!members.stream().anyMatch(l->l==null), "Invalid members null content");
         
         this.id = id.toUpperCase();
         this.clanAccountId = clanAccountId;
@@ -94,7 +98,14 @@ public class WarPlan {
         this.enemyScore = enemyScore;
         this.performedAttacks = new ArrayList(performedAttacks);
         this.sufferedAttacks = new ArrayList(sufferedAttacks);
-        this.attackQueues = attackQueues == null ? new ArrayList() : new ArrayList(attackQueues);
+        if (attackQueues!=null) {
+            Assert.isTrue(attackQueues.size()==members.size(), "Invalid attackQueue size");
+            Assert.isTrue(!attackQueues.stream().anyMatch(l->l==null), "Invalid attackQueue null content");
+            this.attackQueues = attackQueues;
+        } else {
+            this.attackQueues = new ArrayList<>();
+            this.members.stream().forEach(m -> this.attackQueues.add(new LinkedList<>()));
+        }
     }
 
     public void updateWithDataFrom(WarPlan currentWarPlanUpdatedData) {
@@ -104,21 +115,26 @@ public class WarPlan {
         this.sufferedAttacks = new ArrayList(currentWarPlanUpdatedData.sufferedAttacks);
     }
     
-    public void addPlannedAttack(int enemyPosition, int memberPosition) {
-        Assert.isTrue(enemyPosition < this.enemies.size(), "invalid enemy position");
-        Assert.isTrue(memberPosition < this.members.size(), "invalid member position");
-        Assert.isTrue(0 == this.attackQueues.get(enemyPosition).stream().filter(a -> a.getAttacker()==memberPosition).count(), "this member is already in the queue");
+    public void addPlannedAttack(WarPosition enemyPosition, WarPosition memberPosition) {
+        Assert.isTrue(!this.getAttackQueue(enemyPosition).stream().anyMatch(a -> a.getAttacker()==memberPosition), "this member is already in the queue");
         
-        List<WarPlanAttack> memberPerformedAttacks = this.performedAttacks.stream().filter(a -> a.getAttacker() == memberPosition).collect(toList());
+        
+        List<WarPlanAttack> memberPerformedAttacks = this.getPerformedAttacks(memberPosition);
         Assert.isTrue(memberPerformedAttacks.size() < 2, "this member already have 2 attacks in this war");
-        Assert.isTrue(0 == memberPerformedAttacks.stream().filter(a -> a.getDefender()== enemyPosition).count() , "this member already attacked that enemy");
+        Assert.isTrue(memberPerformedAttacks.stream().anyMatch(a -> a.getDefender()== enemyPosition), "this member already attacked that enemy");
         
         int lastOrder = this.performedAttacks.size() > 0 ? this.performedAttacks.get(this.performedAttacks.size() - 1).getOrder() : 0;
-        this.attackQueues.get(enemyPosition).add(new PlannedAttack(memberPosition, lastOrder));
+        this.getAttackQueue(enemyPosition).add(new PlannedAttack(memberPosition, lastOrder));
     }
     
     public int getMapSize() {
         return members.size();
+    }
+    
+    public Stream<WarPosition> positions() {
+        return IntStream
+                .rangeClosed(1, members.size())
+                .mapToObj(WarPosition::fromValue);
     }
     
     public String getId() {
@@ -140,23 +156,28 @@ public class WarPlan {
     public List<WarPlayer> getMembers() {
         return Collections.unmodifiableList(members);
     }
+    
+    public WarPlayer getMember(WarPosition pos) {
+        return members.get(pos.asIndex());
+    }
 
     public List<WarPlayer> getEnemies() {
         return Collections.unmodifiableList(enemies);
     }
-
-    public List<PlannedAttack> getAttackQueue(int position) {
-        if (position>attackQueues.size()-1) {
-            return Collections.EMPTY_LIST;
-        }
-        return attackQueues.get(position);
+    
+    public WarPlayer getEnemy(WarPosition pos) {
+        return enemies.get(pos.asIndex());
+    }
+    
+    public List<PlannedAttack> getAttackQueue(WarPosition position) {
+        return attackQueues.get(position.asIndex());
     }
 
-    public List<WarPlanAttack> getPerformedAttacks(int mapPosition) {
+    public List<WarPlanAttack> getPerformedAttacks(WarPosition mapPosition) {
         return performedAttacks.stream().filter(a->a.getDefender()==mapPosition).collect(toList());
     }
 
-    public List<WarPlanAttack> getSufferedAttacks(int mapPosition) {
+    public List<WarPlanAttack> getSufferedAttacks(WarPosition mapPosition) {
         return sufferedAttacks.stream().filter(a->a.getDefender()==mapPosition).collect(toList());
     }
 

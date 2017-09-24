@@ -5,6 +5,7 @@ package com.clashhorn.application.service;
 
 import com.clashhorn.application.clashapi.War;
 import com.clashhorn.domain.model.war.WarPlan;
+import com.clashhorn.domain.model.war.WarPosition;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,10 +40,10 @@ public class ClashHornServiceImplTest {
         assertThat(warPlan.getId()).isNotEmpty();
         assertThat(warPlan.getClanAccountId()).isEqualTo(clanAccountId);
         assertThat(warPlan.getEnemy().getTag()).isEqualTo(war.getOpponent().getTag());
-        assertThat(warPlan.getPerformedAttacks(3).size()).isEqualTo(0);
-        assertThat(warPlan.getSufferedAttacks(4).size()).isEqualTo(2);
-        assertThat(warPlan.getSufferedAttacks(4).stream() 
-                                .filter(a -> a.getAttacker()== 6)
+        assertThat(warPlan.getPerformedAttacks(WarPosition.P03).size()).isEqualTo(0);
+        assertThat(warPlan.getSufferedAttacks(WarPosition.P04).size()).isEqualTo(2);
+        assertThat(warPlan.getSufferedAttacks(WarPosition.P04).stream() 
+                                .filter(a -> a.getAttacker()== WarPosition.P06)
                                 .findFirst()
                                 .get().getStars()
                     ).isEqualTo(3);

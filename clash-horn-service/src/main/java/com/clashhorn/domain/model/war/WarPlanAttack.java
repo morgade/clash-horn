@@ -20,20 +20,20 @@ public class WarPlanAttack {
     WarPlanAttack() {
     }
 
-    public WarPlanAttack(int attacker, int defender, int stars, int order, float destructionPercentage) {
-        this.attacker = attacker;
-        this.defender = defender;
+    public WarPlanAttack(WarPosition attacker, WarPosition defender, int stars, int order, float destructionPercentage) {
+        this.attacker = attacker.asValue();
+        this.defender = defender.asValue();
         this.stars = stars;
         this.order = order;
         this.destructionPercentage = destructionPercentage;
     }
 
-    public int getAttacker() {
-        return attacker;
+    public WarPosition getAttacker() {
+        return WarPosition.fromValue(attacker);
     }
 
-    public int getDefender() {
-        return defender;
+    public WarPosition getDefender() {
+        return WarPosition.fromValue(defender);
     }
 
     public int getStars() {

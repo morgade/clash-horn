@@ -18,13 +18,13 @@ public class PlannedAttack {
     public PlannedAttack() {
     }
 
-    public PlannedAttack(int attacker, int order) {
-        this.attacker = attacker;
+    public PlannedAttack(WarPosition attacker, int order) {
+        this.attacker = attacker.asValue();
         this.order = order;
     }
 
-    public int getAttacker() {
-        return attacker;
+    public WarPosition getAttacker() {
+        return WarPosition.fromValue(attacker);
     }
 
     public int getOrder() {
