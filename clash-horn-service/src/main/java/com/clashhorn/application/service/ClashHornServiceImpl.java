@@ -135,7 +135,7 @@ public class ClashHornServiceImpl implements ClashHornService {
      * @param clanAccountId
      * @return 
      */
-    protected WarPlan createWarPlanFromCoCWar(War war, String clanAccountId) {
+    public static WarPlan createWarPlanFromCoCWar(War war, String clanAccountId) {
         String id = UUID.randomUUID().toString();
         return
             WarPlanBuilder.builder(id)

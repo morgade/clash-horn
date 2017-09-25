@@ -3,6 +3,7 @@
  */
 package com.clashhorn.infrastructure.clashapi;
 
+import com.clashhorn.Configuration;
 import com.clashhorn.application.clashapi.War;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.clashhorn.application.service.ClashOfClansService;
+import org.springframework.context.annotation.Profile;
 
 /**
  *
@@ -19,7 +21,7 @@ import com.clashhorn.application.service.ClashOfClansService;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Import(ClashApiTestConfiguration.class)
+@Import(Configuration.class)
 public class ClashOfClansServiceTest {
     
     @Autowired

@@ -25,27 +25,26 @@ import static org.assertj.core.api.Assertions.*;
 public class ClashHornServiceImplTest {
     
     @Autowired
-    private ClashHornServiceImpl service;
-    @Autowired
     private ObjectMapper objectMapper;
     
     @Test
     public void createWarPlanFromCoCWarTest() throws Exception {
-        String content = new String(copyToByteArray(getFile("classpath:json/war-01.json") ), "UTF8");
-        War war = objectMapper.readValue(content, War.class);
+        War war = objectMapper.readValue(getClass().getResource("/mock/data01/currentWar-01.json"), War.class);
                 
         String clanAccountId = "XXXXXXX";
         
-        WarPlan warPlan = service.createWarPlanFromCoCWar(war, clanAccountId);
+        WarPlan warPlan = ClashHornServiceImpl.createWarPlanFromCoCWar(war, clanAccountId);
         assertThat(warPlan.getId()).isNotEmpty();
         assertThat(warPlan.getClanAccountId()).isEqualTo(clanAccountId);
         assertThat(warPlan.getEnemy().getTag()).isEqualTo(war.getOpponent().getTag());
-        assertThat(warPlan.getPerformedAttacks(WarPosition.P03).size()).isEqualTo(0);
-        assertThat(warPlan.getSufferedAttacks(WarPosition.P04).size()).isEqualTo(2);
-        assertThat(warPlan.getSufferedAttacks(WarPosition.P04).stream() 
-                                .filter(a -> a.getAttacker()== WarPosition.P06)
+        
+        assertThat(warPlan.getPerformedAttacksBy(WarPosition.P06).size()).isEqualTo(1);
+        
+        assertThat(warPlan.getSufferedAttacksAgainst(WarPosition.P04).size()).isEqualTo(2);
+        assertThat(warPlan.getSufferedAttacksAgainst(WarPosition.P04).stream() 
+                                .filter(a -> a.getAttacker()== WarPosition.P04)
                                 .findFirst()
                                 .get().getStars()
-                    ).isEqualTo(3);
+                    ).isEqualTo(2);
     }
 }

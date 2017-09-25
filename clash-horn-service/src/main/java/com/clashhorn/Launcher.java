@@ -1,12 +1,6 @@
 package com.clashhorn;
 
-import com.clashhorn.infrastructure.jsonrpc.ClashHornErrorResolver;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.googlecode.jsonrpc4j.InvocationListener;
-import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImplExporter;
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -26,7 +20,6 @@ import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.core.convert.support.ConversionServiceFactory;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.convert.support.GenericConversionService;
-import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

@@ -6,19 +6,15 @@ package com.clashhorn.infrastructure.clashapi.data;
 import com.clashhorn.application.clashapi.WarClan;
 import com.clashhorn.application.clashapi.War;
 import com.clashhorn.application.clashapi.WarClanMember;
-import com.clashhorn.infrastructure.clashapi.ClashApiTestConfiguration;
+import com.clashhorn.Configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ResolvableType;
-import static org.springframework.util.FileCopyUtils.copyToByteArray;
-import static org.springframework.util.ResourceUtils.getFile;
 
 /**
  *
@@ -26,32 +22,28 @@ import static org.springframework.util.ResourceUtils.getFile;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Import(ClashApiTestConfiguration.class)
+@Import(Configuration.class)
 public class WarTest {
     public static final String STATE = "inWar";
-    public static final int TEAM_SIZE = 10;
+    public static final int TEAM_SIZE = 15;
     public static final String CLAN_TAG = "#22PLRY2G";
     public static final String CLAN_NAME = "TJF";
     public static final int CLAN_LEVEL = 10;
-    public static final String OPPONENT_NAME = "доза";
-    public static final int OPPONENT_STARS = 28;
-    public static final int OPPONENT_ATTACKS = 11;
-    public static final float OPPONENT_DESTRUCUTION_PERCENTAGE = 95.8f;
+    public static final String OPPONENT_NAME = "Pack Mentality";
+    public static final int OPPONENT_STARS = 38;
+    public static final int OPPONENT_ATTACKS = 22;
+    public static final float OPPONENT_DESTRUCUTION_PERCENTAGE = 85.666664f;
     
-    public static final int OPPONENT_MEMBER_1_ATTACK_0_STARS = 3;
-    public static final float OPPONENT_MEMBER_1_ATTACK_0_DESTRUCUTION_PERCENTAGE = 100f;
-    public static final int OPPONENT_MEMBER_1_ATTACK_0_ORDER = 9;
+    public static final int OPPONENT_MEMBER_1_ATTACK_0_STARS = 2;
+    public static final float OPPONENT_MEMBER_1_ATTACK_0_DESTRUCUTION_PERCENTAGE = 89;
+    public static final int OPPONENT_MEMBER_1_ATTACK_0_ORDER = 10;
     
     @Autowired
     private ObjectMapper objectMapper;
     
     @Test
     public void jsonLoadTest() throws Exception {
-        JacksonTester<War> json = new JacksonTester<>(War.class, ResolvableType.forClass(War.class), objectMapper);
-        
-        String content = new String(copyToByteArray(getFile("classpath:json/war-01.json") ), "UTF8");
-        
-        War war = json.parse(content).getObject();
+        War war = objectMapper.readValue(getClass().getResource("/mock/data01/currentWar-01.json"), War.class);
         
         assertThat(war.getState()).isEqualTo(STATE);
         assertThat(war.getTeamSize()).isEqualTo(TEAM_SIZE);

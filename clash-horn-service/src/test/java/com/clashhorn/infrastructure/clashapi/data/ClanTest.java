@@ -4,7 +4,7 @@
 package com.clashhorn.infrastructure.clashapi.data;
 
 import com.clashhorn.application.clashapi.Clan;
-import com.clashhorn.infrastructure.clashapi.ClashApiTestConfiguration;
+import com.clashhorn.Configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +24,7 @@ import static org.springframework.util.ResourceUtils.getFile;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Import(ClashApiTestConfiguration.class)
+@Import(Configuration.class)
 public class ClanTest {
     
     public static final String TAG = "#22PLRY2G";
@@ -46,7 +46,7 @@ public class ClanTest {
     public void jsonLoadTest() throws Exception {
         JacksonTester<Clan> json = new JacksonTester<>(Clan.class, ResolvableType.forClass(Clan.class), objectMapper);
         
-        String content = new String(copyToByteArray(getFile("classpath:json/clan-01.json") ), "UTF8");
+        String content = new String(copyToByteArray(getFile("classpath:mock/data01/clan-01.json") ), "UTF8");
         
         Clan clan = json.parse(content).getObject();
         

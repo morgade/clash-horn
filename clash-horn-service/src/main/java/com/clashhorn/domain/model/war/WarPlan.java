@@ -5,11 +5,13 @@ package com.clashhorn.domain.model.war;
 
 import com.clashhorn.domain.model.clan.ClanRef;
 import com.clashhorn.domain.shared.AggregateRoot;
+import static java.lang.String.format;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import static java.util.stream.Collectors.toList;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -100,7 +102,7 @@ public class WarPlan {
         this.sufferedAttacks = new ArrayList(sufferedAttacks);
         if (attackQueues!=null) {
             Assert.isTrue(attackQueues.size()==members.size(), "Invalid attackQueue size");
-            Assert.isTrue(!attackQueues.stream().anyMatch(l->l==null), "Invalid attackQueue null content");
+            Assert.isTrue(attackQueues.stream().noneMatch(Objects::isNull), "Invalid attackQueue null content");
             this.attackQueues = attackQueues;
         } else {
             this.attackQueues = new ArrayList<>();
@@ -116,15 +118,15 @@ public class WarPlan {
     }
     
     public void addPlannedAttack(WarPosition enemyPosition, WarPosition memberPosition) {
-        Assert.isTrue(!this.getAttackQueue(enemyPosition).stream().anyMatch(a -> a.getAttacker()==memberPosition), "this member is already in the queue");
+        Assert.isTrue(this.getAttackQueue(enemyPosition).stream().noneMatch(a -> a.getAttacker()==memberPosition), "this member is already in the queue");
         
         
-        List<WarPlanAttack> memberPerformedAttacks = this.getPerformedAttacks(memberPosition);
-        Assert.isTrue(memberPerformedAttacks.size() < 2, "this member already have 2 attacks in this war");
-        Assert.isTrue(memberPerformedAttacks.stream().anyMatch(a -> a.getDefender()== enemyPosition), "this member already attacked that enemy");
+        List<WarPlanAttack> memberPerformedAttacks = this.getPerformedAttacksBy(memberPosition);
+        Assert.isTrue(memberPerformedAttacks.size() < 2, format("this member already have 2 attacks in this war: %s", memberPosition));
+        Assert.isTrue(memberPerformedAttacks.stream().noneMatch(a -> a.getDefender()== enemyPosition), format("Member %s already attacked enemy %s", memberPosition, enemyPosition));
         
         int lastOrder = this.performedAttacks.size() > 0 ? this.performedAttacks.get(this.performedAttacks.size() - 1).getOrder() : 0;
-        this.getAttackQueue(enemyPosition).add(new PlannedAttack(memberPosition, lastOrder));
+        this.attackQueues.get(enemyPosition.asIndex()).add(new PlannedAttack(memberPosition, lastOrder));
     }
     
     public int getMapSize() {
@@ -170,15 +172,23 @@ public class WarPlan {
     }
     
     public List<PlannedAttack> getAttackQueue(WarPosition position) {
-        return attackQueues.get(position.asIndex());
+        return Collections.unmodifiableList(attackQueues.get(position.asIndex()));
     }
 
-    public List<WarPlanAttack> getPerformedAttacks(WarPosition mapPosition) {
-        return performedAttacks.stream().filter(a->a.getDefender()==mapPosition).collect(toList());
+    public List<WarPlanAttack> getPerformedAttacksAgainst(WarPosition enemyPosition) {
+        return performedAttacks.stream().filter(a->a.getDefender()==enemyPosition).collect(toList());
     }
 
-    public List<WarPlanAttack> getSufferedAttacks(WarPosition mapPosition) {
-        return sufferedAttacks.stream().filter(a->a.getDefender()==mapPosition).collect(toList());
+    public List<WarPlanAttack> getPerformedAttacksBy(WarPosition memberPosition) {
+        return performedAttacks.stream().filter(a->a.getAttacker()==memberPosition).collect(toList());
+    }
+
+    public List<WarPlanAttack> getSufferedAttacksBy(WarPosition enemyPosition) {
+        return sufferedAttacks.stream().filter(a->a.getAttacker()==enemyPosition).collect(toList());
+    }
+
+    public List<WarPlanAttack> getSufferedAttacksAgainst(WarPosition memberPosition) {
+        return sufferedAttacks.stream().filter(a->a.getDefender()==memberPosition).collect(toList());
     }
 
     public Date getStartTime() {

@@ -1,7 +1,7 @@
 /*
  * Clash Horn - MIT License
  */
-package com.clashhorn.infrastructure.clashapi;
+package com.clashhorn;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
  * @author morgade
  */
 @TestConfiguration
-public class ClashApiTestConfiguration {
+public class Configuration {
    @Bean
    public RestTemplate restTemplate() {
        return new RestTemplate();

@@ -32,8 +32,8 @@ public class WarPlanToWarPlanFullDTO extends ConverterDepedentConverter implemen
                             pos.setNumber(warPosition.asValue());
                             pos.setEnemy(source.getEnemy(warPosition));
                             pos.setMember(source.getMember(warPosition));
-                            pos.setPerformedAttacks(source.getPerformedAttacks(warPosition));
-                            pos.setSufferedAttacks(source.getSufferedAttacks(warPosition));
+                            pos.setPerformedAttacks(source.getPerformedAttacksBy(warPosition));
+                            pos.setSufferedAttacks(source.getSufferedAttacksAgainst(warPosition));
                             pos.setAttackQueue(source.getAttackQueue(warPosition));
                             return pos;
                         })

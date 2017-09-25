@@ -1,4 +1,5 @@
-{
+ {
+  "_changes": "clan.stars: 30, clan.attacks: 17, clan.destructionPercentage: 65, clan.members[1].attacks[1] pushed",
   "state": "inWar",
   "teamSize": 15,
   "preparationStartTime": "20170920T041313.000Z",
@@ -13,9 +14,9 @@
       "medium": "https://api-assets.clashofclans.com/badges/200/26BXjsDi6Gga0Vz0Khhtrp97GaDGtz4GNLurTDp8Rt0.png"
     },
     "clanLevel": 10,
-    "attacks": 16,
-    "stars": 28,
-    "destructionPercentage": 64.26667,
+    "attacks": 17,
+    "stars": 30,
+    "destructionPercentage": 65,
     "members": [
       {
         "tag": "#PLC8LUPG",
@@ -59,6 +60,13 @@
             "stars": 3,
             "destructionPercentage": 100,
             "order": 30
+          },
+          {
+            "attackerTag": "#9VCY2GR0",
+            "defenderTag": "#80QPU8J9P",
+            "stars": 2,
+            "destructionPercentage": 76,
+            "order": 39
           }
         ],
         "opponentAttacks": 2,
