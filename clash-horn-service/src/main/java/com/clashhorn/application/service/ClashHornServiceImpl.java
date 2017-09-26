@@ -119,6 +119,18 @@ public class ClashHornServiceImpl implements ClashHornService {
         return converter.convert(warPlan, WarPlanFullDTO.class);
     }
     
+        
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public WarPlanFullDTO removeFromAttackQueue(String warPlanId, int enemyPosition, int memberPosition) {
+        WarPlan warPlan = warPlanRepository.findOne(warPlanId);
+        warPlan.removePlannedAttack(WarPosition.fromValue(enemyPosition), WarPosition.fromValue(memberPosition));
+        warPlanRepository.save(warPlan);
+        return converter.convert(warPlan, WarPlanFullDTO.class);
+    }
+    
     /**
      * {@inheritDoc}
      */

@@ -129,6 +129,10 @@ public class WarPlan {
         this.attackQueues.get(enemyPosition.asIndex()).add(new PlannedAttack(memberPosition, lastOrder));
     }
     
+    public void removePlannedAttack(WarPosition enemyPosition, WarPosition memberPosition) {
+        this.attackQueues.get(enemyPosition.asIndex()).removeIf(a -> a.getAttacker()==memberPosition);
+    }
+    
     public int getMapSize() {
         return members.size();
     }

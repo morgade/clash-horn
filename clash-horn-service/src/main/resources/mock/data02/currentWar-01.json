@@ -1,0 +1,177 @@
+{
+    "state": "preparation",
+    "teamSize": 10,
+    "preparationStartTime": "20170924T193419.000Z",
+    "startTime": "20170925T183419.000Z",
+    "endTime": "20170926T183419.000Z",
+    "clan": {
+        "tag": "#22PLRY2G",
+        "name": "TJF",
+        "badgeUrls": {
+            "small": "https://localhost/badges/70/26BXjsDi6Gga0Vz0Khhtrp97GaDGtz4GNLurTDp8Rt0.png",
+            "large": "https://localhost/badges/512/26BXjsDi6Gga0Vz0Khhtrp97GaDGtz4GNLurTDp8Rt0.png",
+            "medium": "https://localhost/badges/200/26BXjsDi6Gga0Vz0Khhtrp97GaDGtz4GNLurTDp8Rt0.png"
+        },
+        "clanLevel": 10,
+        "attacks": 0,
+        "stars": 0,
+        "destructionPercentage": 0,
+        "members": [
+            {
+                "tag": "#PLC8LUPG",
+                "name": "bitor",
+                "townhallLevel": 9,
+                "mapPosition": 3,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#9VCY2GR0",
+                "name": "ImrDan",
+                "townhallLevel": 9,
+                "mapPosition": 1,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#9CGRJ9UUQ",
+                "name": "Rei Artur",
+                "townhallLevel": 8,
+                "mapPosition": 7,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#9VYUQQRQJ",
+                "name": "FatalFury",
+                "townhallLevel": 7,
+                "mapPosition": 9,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#8YC08YR99",
+                "name": "monzeu",
+                "townhallLevel": 8,
+                "mapPosition": 10,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#9G029J8YQ",
+                "name": "sosso",
+                "townhallLevel": 7,
+                "mapPosition": 8,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#PGY9LVYU",
+                "name": "LeoTheGreat",
+                "townhallLevel": 9,
+                "mapPosition": 2,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#P90209PJR",
+                "name": "BarbaLonga",
+                "townhallLevel": 8,
+                "mapPosition": 6,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#892GQJ9RC",
+                "name": "Mc310",
+                "townhallLevel": 9,
+                "mapPosition": 4,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#2C9JJLU8U",
+                "name": "Little Hawk",
+                "townhallLevel": 9,
+                "mapPosition": 5,
+                "opponentAttacks": 0
+            }
+        ]
+    },
+    "opponent": {
+        "tag": "#UR29J0CR",
+        "name": "INVINCIBILI",
+        "badgeUrls": {
+            "small": "https://localhost/badges/70/GGMflFAdV8Z30fWdZ2AaQTfSQZr6KTe8wP04cdUik_U.png",
+            "large": "https://localhost/badges/512/GGMflFAdV8Z30fWdZ2AaQTfSQZr6KTe8wP04cdUik_U.png",
+            "medium": "https://localhost/badges/200/GGMflFAdV8Z30fWdZ2AaQTfSQZr6KTe8wP04cdUik_U.png"
+        },
+        "clanLevel": 1,
+        "attacks": 0,
+        "stars": 0,
+        "destructionPercentage": 0,
+        "members": [
+            {
+                "tag": "#28JRJPV9L",
+                "name": "IL Vendicatore",
+                "townhallLevel": 9,
+                "mapPosition": 3,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#UY2QJVYC",
+                "name": "Shayan",
+                "townhallLevel": 9,
+                "mapPosition": 5,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#20LCUR88C",
+                "name": "fabio il re",
+                "townhallLevel": 9,
+                "mapPosition": 4,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#LRLLQLJ2",
+                "name": "Enrico",
+                "townhallLevel": 8,
+                "mapPosition": 6,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#PYU8PP9Q9",
+                "name": "~ JOHNNY ~",
+                "townhallLevel": 7,
+                "mapPosition": 10,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#2QUG9UJQ",
+                "name": "The First",
+                "townhallLevel": 9,
+                "mapPosition": 1,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#82JCJC8GC",
+                "name": "sony",
+                "townhallLevel": 8,
+                "mapPosition": 9,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#RLCP0VLL",
+                "name": "gaetan",
+                "townhallLevel": 8,
+                "mapPosition": 8,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#8PV9JJC82",
+                "name": "LELE PACE 02",
+                "townhallLevel": 8,
+                "mapPosition": 7,
+                "opponentAttacks": 0
+            },
+            {
+                "tag": "#JY9YUYCC",
+                "name": "walter",
+                "townhallLevel": 9,
+                "mapPosition": 2,
+                "opponentAttacks": 0
+            }
+        ]
+    }
+    }

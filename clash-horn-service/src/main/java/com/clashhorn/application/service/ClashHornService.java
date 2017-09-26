@@ -61,6 +61,14 @@ public interface ClashHornService {
     WarPlanFullDTO pushToAttackQueue(@JsonRpcParam("warPlanId") String warPlanId, @JsonRpcParam("enemyPosition") int enemyPosition, @JsonRpcParam("memberPosition") int memberPosition);
     
     /**
+     * Remove a planned attack from a enemyPosition queue
+     * @param warPlanId
+     * @param enemyPosition
+     * @param memberPosition
+     * @return 
+     */
+    WarPlanFullDTO removeFromAttackQueue(String warPlanId, int enemyPosition, int memberPosition);
+    /**
      * Fetch service status data
      * @return 
      */

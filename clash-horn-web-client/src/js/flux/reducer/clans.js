@@ -36,7 +36,7 @@ export default reducer(initialState, {
     fetchClanDataRequest: (state, action) =>  
         objectAssign({}, state, clearFetchState, { 
             fetchedClan: null,
-            fetching: { 'fetchClanDataRequest': true }
+            fetching: { 'fetchClanDataRequest': action.args }
         }),
         
     fetchClanDataSuccess: (state, action) =>  
@@ -48,7 +48,7 @@ export default reducer(initialState, {
         objectAssign({}, state, clearFetchState, { 
             clanAccount: null,
             openWarPlan: null,
-            fetching: { 'registerClanAccount': true }
+            fetching: { 'registerClanAccount': action.args }
         }),
         
     registerClanAccountSuccess: (state, action) =>  
@@ -60,7 +60,7 @@ export default reducer(initialState, {
         objectAssign({}, state, clearFetchState, { 
             clanAccount: null,
             openWarPlan: null,
-            fetching: { 'fetchClanAccount': true }
+            fetching: { 'fetchClanAccount': action.args }
         }),
         
     fetchClanAccountSuccess: (state, action) =>  
@@ -71,7 +71,7 @@ export default reducer(initialState, {
     fetchWarPlanRequest: (state, action) =>  
         objectAssign({}, state, clearFetchState, { 
             openWarPlan: null,
-            fetching: { 'fetchWarPlan': true }
+            fetching: { 'fetchWarPlan': action.args }
         }),
         
     fetchWarPlanSuccess: (state, action) =>  
@@ -81,10 +81,20 @@ export default reducer(initialState, {
         
     pushToAttackQueueRequest: (state, action) =>  
         objectAssign({}, state, clearFetchState, { 
-            fetching: { 'pushToAttackQueue': true }
+            fetching: { 'pushToAttackQueue': action.args }
         }),
         
     pushToAttackQueueSuccess: (state, action) =>  
+        objectAssign({}, state, clearFetchState, { 
+            openWarPlan: action.warPlan
+        }),
+        
+    removeFromAttackQueueRequest: (state, action) =>  
+        objectAssign({}, state, clearFetchState, { 
+            fetching: { 'removeFromAttackQueue': action.args }
+        }),
+        
+    removeFromAttackQueueSuccess: (state, action) =>  
         objectAssign({}, state, clearFetchState, { 
             openWarPlan: action.warPlan
         }),

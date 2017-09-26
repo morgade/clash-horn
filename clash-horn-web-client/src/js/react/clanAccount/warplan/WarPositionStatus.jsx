@@ -12,6 +12,8 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
+import { bestPerformedAttack } from '../../../war-plan';
+
 /**
  * WarPositionStatus label
  */
@@ -22,21 +24,6 @@ class WarPositionStatus extends React.Component {
             return -1;
         } else {
             return this.props.position.performedAttacks.map( a => a.stars ).reduce( (o,n) => Math.max(o,n));
-        }
-    }
-    
-    bestPerformedAttack() {
-        if (this.props.position.performedAttacks.length===0) {
-            return 0;
-        } else {
-            let maxStars = this.props.position.performedAttacks
-                                        .map( a => a.stars)
-                                        .reduce( (o,n) => Math.max(o, n) );
-                                
-            return this.props.position.performedAttacks
-                                    .filter( a => a.stars === maxStars )
-                                    .map( a => a.destructionPercentage)
-                                    .reduce( (o,n) => Math.max(o, n));
         }
     }
     
@@ -52,20 +39,20 @@ class WarPositionStatus extends React.Component {
         let war = this.props.war;
         let position = this.props.position;
         let stars = this.stars();
-        let bestPerformedAttack = this.bestPerformedAttack();
+        let bestAttack = bestPerformedAttack(position);
         let bestPerformedAttackTip = "";    
         
     
         let bestPerformedAttackContent = null;
-        if (bestPerformedAttack===0) {
+        if (bestAttack===0) {
             bestPerformedAttackTip = "No destruction yet";
             bestPerformedAttackContent = (<Glyphicon glyph="asterisk" />);
-        } else if (bestPerformedAttack===100) {
+        } else if (bestAttack===100) {
             bestPerformedAttackTip = "Position cleared!";
             bestPerformedAttackContent = (<Glyphicon glyph="ok" />); 
         } else {
-            bestPerformedAttackTip = `Best attack: ${bestPerformedAttack}%`;
-            bestPerformedAttackContent = bestPerformedAttack;
+            bestPerformedAttackTip = `Best attack: ${bestAttack}%`;
+            bestPerformedAttackContent = bestAttack;
         }
         
         
@@ -75,7 +62,7 @@ class WarPositionStatus extends React.Component {
                 <span className={`wps-stars wps-stars-${stars}`} />
                 <span className={`wps-th wps-th-${stars<3 ? position.enemy.townhallLevel : 'd'}`} />
                 <OverlayTrigger overlay={this.tooltip(bestPerformedAttackTip)}>
-                    <span className={`wps-destruction wps-destruction-${bestPerformedAttack>=100?'done':bestPerformedAttack>0?'incomplete':'not-done'}`}>
+                    <span className={`wps-destruction wps-destruction-${bestAttack>=100?'done':bestAttack>0?'incomplete':'not-done'}`}>
                         {bestPerformedAttackContent}
                     </span>
                 </OverlayTrigger>

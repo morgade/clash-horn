@@ -11,38 +11,44 @@ import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
+import {connect} from 'react-redux';
 
+import WarQueue from './WarQueue.jsx'
 import WarPositionStatus from './WarPositionStatus.jsx'
+
+import { elligilePositionsForPushToQueue } from '../../../war-plan'
+import { pushToAttackQueue } from '../../../flux/actions/clans'
 
 /**
  * WarPosition label
- * TODO: Clean this mess (it's working, however)
  */
 class WarPosition extends React.Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            queuePushAttackerPosition: -1,
+            attackerPosition: -1,
             modal: null
         };
+    }
+    
+    planAttack() {
+        this.closePlanAttackModal();
+        this.props.dispatch(pushToAttackQueue(this.props.war.id, this.props.position.number, this.state.attackerPosition));
     }
     
     showPlanAttackModal() {
         this.setState({ modal: 'planAttack' });
     }
     
-    close() {
+    closePlanAttackModal() {
         this.setState({ modal: null });
     }
     
-    queue() {
-        this.setState({ modal: null });
-        this.props.onQueuePush(this.props.position.number, this.state.queuePushAttackerPosition);
-    }
-    
-    clanMemberSelected(evt) {
-        this.setState({queuePushAttackerPosition: parseInt(evt.target.value)});
+    isPlanning() {
+        return this.props.fetching['pushToAttackQueue'] 
+            && this.props.fetching['pushToAttackQueue'][0]==this.props.war.id
+            && this.props.fetching['pushToAttackQueue'][1]==this.props.position.number;
     }
     
     render() {
@@ -50,31 +56,46 @@ class WarPosition extends React.Component {
             return null;
         }
         
-        let war = this.props.war;
-        let position = this.props.position;
-
+        const war = this.props.war;
+        const position = this.props.position;
+        const elligibleForPush = elligilePositionsForPushToQueue(war, position);
+        const tooltip = (<Tooltip id="available-tip">Member on this list are the ones with available attacks and not already planned for this position</Tooltip>);
+        
         const modalInstance = (
-            <Modal show={this.state.modal==='planAttack'} onHide={this.close.bind(this)} bsSize="sm">
+            <Modal show={this.state.modal==='planAttack'} onHide={this.closePlanAttackModal.bind(this)} bsSize="sm">
               <Modal.Body>
-                <FormGroup>
-                    <ControlLabel>Assign a Clan Member</ControlLabel>
-                    <FormControl componentClass="select" className="coc-font" value={this.state.queuePushAttackerPosition} onChange={this.clanMemberSelected.bind(this)}>
-                        <option value={-1} />
-                        {war.positions.map( pos => (
-                            <option key={pos.member.tag} value={pos.number}>
-                                {pos.number}.
-                                {' '}
-                                {pos.member.name}
-                            </option>
-                        ))}
-                    </FormControl>
-                </FormGroup>
+                <OverlayTrigger overlay={tooltip}>
+                    <FormGroup>
+
+                        <ControlLabel>
+                            Abailable clan members:
+                        </ControlLabel>
+
+                        <FormControl componentClass="select" 
+                                     className="coc-font" 
+                                     value={this.state.attackerPosition} 
+                                     onChange={(evt)=> this.setState({attackerPosition: parseInt(evt.target.value)})}>
+
+                            <option value={-1} />
+                            {elligibleForPush.map( pos => (
+                                <option key={pos.member.tag} value={pos.number}>
+                                    {pos.number}.
+                                    {' '}
+                                    {pos.member.name}
+                                </option>
+                            ))}
+
+                        </FormControl>
+                        
+                    </FormGroup>
+                </OverlayTrigger>
               </Modal.Body>
+              
               <Modal.Footer>
-              <ButtonGroup justified>
-                    <Button bsStyle="danger" href="#" onClick={this.close.bind(this)}>Cancel</Button>
-                    <Button bsStyle="info" href="#" onClick={this.queue.bind(this)} disabled={this.state.queuePushAttackerPosition<1}>Confirm</Button>
-              </ButtonGroup>
+                <ButtonGroup justified>
+                      <Button bsStyle="danger" href="#" onClick={this.closePlanAttackModal.bind(this)}>Cancel</Button>
+                      <Button bsStyle="info" href="#" onClick={this.planAttack.bind(this)} disabled={this.state.attackerPosition<1}>Confirm</Button>
+                </ButtonGroup>
               </Modal.Footer>
             </Modal>
         );
@@ -86,30 +107,27 @@ class WarPosition extends React.Component {
                     <Col md={3} sm={2} xs={2}>
                         <WarPositionStatus war={this.props.war} position={this.props.position} />
                     </Col>
+                    
                     <Col md={9} sm={10} xs={10}>
+                    
                         <h4>
                             {position.number}. {position.enemy.name}
                         </h4>
                         
-                        <div className="wp-queue">
-                            {position.attackQueue.map( (plannedAttack, idx) =>
-                            <span>
-                                {idx > 0 ? <Glyphicon glyph="chevron-left" /> : null}
-                                <a key={plannedAttack.attacker} className="wp-queue-item" onClick={ () => alert('Implementar aqui') }>
-                                    {war.positions[plannedAttack.attacker-1].member.name}
-                                    {' '}
-                                    <Glyphicon glyph="remove" />
-                                </a>
-                            </span>
-                            )}
-                        </div>
+                        <WarQueue war={war} position={position} />
                         
                     </Col>
+                    
                     <div className="wp-actions">
-                        <Button bsSize="xsmall" onClick={this.showPlanAttackModal.bind(this)}>
+                        <Button bsSize="xsmall" onClick={this.showPlanAttackModal.bind(this)} disabled={this.isPlanning()}>
+                            {this.isPlanning()?
+                            <Glyphicon glyph="refresh" />    
+                            :
                             <Glyphicon glyph="plus" />    
+                            }
                         </Button>
                     </div>
+                    
                 </Row>
             </div>
         );
@@ -118,8 +136,11 @@ class WarPosition extends React.Component {
 
 WarPosition.defaultProps = {
     war: null,
-    position: null,
-    onQueuePush: () => {}
+    position: null
 };
 
-export default WarPosition;
+export default connect(
+    (store) => ({
+        fetching: store.clans.fetching
+    })
+)(WarPosition);
