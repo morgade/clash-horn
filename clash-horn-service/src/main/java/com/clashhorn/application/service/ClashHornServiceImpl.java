@@ -158,7 +158,7 @@ public class ClashHornServiceImpl implements ClashHornService {
                 .startTime(war.getStartTime())
                 .endTime(war.getEndTime())
                 .clanScore(new WarScore(war.getClan().getStars(), war.getClan().getDestructionPercentage()))
-                .enemyScore(new WarScore(war.getOpponent().getStars(), war.getClan().getDestructionPercentage()))
+                .enemyScore(new WarScore(war.getOpponent().getStars(), war.getOpponent().getDestructionPercentage()))
                 .members( Stream.of(war.getClan().getMembers())
                             .sorted(comparing(WarClanMember::getMapPosition))
                             .map(m -> new WarPlayer(m.getTag(), m.getName(), m.getMapPosition(), m.getTownhallLevel()))

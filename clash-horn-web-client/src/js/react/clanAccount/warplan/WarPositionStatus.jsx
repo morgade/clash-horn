@@ -37,7 +37,7 @@ class WarPositionStatus extends React.Component {
         let bestPerformedAttackContent = null;
         if (bestAttack.destructionPercentage===0) {
             bestPerformedAttackTip = "No destruction yet";
-            bestPerformedAttackContent = (<Glyphicon glyph="asterisk" />);
+//            bestPerformedAttackContent = (<Glyphicon glyph="asterisk" />);
         } else if (bestAttack.destructionPercentage===100) {
             bestPerformedAttackTip = "Position cleared!";
             bestPerformedAttackContent = (<Glyphicon glyph="ok" />); 
@@ -49,15 +49,19 @@ class WarPositionStatus extends React.Component {
         
         
         return (
-            <div className={`wps ${this.props.className}`}>
-                <span className={`wps-stars wps-stars-${bestAttack.stars}`} />
-                <span className={`wps-th wps-th-${bestAttack.stars<3 ? position.enemy.townhallLevel : 'd'}`} />
-                <OverlayTrigger overlay={this.tooltip(bestPerformedAttackTip)}>
-                    <span className={`wps-destruction wps-destruction-${bestAttack.destructionPercentage>=100?'done':bestAttack.destructionPercentage>0?'incomplete':'not-done'}`}>
-                        {bestPerformedAttackContent}
-                    </span>
-                </OverlayTrigger>
-            </div>
+            <OverlayTrigger overlay={this.tooltip(bestPerformedAttackTip)}>
+                <div className={`wps ${this.props.className}`}>
+                    <span className={`wps-stars wps-stars-${bestAttack.stars}`} />
+                    <span className={`wps-th wps-th-${bestAttack.stars<3 ? position.enemy.townhallLevel : 'd'}`} />
+                    {bestPerformedAttackContent ?
+                        <span className={`wps-destruction wps-destruction-${bestAttack.destructionPercentage>=100?'done':bestAttack.destructionPercentage>0?'incomplete':'not-done'}`}>
+                            {bestPerformedAttackContent}
+                        </span>
+                        :
+                        null
+                    }
+                </div>
+            </OverlayTrigger>
         );
     }
 };
