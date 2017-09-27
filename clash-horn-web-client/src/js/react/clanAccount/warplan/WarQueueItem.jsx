@@ -13,19 +13,15 @@ class WarQueueItem extends React.Component {
     removeFromQueue() {
         if (!this.isRemoving()) {
             this.props.dispatch(
-                removeFromAttackQueue(this.props.war.id, this.props.position.number, this.attackerPosition())
+                removeFromAttackQueue(this.props.war.id, this.props.position.number, this.props.plannedAttack.attacker)
             );
         }
-    }
-    
-    attackerPosition() {
-        return this.props.position.attackQueue[this.props.queueIndex].attacker;
     }
     
     isRemoving() {
         return this.props.fetching['removeFromAttackQueue'] 
                             && this.props.fetching['removeFromAttackQueue'][1]==this.props.position.number
-                            && this.props.fetching['removeFromAttackQueue'][2]==this.attackerPosition();
+                            && this.props.fetching['removeFromAttackQueue'][2]==this.props.plannedAttack.attacker;
     }
     
     render() {
@@ -33,10 +29,10 @@ class WarQueueItem extends React.Component {
             return null;
         }
         
-        const attacker = this.props.war.positions[this.attackerPosition()-1].member;
+        const attacker = this.props.war.positions[this.props.plannedAttack.attacker-1].member;
         return (
             <span>
-                {this.props.queueIndex>0 ? <Glyphicon glyph="chevron-left" /> : null}
+                {this.props.index>0 ? <Glyphicon glyph="chevron-left" /> : null}
                 
                 <a  className={`wp-queue-item ${this.isRemoving()?"wp-queue-item-removing":""}`}
                     onClick={this.removeFromQueue.bind(this)}>
@@ -58,8 +54,9 @@ class WarQueueItem extends React.Component {
 
 WarQueueItem.defaultProps = {
     war: null,
-    queueIndex: -1,
-    position: 0
+    plannedAttack: null,
+    position: 0,
+    index: -1
 };
 
 export default connect(

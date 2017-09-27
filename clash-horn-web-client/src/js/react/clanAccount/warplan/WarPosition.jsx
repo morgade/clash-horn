@@ -104,11 +104,11 @@ class WarPosition extends React.Component {
             <div className="wp">
                 {modalInstance}
                 <Row>
-                    <Col md={3} sm={2} xs={2}>
+                    <Col md={2} sm={2} xs={2}>
                         <WarPositionStatus war={this.props.war} position={this.props.position} />
                     </Col>
                     
-                    <Col md={9} sm={10} xs={10}>
+                    <Col md={10} sm={10} xs={10}>
                     
                         <h4>
                             {position.number}. {position.enemy.name}

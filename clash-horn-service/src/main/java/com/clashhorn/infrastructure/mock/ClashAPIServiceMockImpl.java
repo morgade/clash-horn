@@ -53,7 +53,7 @@ public class ClashAPIServiceMockImpl implements ClashOfClansService {
     @Override
     public Clan clans(String clanTag) {
         try {
-            return objectMapper.readValue(getClass().getResourceAsStream(format("%s/clans-01.json")), Clan.class);
+            return objectMapper.readValue(getClass().getResourceAsStream(format("%s/clans-01.json", mockRoot)), Clan.class);
         } catch (IOException ex) {
             throw new IllegalStateException(ex);
         }
