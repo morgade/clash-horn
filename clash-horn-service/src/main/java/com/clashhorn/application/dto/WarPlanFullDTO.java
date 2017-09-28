@@ -21,8 +21,8 @@ public class WarPlanFullDTO {
     private WarScore clanScore;
     private WarScore enemyScore;
     private Integer size;
-    private Date startTime;
     private Date preparationStartTime;
+    private Date startTime;
     private Date endTime;
     private int mapSize;
     private List<Position> positions;
@@ -100,20 +100,20 @@ public class WarPlanFullDTO {
         this.size = size;
     }
 
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
     public Date getPreparationStartTime() {
         return preparationStartTime;
     }
 
     public void setPreparationStartTime(Date preparationStartTime) {
         this.preparationStartTime = preparationStartTime;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
     public Date getEndTime() {

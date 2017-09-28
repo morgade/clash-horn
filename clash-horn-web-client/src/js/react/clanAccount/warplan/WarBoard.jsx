@@ -8,6 +8,7 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
 import WarPosition from './WarPosition.jsx';
 import ClanBadge from '../../ui/ClanBadge.jsx';
+import { getWarStatusAsString, getWarTimeDiffAsString } from '../../../war-plan'
 
 
 class WarBoard extends React.Component {
@@ -17,6 +18,7 @@ class WarBoard extends React.Component {
             return null;
         }
         
+        const currentTime = new Date();
         const clanNameClassSuffix = Math.ceil(this.props.war.clan.name.length / 3);
         const enemyNameClassSuffix = Math.ceil(this.props.war.enemy.name.length / 3);
         
@@ -67,8 +69,8 @@ class WarBoard extends React.Component {
                 <Row>
                     <Col md={6} mdOffset={3} sm={12} xs={12}>
                     <div className="war-status">
-                        <p><strong>WAR IN PROGRESS</strong></p>
-                        <p className="text-secondary"><i className="glyphicon glyphicon-time"> </i>  12 hours 12 minutes to end	</p>
+                        <p><strong>{getWarStatusAsString(this.props.war, currentTime)}</strong></p>
+                        <p className="text-secondary"><i className="glyphicon glyphicon-time"> </i>  {getWarTimeDiffAsString(this.props.war, currentTime)}	</p>
                         <p className="text-secondary"><i className="glyphicon glyphicon-king"> </i>  3 attacks performed, 27 available	</p>
                     </div>
                     </Col>

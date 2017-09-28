@@ -77,7 +77,7 @@ public class ClashHornServiceImpl implements ClashHornService {
     @Override
     public ClanAccountDTO fetchClanAccount(String clanAccountId) {
         ClanAccount clanAccount = clanAccountRepository.findOne(clanAccountId);
-        Assert.notNull(clanAccount, "clan account not found");
+        Assert.notNull(clanAccount, "Clan account not found");
         return converter.convert(clanAccount, ClanAccountDTO.class);
     }
     

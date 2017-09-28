@@ -149,3 +149,28 @@ export const bestScoredPerformedAttackAgainst = function(war, position) {
     
     return { stars: -1, destructionPercentage: 0 };
 }
+
+export const getWarStatusAsString = function(war, currentTime) {
+    return currentTime < war.startTime ? "WAR IN PREPARATION" : (currentTime < war.endTime ? "WAR IN PROGRESS" : "WAR HAS ENDED");
+}
+
+export const getWarTimeDiffAsString = function(war, currentTime) {
+    let seconds = 0;
+    let suffix = "";
+    if (currentTime < war.startTime) {
+        seconds = parseInt((war.startTime - currentTime)/1000);
+        suffix = " to start";
+    } else if (currentTime < war.endTime) {
+        seconds = parseInt((war.endTime - currentTime)/1000);
+        suffix = " to end";
+    }
+    
+    if (!seconds) {
+        return "";
+    } else {
+        let hours = parseInt(seconds / (60*60));
+        let minutes = hours > 0 ? parseInt(seconds / 60) % hours : parseInt(seconds / 60);
+        return hours + (hours > 1 ? " hours " : " hour ") + minutes + (minutes > 1 ? " minutes" : " minute") + suffix;
+    }
+}
+
