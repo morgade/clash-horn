@@ -32,6 +32,7 @@ import static java.util.Comparator.comparing;
 import java.util.UUID;
 import static java.util.stream.Collectors.toList;
 import java.util.stream.Stream;
+import org.springframework.util.Assert;
 
 /**
  *
@@ -76,6 +77,7 @@ public class ClashHornServiceImpl implements ClashHornService {
     @Override
     public ClanAccountDTO fetchClanAccount(String clanAccountId) {
         ClanAccount clanAccount = clanAccountRepository.findOne(clanAccountId);
+        Assert.notNull(clanAccount, "clan account not found");
         return converter.convert(clanAccount, ClanAccountDTO.class);
     }
     

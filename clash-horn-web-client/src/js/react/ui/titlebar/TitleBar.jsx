@@ -32,6 +32,7 @@ class TitleBar extends React.Component {
                 
                 <Navbar.Collapse>
                     <Switch>
+                        <Route path="/home" component={null} />
                         <Route path="/register" component={null} />
                         <Route path="/:cid" component={ClanAccountNavigator} />
                     </Switch>

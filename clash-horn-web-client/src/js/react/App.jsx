@@ -6,8 +6,9 @@ import TransitionGroup  from 'react-transition-group/TransitionGroup';
 import TitleBar from './ui/titlebar/TitleBar.jsx';
 import Notification from './ui/notification/Notification.jsx';
 
-import ClanAccountManager from './clanAccount/ClanAccountManager.jsx';
+import HomeManager from './home/HomeManager.jsx';
 import RegisterManager from './register/RegisterManager.jsx';
+import ClanAccountManager from './clanAccount/ClanAccountManager.jsx';
 
 
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -19,7 +20,8 @@ class App extends React.Component {
                 <Route path="/" component={TitleBar} />
                 <div className="container">
                     <Switch>
-                        <Redirect exact from="/" to="/register"  />
+                        <Redirect exact from="/" to="/home"  />
+                        <Route exact path="/home" component={HomeManager} />
                         <Route exact path="/register" component={RegisterManager} />
                         <Route path="/:cid" component={ClanAccountManager}  />
                     </Switch>

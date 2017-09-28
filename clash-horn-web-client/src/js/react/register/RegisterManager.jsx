@@ -13,7 +13,7 @@ import CSSTransition  from 'react-transition-group/CSSTransition';
 import ClanSearchInput from '../ui/ClanSearchInput.jsx';
 import ClanLabel from '../ui/ClanLabel.jsx';
 import CoCStatusAlert from '../ui/CoCStatusAlert.jsx';
-import ClanAccountRegisterInput  from './ClanAccountRegisterInput.jsx';
+import ClanAccountInput  from '../ui/ClanAccountInput.jsx';
 
 import { connect, dispatch } from 'react-redux';
 import { fetchClanData, registerClanAccount } from '../../flux/actions/clans';
@@ -43,18 +43,16 @@ export class RegisterManager extends React.Component {
             this.props.dispatch(notifySuccess('Your clan account has been succesfully created'));
             this.props.history.push(`/${nextProps.registeredClanAccount.id}`);
         }
-        
+    }
+    
+    generateClanAccountId() {
+        let s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`.toUpperCase();
     }
     
     render() {
         return (
             <div>
-                <Row>
-                    <Col md={12}>
-                        Welcome to Clash Horn.
-                    </Col>
-                </Row>
-                
                 <Form>
                     <Row>
                         <Col md={12}>
@@ -93,9 +91,11 @@ export class RegisterManager extends React.Component {
                                                 Confirm your clan account ID
                                             </ControlLabel>
 
-                                            <ClanAccountRegisterInput 
+                                            <ClanAccountInput 
+                                                        label="Create Account"
+                                                        initialValue={this.generateClanAccountId()}
                                                         fetching={this.props.fetching['registerClanAccount']} 
-                                                        onRegisterClanRequested={this.createAccount.bind(this)} />
+                                                        onAction={this.createAccount.bind(this)} />
                                         </FormGroup>
                                     </div>
                                 :
