@@ -50,7 +50,7 @@ class WarPositionStatus extends React.Component {
         
         return (
             <OverlayTrigger overlay={this.tooltip(bestPerformedAttackTip)}>
-                <div className={`wps ${this.props.className}`}>
+                <div className={`wps ${this.props.className||''}`}>
                     <span className={`wps-stars wps-stars-${bestAttack.stars}`} />
                     <span className={`wps-th wps-th-${bestAttack.stars<3 ? position.enemy.townhallLevel : 'd'}`} />
                     {bestPerformedAttackContent ?

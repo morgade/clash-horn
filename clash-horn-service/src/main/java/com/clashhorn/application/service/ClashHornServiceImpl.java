@@ -154,8 +154,8 @@ public class ClashHornServiceImpl implements ClashHornService {
         return
             WarPlanBuilder.builder(id)
                 .clanAccountId(clanAccountId)
-                .clan(new ClanRef(war.getClan().getTag(), war.getClan().getName(), war.getClan().getBadgeUrls().getSmall()))
-                .enemy(new ClanRef(war.getOpponent().getTag(), war.getOpponent().getName(), war.getOpponent().getBadgeUrls().getSmall()))
+                .clan(new ClanRef(war.getClan().getTag(), war.getClan().getName(), war.getClan().getBadgeUrls().getLarge()))
+                .enemy(new ClanRef(war.getOpponent().getTag(), war.getOpponent().getName(), war.getOpponent().getBadgeUrls().getLarge()))
                 .preparationStartTime(war.getPreparationStartTime())
                 .startTime(war.getStartTime())
                 .endTime(war.getEndTime())

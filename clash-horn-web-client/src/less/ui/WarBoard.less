@@ -35,9 +35,24 @@
             background-color: @primaryColor;
             height: 110px;
             background-repeat: no-repeat;
-            background-position-x: center;
-            background-position-y: -96px;
-            background-size: 379px;
+            background-position-x: 55%;
+            background-position-y: 44%;
+            background-size: 180%;
+            
+            @media (min-width: 768px) {
+                background-position-y: 41%;
+                background-size: 155%;
+            }
+            
+            @media (min-width: 992px) {
+                background-position-y: -100px;
+                background-size: 160%;
+            }
+            
+            @media (min-width: 1198px) {
+                background-position-y: -126px;
+                background-size: 152%;
+            }
         }
 
         .war-board-name {

@@ -2,8 +2,6 @@ import React from 'react';
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
-import Tooltip from 'react-bootstrap/lib/Tooltip';
-import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Modal from 'react-bootstrap/lib/Modal';
 import Label from 'react-bootstrap/lib/Label';
 import Button from 'react-bootstrap/lib/Button';
@@ -59,26 +57,23 @@ class WarPosition extends React.Component {
         const war = this.props.war;
         const position = this.props.position;
         const elligibleForPush = elligilePositionsForPushToQueue(war, position);
-        const tooltip = (<Tooltip id="available-tip">Member on this list are the ones with available attacks and not already planned for this position</Tooltip>);
         
         const modalInstance = (
             <Modal show={this.state.modal==='planAttack'} onHide={this.closePlanAttackModal.bind(this)} bsSize="sm">
               <Modal.Body>
-                <OverlayTrigger overlay={tooltip}>
                     <FormGroup>
 
                         <ControlLabel>
-                            Abailable clan members:
+                            Available clan members:
                         </ControlLabel>
-
                         <FormControl componentClass="select" 
-                                     className="coc-font" 
+                                     className={`coc-font ${this.state.attackerPosition==-1?"prompt":""}`} 
                                      value={this.state.attackerPosition} 
                                      onChange={(evt)=> this.setState({attackerPosition: parseInt(evt.target.value)})}>
 
-                            <option value={-1} />
+                            <option value={-1} disabled>-- Select a member --</option>
                             {elligibleForPush.map( pos => (
-                                <option key={pos.member.tag} value={pos.number}>
+                                <option key={pos.member.tag} value={pos.number} className="text-primary">
                                     {pos.number}.
                                     {' '}
                                     {pos.member.name}
@@ -88,7 +83,16 @@ class WarPosition extends React.Component {
                         </FormControl>
                         
                     </FormGroup>
-                </OverlayTrigger>
+                    <Row>
+                        <Col xs={12}>
+                            <h4 className="line-icon">
+                                <Glyphicon glyph="info-sign" />
+                            </h4>
+                            <span className="text-secondary">
+                                Members on this list are the ones with available attacks and not already planned for this position
+                            </span>
+                        </Col>
+                    </Row>
               </Modal.Body>
               
               <Modal.Footer>

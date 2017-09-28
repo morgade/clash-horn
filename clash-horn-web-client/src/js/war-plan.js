@@ -156,6 +156,7 @@ export const getWarStatusAsString = function(war, currentTime) {
 
 export const getWarTimeDiffAsString = function(war, currentTime) {
     let seconds = 0;
+    let prefix = "";
     let suffix = "";
     if (currentTime < war.startTime) {
         seconds = parseInt((war.startTime - currentTime)/1000);
@@ -163,14 +164,17 @@ export const getWarTimeDiffAsString = function(war, currentTime) {
     } else if (currentTime < war.endTime) {
         seconds = parseInt((war.endTime - currentTime)/1000);
         suffix = " to end";
+    } else {
+        seconds = parseInt((currentTime - war.endTime)/1000);
+        prefix = "War ended "
+        suffix = " ago";
     }
     
-    if (!seconds) {
-        return "";
-    } else {
-        let hours = parseInt(seconds / (60*60));
-        let minutes = hours > 0 ? parseInt(seconds / 60) % hours : parseInt(seconds / 60);
-        return hours + (hours > 1 ? " hours " : " hour ") + minutes + (minutes > 1 ? " minutes" : " minute") + suffix;
-    }
+    let hours = parseInt(seconds / (60*60));
+    let minutes = hours > 0 ? parseInt(seconds / 60) % hours : parseInt(seconds / 60);
+    
+    hours = hours==0?"":hours + (hours > 1 ? " hours " : " hour ");
+    minutes = minutes + (minutes > 1 ? " minutes" : " minute");
+    return prefix + hours + minutes + suffix;
 }
 

@@ -7,6 +7,10 @@ logging:
 server:
     port: 8080
     static-content: file:../clash-horn-web-client/public/
+    compression:
+        enabled: true
+        mime-types: text/html,text/xml,text/plain,text/css,application/javascript,application/json
+        min-response-size: 1024
     
 clash-api:
     baseUrl: https://api.clashofclans.com/v1

@@ -34,6 +34,27 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+select.form-control {
+    border: 0px solid black;
+    outline-width: 0px;
+    border-bottom: 1px solid black;
+    border-radius: 0px;
+    box-shadow: none;
+}
+
+select.form-control:focus {
+    border: 0px solid black;
+    outline-width: 0px;
+    border-bottom: 2px solid black;
+    border-radius: 0px;
+    box-shadow: none;
+}
+
+select.prompt {
+    color: @secondaryTextColor;
+}
+
+
 .container {
     padding-top: 70px;
     
@@ -49,6 +70,20 @@ body {
 
 .text-secondary {
     color: @secondaryTextColor;
+}
+
+.text-primary {
+    color: @primaryTextColor;
+}
+
+label.control-label {
+    text-transform: uppercase;
+}
+
+.line-icon {
+    margin-right: 10px;
+    .pull-left; 
+    .text-secondary;
 }
 
 .coc-font {

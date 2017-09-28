@@ -10,6 +10,7 @@ import WarPosition from './WarPosition.jsx';
 import ClanBadge from '../../ui/ClanBadge.jsx';
 import { getWarStatusAsString, getWarTimeDiffAsString } from '../../../war-plan'
 
+import badgeExample from '../../../../img/badge-example.png';
 
 class WarBoard extends React.Component {
     
@@ -18,7 +19,7 @@ class WarBoard extends React.Component {
             return null;
         }
         
-        const currentTime = new Date();
+        const currentTime = new Date().getTime();
         const clanNameClassSuffix = Math.ceil(this.props.war.clan.name.length / 3);
         const enemyNameClassSuffix = Math.ceil(this.props.war.enemy.name.length / 3);
         
@@ -27,7 +28,7 @@ class WarBoard extends React.Component {
                 <Row>
                     <Col md={3} mdOffset={3} sm={6} xs={6}>
                         <div className="war-board-col">
-                        <div className="clan-badge" style={{'backgroundImage':  `url('${this.props.war.clan.badge}')`}} />
+                        <div className="clan-badge" style={{'backgroundImage':  `url('${badgeExample}')`}} />
 
                             <div className="war-board-stars">
                                 {this.props.war.clanScore.stars}
@@ -47,7 +48,7 @@ class WarBoard extends React.Component {
                     
                     <Col md={3} sm={6} xs={6}>
                         <div className="war-board-col">
-                            <div className="clan-badge" style={{'backgroundImage':  this.props.war.clan.badge }} />
+                            <div className="clan-badge" style={{'backgroundImage':  `url('${badgeExample}')`}} />
 
                             <div className="war-board-stars">
                                 {this.props.war.enemyScore.stars}

@@ -3,6 +3,7 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Form from 'react-bootstrap/lib/Form';
 
 class ClanAccountInput extends React.Component {
     
@@ -19,28 +20,30 @@ class ClanAccountInput extends React.Component {
     
     render() {
         return (
-            <InputGroup>
-    
-                <FormControl type="text" 
-                        value={this.state.clanAccountId} 
-                        disabled={this.props.fetching}
-                        onChange={(evt) => this.setState({clanAccountId: evt.target.value}) } />
+            <Form onSubmit={this.executeAction.bind(this)}>
+                <InputGroup>
 
-                <InputGroup.Button>
-                    <Button
-                        bsStyle="primary"
-                        type="button" 
-                        disabled={this.props.fetching}
-                        onClick={this.executeAction.bind(this)}>
-                            {!this.props.fetching ?
-                                this.props.label
-                                :
-                                <Glyphicon glyph="refresh" />
-                            }
-                    </Button>
-                </InputGroup.Button>
-                
-            </InputGroup>
+                    <FormControl type="text" 
+                            value={this.state.clanAccountId} 
+                            disabled={this.props.fetching}
+                            onChange={(evt) => this.setState({clanAccountId: evt.target.value}) } />
+
+                    <InputGroup.Button>
+                        <Button
+                            bsStyle="primary"
+                            type="button" 
+                            disabled={this.props.fetching.length>0}
+                            onClick={this.executeAction.bind(this)}>
+                                {!this.props.fetching ?
+                                    this.props.label
+                                    :
+                                    <Glyphicon glyph="refresh" />
+                                }
+                        </Button>
+                    </InputGroup.Button>
+
+                </InputGroup>
+            </Form>
         );
     }
 };
