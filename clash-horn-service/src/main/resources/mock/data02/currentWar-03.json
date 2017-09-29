@@ -1,5 +1,5 @@
 {
-    "state": "inWar",
+    "state": "warEnded",
     "teamSize": 10,
     "preparationStartTime": "20170924T193419.000Z",
     "startTime": "20170925T183419.000Z",

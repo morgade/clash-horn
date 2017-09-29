@@ -8,9 +8,11 @@
  *      preparationStartTime: <date>,
  *      endTime: <date>,
  *      mapSize: <number>,
+ *      result: <number>,    [ 0:PREPARATION, 1:IN_PROGRESS, 2:DRAW, 3:VICTORY, 4:DEFEAT ]
  *      clan: {
  *          tag: <string>,
  *          name: <string>
+ *          badge: <string>
  *      }
  *      enemy: {
  *          tag: <string>,
@@ -68,6 +70,13 @@
  *
  */
 
+export const isPreparation = (war) => war.result === 0;
+export const isInProgress  = (war) => war.result === 1;
+export const isDraw        = (war) => war.result === 2;
+export const isVictory     = (war) => war.result === 3;
+export const isDefeat      = (war) => war.result === 4;
+
+
 /**
  * Finds member positions elligible for pushing
  * Members with 2 performedAttacks or already in the positions's attack queue are removed
@@ -114,7 +123,7 @@ export const performedMemberAttacksCountPerPosition = function(war) {
     .forEach( a => counts[a] = (counts[a]||0) + 1 );
     
     return counts;
-}
+};
 
 /**
  * Return the position attackQueue filtering attackers into position.performedAttacks
@@ -131,7 +140,7 @@ export const getFilteredAttackQueue = function(war, position) {
             .filter( queueItem => position.performedAttacks.map(a=> a.attacker).indexOf(queueItem.attacker) < 0 )
             // filter out atackers with 2 or more performed attacks
             .filter( queueItem => (count[queueItem.attacker] || 0) < 2 );
-}
+};
 
 
 export const bestScoredPerformedAttackAgainst = function(war, position) {
@@ -148,11 +157,7 @@ export const bestScoredPerformedAttackAgainst = function(war, position) {
     }
     
     return { stars: -1, destructionPercentage: 0 };
-}
-
-export const getWarStatusAsString = function(war, currentTime) {
-    return currentTime < war.startTime ? "WAR IN PREPARATION" : (currentTime < war.endTime ? "WAR IN PROGRESS" : "WAR HAS ENDED");
-}
+};
 
 export const getWarTimeDiffAsString = function(war, currentTime) {
     let seconds = 0;
@@ -166,15 +171,15 @@ export const getWarTimeDiffAsString = function(war, currentTime) {
         suffix = " to end";
     } else {
         seconds = parseInt((currentTime - war.endTime)/1000);
-        prefix = "War ended "
+        prefix = "War ended ";
         suffix = " ago";
     }
     
     let hours = parseInt(seconds / (60*60));
     let minutes = hours > 0 ? parseInt(seconds / 60) % hours : parseInt(seconds / 60);
     
-    hours = hours==0?"":hours + (hours > 1 ? " hours " : " hour ");
+    hours = hours===0?"":hours + (hours > 1 ? " hours " : " hour ");
     minutes = minutes + (minutes > 1 ? " minutes" : " minute");
     return prefix + hours + minutes + suffix;
-}
+};
 

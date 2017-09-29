@@ -29,6 +29,7 @@ public class WarPlan {
     @Id
     private String id;
     private String clanAccountId;
+    private int result;
     private ClanRef clan;
     private ClanRef enemy;
     private WarScore clanScore;
@@ -53,6 +54,7 @@ public class WarPlan {
      * Constructor used by WarPlanBuilder
      * @param id
      * @param clanAccountId
+     * @param result
      * @param clan
      * @param enemy
      * @param preparationStartTime
@@ -66,12 +68,13 @@ public class WarPlan {
      * @param clanScore 
      * @param enemyScore 
      */
-    protected WarPlan(final String id, final String clanAccountId, final ClanRef clan, 
+    protected WarPlan(final String id, final String clanAccountId, WarResult result, final ClanRef clan, 
             final ClanRef enemy, final Date startTime, final Date preparationStartTime, 
             final Date endTime, final List<WarPlayer> members, final List<WarPlayer> enemies, 
             final List<List<PlannedAttack>> attackQueues, final List<WarPlanAttack> performedAttacks, 
             final List<WarPlanAttack> sufferedAttacks, WarScore clanScore, WarScore enemyScore) {
         Assert.notNull(clanAccountId, "clanAccountId is mandatory");
+        Assert.notNull(result, "result is mandatory");
         Assert.notNull(clan, "clan is mandatory");
         Assert.notNull(enemy, "enemy is mandatory");
         Assert.notNull(startTime, "startTime is mandatory");
@@ -89,6 +92,7 @@ public class WarPlan {
         
         this.id = id.toUpperCase();
         this.clanAccountId = clanAccountId;
+        this.result = result.ordinal();
         this.clan = clan;
         this.enemy = enemy;
         this.startTime = startTime;
@@ -111,8 +115,9 @@ public class WarPlan {
     }
 
     public void updateWithDataFrom(WarPlan currentWarPlanUpdatedData) {
-        this.clanScore = currentWarPlanUpdatedData.getClanScore();
-        this.enemyScore = currentWarPlanUpdatedData.getEnemyScore();
+        this.result = currentWarPlanUpdatedData.result;
+        this.clanScore = currentWarPlanUpdatedData.clanScore;
+        this.enemyScore = currentWarPlanUpdatedData.enemyScore;
         this.performedAttacks = new ArrayList(currentWarPlanUpdatedData.performedAttacks);
         this.sufferedAttacks = new ArrayList(currentWarPlanUpdatedData.sufferedAttacks);
     }
@@ -145,6 +150,10 @@ public class WarPlan {
     
     public String getId() {
         return id;
+    }
+    
+    public WarResult getResult() {
+        return WarResult.values()[this.result];
     }
 
     public String getClanAccountId() {

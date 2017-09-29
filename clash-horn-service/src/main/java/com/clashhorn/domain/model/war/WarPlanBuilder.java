@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class WarPlanBuilder {
         private String id;
+        private WarResult result;
         private String clanAccountId;
         private ClanRef clan;
         private ClanRef enemy;
@@ -40,6 +41,11 @@ public class WarPlanBuilder {
         
         public WarPlanBuilder clanAccountId(final String value) {
             this.clanAccountId = value;
+            return this;
+        }
+
+        public WarPlanBuilder result(final WarResult value) {
+            this.result = value;
             return this;
         }
 
@@ -105,6 +111,6 @@ public class WarPlanBuilder {
         
 
         public WarPlan build() {
-            return new WarPlan(id, clanAccountId, clan, enemy, startTime, preparationStartTime, endTime, members, enemies, attackQueues, performedAttacks, sufferedAttacks, clanScore, enemyScore);
+            return new WarPlan(id, clanAccountId, result, clan, enemy, startTime, preparationStartTime, endTime, members, enemies, attackQueues, performedAttacks, sufferedAttacks, clanScore, enemyScore);
         }
     }

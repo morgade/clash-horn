@@ -12,12 +12,14 @@ import com.clashhorn.domain.model.war.WarPlan;
 import com.clashhorn.domain.model.war.WarPlanRepository;
 import com.clashhorn.application.clashapi.Clan;
 import com.clashhorn.application.clashapi.War;
+import com.clashhorn.application.clashapi.WarClan;
 import com.clashhorn.application.clashapi.WarClanMember;
 import com.clashhorn.domain.model.clan.ClanRef;
 import com.clashhorn.domain.model.war.WarPlanAttack;
 import com.clashhorn.domain.model.war.WarPlanBuilder;
 import com.clashhorn.domain.model.war.WarPlayer;
 import com.clashhorn.domain.model.war.WarPosition;
+import com.clashhorn.domain.model.war.WarResult;
 import com.clashhorn.domain.model.war.WarScore;
 import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImpl;
 import java.util.HashMap;
@@ -28,6 +30,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import com.clashhorn.domain.service.ClanAccountService;
 import com.clashhorn.domain.service.WarPlanService;
+import java.util.Comparator;
 import static java.util.Comparator.comparing;
 import java.util.UUID;
 import static java.util.stream.Collectors.toList;
@@ -151,9 +154,26 @@ public class ClashHornServiceImpl implements ClashHornService {
      */
     public static WarPlan createWarPlanFromCoCWar(War war, String clanAccountId) {
         String id = UUID.randomUUID().toString();
+        WarResult result = null;
+        switch (war.getState()) {
+            case IN_WAR: result = WarResult.IN_PROGRESS; break;
+            case PREPARATION: result = WarResult.PREPARATION; break;
+            case WAR_ENDED: 
+                int r = comparing(WarClan::getStars).thenComparing(WarClan::getDestructionPercentage).compare(war.getClan(), war.getOpponent());
+                if (r==1) {
+                    result = WarResult.VICTORY;
+                } else if (r==0) {
+                    result = WarResult.DRAW;
+                } else {
+                    result = WarResult.DEFEAT;
+                }
+            break;
+        }
+        
         return
             WarPlanBuilder.builder(id)
                 .clanAccountId(clanAccountId)
+                .result( result )
                 .clan(new ClanRef(war.getClan().getTag(), war.getClan().getName(), war.getClan().getBadgeUrls().getLarge()))
                 .enemy(new ClanRef(war.getOpponent().getTag(), war.getOpponent().getName(), war.getOpponent().getBadgeUrls().getLarge()))
                 .preparationStartTime(war.getPreparationStartTime())

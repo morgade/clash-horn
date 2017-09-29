@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class War {
     
-    private final String state;
+    private final WarState state;
     private final Integer teamSize;
     private final Date preparationStartTime;
     private final Date startTime;
@@ -36,7 +36,7 @@ public class War {
                       @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd'T'HHmmss.SSSXXX") Date endTime, 
                       @JsonProperty("clan") WarClan clan, 
                       @JsonProperty("opponent") WarClan opponent) {
-        this.state = state;
+        this.state = WarState.fromServiceState(state);
         this.teamSize = teamSize;
         this.preparationStartTime = preparationStartTime;
         this.startTime = startTime;
@@ -59,7 +59,7 @@ public class War {
                     .orElseThrow( ()-> new IllegalArgumentException("tag not found on clan member list") );
     }
     
-    public String getState() {
+    public WarState getState() {
         return state;
     }
 
