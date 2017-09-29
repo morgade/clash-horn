@@ -35,6 +35,7 @@ import static java.util.Comparator.comparing;
 import java.util.UUID;
 import static java.util.stream.Collectors.toList;
 import java.util.stream.Stream;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 /**
@@ -169,6 +170,8 @@ public class ClashHornServiceImpl implements ClashHornService {
                 }
             break;
         }
+        
+        LoggerFactory.getLogger(ClashHornServiceImpl.class).debug("Created war with id {} and result {}", id, result.name());
         
         return
             WarPlanBuilder.builder(id)

@@ -22,7 +22,6 @@ public class WarPlanFullDTO {
     private ClanRefDTO enemy;
     private WarScore clanScore;
     private WarScore enemyScore;
-    private Integer size;
     private Date preparationStartTime;
     private Date startTime;
     private Date endTime;
@@ -100,14 +99,6 @@ public class WarPlanFullDTO {
 
     public void setResult(WarResult result) {
         this.result = result;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
     }
 
     public Date getPreparationStartTime() {
