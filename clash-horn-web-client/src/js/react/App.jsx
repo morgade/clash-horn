@@ -1,25 +1,29 @@
 import React from 'react';
 
-import TitleBar from './titlebar/TitleBar.jsx';
-import Notification from './notification/Notification.jsx';
-import ClanManager from './clans/ClanManager.jsx';
-import RegisterManager from './register/RegisterManager.jsx';
-import WarPlanner from './warplan/WarPlanner.jsx';
+import CSSTransition  from 'react-transition-group/CSSTransition';
+import TransitionGroup  from 'react-transition-group/TransitionGroup';
 
-import { Switch, Route, IndexRedirect, Redirect } from 'react-router-dom'
+import TitleBar from './ui/titlebar/TitleBar.jsx';
+import Notification from './ui/notification/Notification.jsx';
+
+import HomeManager from './home/HomeManager.jsx';
+import RegisterManager from './register/RegisterManager.jsx';
+import ClanAccountManager from './clanAccount/ClanAccountManager.jsx';
+
+
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 class App extends React.Component {
     render() {
         return (
             <div>
-                <TitleBar />
+                <Route path="/" component={TitleBar} />
                 <div className="container">
                     <Switch>
-                        <Redirect exact from="/" to="/register"  />
+                        <Redirect exact from="/" to="/home"  />
+                        <Route exact path="/home" component={HomeManager} />
                         <Route exact path="/register" component={RegisterManager} />
-                        <Route exact path="/:cid" component={ClanManager} />
-                        <Route path="/:cid/current" component={WarPlanner} />
-                        <Route path="/:cid/history" component={WarPlanner} />
+                        <Route path="/:cid" component={ClanAccountManager}  />
                     </Switch>
                 </div>
                 <Notification />

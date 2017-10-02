@@ -1,16 +1,40 @@
+logging:
+    level:
+        ROOT: ERROR
+        com.clashhorn: DEBUG
+        org.springframework: INFO
+        
 server:
     port: 8080
     static-content: file:../clash-horn-web-client/public/
+    compression:
+        enabled: true
+        mime-types: text/html,text/xml,text/plain,text/css,application/javascript,application/json
+        min-response-size: 1024
     
 clash-api:
     baseUrl: https://api.clashofclans.com/v1
-    accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjVkOWE0MTI3LWVlNDEtNGE4NS05NTZhLTA2ZDM4YjEyNDY4YiIsImlhdCI6MTUwNTM0MTEwNCwic3ViIjoiZGV2ZWxvcGVyLzA5YjFlMzcyLTA2M2MtYjA1OC03YjFjLWJmNzBjNDVjNTIyYSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3Ny4xMzQuMTc4LjkxIl0sInR5cGUiOiJjbGllbnQifV19.0FZP5UzxsgkqYG2zFCN3yp8OviH7V3s3OMPpUYxnBl9ZD9cmOIhJFsgaK3hdWmrY_f7az31Q3x8xJ_D0C2NpAg
+    accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjNlNmMwMDQ0LWQyMDEtNGU4Yy1iNWEyLWM2NDc2ZjM5OTBjNCIsImlhdCI6MTUwNjExODcwOCwic3ViIjoiZGV2ZWxvcGVyLzNhMTk2MmY1LWNjNmYtNzg1OC0wODViLTFmN2IxMTJlNjNiNSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3Ny45OS41My4xNjAiXSwidHlwZSI6ImNsaWVudCJ9XX0.Z51Ttdr6aVOE-THkNN3t3av5ICBXH1dkFUbMMXY4zdDLeis-VFDBRDAS3imp_G6m10LdBFdDBZ3IQnzCfOv1wg
     
 ---
+spring:
+    profiles: guilaaf-dev
+    
+clash-api:
+    accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImM3MzNlMjIxLTdmOTktNGRlZC04NjgzLTlhOWU2Y2ViOTMwNSIsImlhdCI6MTUwNjU1NjQ5Niwic3ViIjoiZGV2ZWxvcGVyLzA5YjFlMzcyLTA2M2MtYjA1OC03YjFjLWJmNzBjNDVjNTIyYSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3Ny45OS41OC42Il0sInR5cGUiOiJjbGllbnQifV19.A0tmerGhUh0vE1qCSL3p-AGaXGL-eCdwJf9jlqwDZCAMs11pCvpKBc11s0XsRACVTDkc51S95Kd0z-asm6eb8w
 
+---
 spring:
     profiles: production
 
+logging:
+    pattern:
+        console: 
+    file: /home/ec2-user/clash-horn.log
+
 server:
     port: 80
-    static-content: file:///app/static/
+    static-content: file:///home/ec2-user/clash-horn/clash-horn-web-client/public/
+    
+clash-api:
+    accessToken: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImRlZDUzYzczLTNmNTgtNGJmZC05NzAyLTIwZWRkNDBhOTNiNiIsImlhdCI6MTUwNTU2NjYxNiwic3ViIjoiZGV2ZWxvcGVyLzNhMTk2MmY1LWNjNmYtNzg1OC0wODViLTFmN2IxMTJlNjNiNSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjU0LjE4Ny4yMjkuNjAiLCIxNzcuMTM0LjE3OC41MCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.Gc5CzDtzFmSrfrkPVX4eV4I84SpZW089Q2erjDTV-kV3CoJrydkah-e6hrGO9ExyqWnk4arKftr0JcEgxZP65A

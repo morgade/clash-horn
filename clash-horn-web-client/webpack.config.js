@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var BUILD_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
@@ -11,6 +12,13 @@ var config = {
         filename: 'bundle.js'
     },
 
+    plugins: [
+        new HtmlWebpackPlugin({
+          template: 'src/index-template.html',
+          favicon: 'src/img/favicon.png'
+        })
+      ],
+  
     module: {
         loaders: [
             {
@@ -20,11 +28,11 @@ var config = {
             },
             {test: /\.less$/,loader: "style!css!less"},
             {test: /\.css$/, loader: "style-loader!css-loader"},
-            {test: /\.png$/, loader: "url-loader?limit=100000"},
-            {test: /\.gif$/, loader: "url-loader"},
-            {test: /\.jpg$/, loader: "url-loader"},
-            {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
-            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
+            {test: /\.png$/, loader: 'file'},
+            {test: /\.gif$/, loader: 'file'},
+            {test: /\.jpg$/, loader: 'file'},
+            {test: /\.(woff|woff2)$/, loader: 'file'},
+            {test: /\.ttf$/, loader: 'file'},
             {test: /\.otf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
             {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
             {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}

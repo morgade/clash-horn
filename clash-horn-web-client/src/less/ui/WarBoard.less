@@ -1,0 +1,84 @@
+.war-board {
+    
+    .war-board-col {
+        .material-container-shadow;
+        background-color: @textPrimaryColor;
+        border: 1px solid @dividerColor;
+        text-align: center;
+        margin-left: -5px;
+        margin-right: -5px;
+        margin-bottom: 21px;
+        height: 190px;
+    
+        .war-board-stars {
+            color: @textPrimaryColor;
+            background-color: @accentColor;
+            border: 2px solid @textPrimaryColor;
+            font-size: 30px;
+            display: inline-block;
+            padding: 2px;
+            top: -27px;
+            position: relative;
+            border-radius: 25px;
+            width: 50px;
+        }
+        
+        .war-board-destruction {
+            color: @secondaryTextColor;
+            position: relative;
+            top: -27px;
+            display: block;
+            clear: right;
+        }
+
+        .clan-badge {
+            background-color: @primaryColor;
+            height: 110px;
+            background-repeat: no-repeat;
+            background-position-x: 55%;
+            background-position-y: 44%;
+            background-size: 180%;
+            
+            @media (min-width: 768px) {
+                background-position-y: 41%;
+                background-size: 155%;
+            }
+            
+            @media (min-width: 992px) {
+                background-position-y: -100px;
+                background-size: 160%;
+            }
+            
+            @media (min-width: 1198px) {
+                background-position-y: -126px;
+                background-size: 152%;
+            }
+        }
+
+        .war-board-name {
+            font-size: 18px;
+            position: relative;
+            top: -30px;
+            padding-bottom: 0px;
+            overflow: hidden;
+            white-space: nowrap;
+            
+            @media (min-width: 768px) {
+                font-size: 24px;
+            }
+        }
+    }
+    
+
+    .war-status {
+        .material-container-shadow; 
+        border: 1px solid @dividerColor;
+        margin-left: -5px;
+        background-color: #fff;
+        margin-bottom: 15px;
+        margin-right: -5px;
+        padding: 10px;
+        padding-left: 30px;
+        padding-top: 15px;
+    }
+}

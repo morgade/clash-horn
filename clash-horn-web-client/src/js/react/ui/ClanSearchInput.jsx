@@ -24,17 +24,24 @@ class ClanSearchInput extends React.Component {
         return (
             <InputGroup className={ this.props.clan ? "has-success" : "" }>
     
-                <TagFormControl tag={this.state.tag} onTagChange={(tag) => this.setState({tag: tag})} />
+                <TagFormControl 
+                    tag={this.state.tag} 
+                    disabled={this.props.fetching}
+                    onTagChange={(tag) => this.setState({tag: tag})} />
 
                 <InputGroup.Button>
                     <Button
                         type="button" 
+                        disabled={this.props.fetching}
                         bsStyle={ this.props.clan ? "success" : "primary" }
                         onClick={this.findClan.bind(this)}>
-                            {this.props.clan ? 
-                                <Glyphicon glyph="check" />
-                                : 
-                                "Locate Clan"
+                            {!this.props.fetching ?
+                                this.props.clan ? 
+                                    <Glyphicon glyph="check" />
+                                    : 
+                                    "SEARCH"
+                                :
+                                <Glyphicon glyph="refresh" />
                             }
                     </Button>
                 </InputGroup.Button>
@@ -47,6 +54,6 @@ class ClanSearchInput extends React.Component {
 ClanSearchInput.defaultProps = {
     clan: null,
     onFindClanRequested: () => {}
-}
+};
 
 export default ClanSearchInput;

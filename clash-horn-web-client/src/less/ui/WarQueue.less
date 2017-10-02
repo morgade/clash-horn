@@ -1,0 +1,42 @@
+.wp-queue {
+    overflow: hidden;
+    white-space: nowrap;
+    padding-bottom: 5px;
+
+    @media (min-width: 992px) {
+        padding-bottom: 2px;
+    }
+    
+}
+
+.wp-queue-anim-enter {
+    opacity: 0.1;
+    left: 60px;
+    position: relative;
+}
+
+.wp-queue-anim-enter.wp-queue-anim-enter-active {
+    opacity: 1;
+    left: 1px;
+    position: relative;
+    -moz-transition: opacity 300ms, left 300ms;
+    -o-transition: opacity 300ms, left 300ms;
+    -webkit-transition: opacity 300ms, left 300ms;
+    transition: opacity 300ms, left 300ms;
+}
+
+.wp-queue-anim-exit {
+    opacity: 1;
+    left: 1px;
+    position: relative;
+}
+
+.wp-queue-anim-exit.wp-queue-anim-exit-active {
+    opacity: 0.01;
+    left: -60px;
+    position: relative;
+    -moz-transition: opacity 300ms, left 300ms;
+    -o-transition: opacity 300ms, left 300ms;
+    -webkit-transition: opacity 300ms, left 300ms;
+    transition: opacity 300ms, left 300ms;
+}

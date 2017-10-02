@@ -1,0 +1,52 @@
+.navbar-default {
+    background-color: @darkPrimaryColor;
+    border: none;
+    border-color: none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    -moz-box-shadow: 0px 0 2px 2px rgba(0, 0, 0, 0.38);
+    box-shadow: 0px 0 2px 2px rgba(0, 0, 0, 0.38);
+    
+    .navbar-brand {
+        color: @textPrimaryColor;
+        text-transform: uppercase;
+    }
+   
+    .navbar-brand:hover {
+        color: @textPrimaryColor;
+    }
+
+    .navbar-nav {
+        > li {
+            > a {
+                color: @textPrimaryColor !important;
+                text-transform: uppercase;
+                transition: background-color 300ms ease-in, border-bottom 300ms ease-in;
+            }
+            
+        }
+        
+        > .active { 
+            > a {
+                background-color: @primaryColor;
+                border-bottom: 2px solid @lightPrimaryColor;
+                padding-bottom: 13px;
+                transition: background-color 300ms ease-in, border-bottom 300ms ease-in;
+            }
+            
+            > a:hover {
+                background-color: @primaryColor;
+                border-bottom: 2px solid @lightPrimaryColor;
+                padding-bottom: 13px;
+            }
+            
+            > a:focus {
+                background-color: @primaryColor;
+                border-bottom: 2px solid @lightPrimaryColor;
+                padding-bottom: 13px;
+            }
+        }
+    }
+}

@@ -1,10 +1,8 @@
-import Index from 'file?name=[name].[ext]!../index.html';
 import OurCSS from '../less/clash-horn.less';
-import Bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
 
 import React from 'react';
 import ReactDom from 'react-dom';
-import { HashRouter } from 'react-router-dom'
+import { HashRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import App from './react/App.jsx';
@@ -24,7 +22,7 @@ require('es6-promise').polyfill();
 ReactDom.render(
     <Provider store={store}>
         <HashRouter>
-            <App />
+            <Route path="/" component={App} />
         </HashRouter>
     </Provider>
 , document.getElementById('app'));
